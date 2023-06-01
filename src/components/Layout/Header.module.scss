@@ -1,0 +1,202 @@
+.header {
+	position: relative;
+	height: 5rem;
+	width: 100%;
+	background-color: var(--grey-color);
+	display: flex;
+	justify-content: space-between;
+
+	.logo {
+		margin-left: 0.5rem;
+		padding: 0 1rem;
+		display: flex;
+		align-items: center;
+		cursor: pointer;
+		
+		&:hover,
+		&:focus {
+			img {
+				transform: scale(1.05);
+			}
+		}
+
+		img {
+			height: 3.5rem;
+			transition: transform 0.2s;
+		}
+	}
+	.navbar {
+		position: absolute;
+		top: 5rem;
+		right: 0;
+		height: calc(100vh - 5rem);
+		width: calc(100vw - 6rem);
+		background-color: var(--grey-color);
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		transform: translateX(100%);
+		transition: transform ease-in-out 0.2s;
+		z-index: 1000;
+
+		.leftNav {
+			display: flex;
+			flex-direction: column;
+			.listItem {
+				border-bottom: 1px solid var(--border-color);
+			}
+		}
+
+		.listItem {
+			list-style: none;
+
+			a {
+				padding: 1rem 3rem;
+				display: block;
+				height: 100%;
+				line-height: 2.2rem;
+				text-transform: uppercase;
+				cursor: pointer;
+			}
+		}
+
+		.cart {
+			background-color: var(--blue-color);
+			transition: 0.2s;
+			&:hover {
+				color: var(--hover-color);
+				background-color: #007dfc;
+			}
+		}
+
+		.rightNav {
+			display: grid;
+			grid-template-columns: 3fr 2fr;
+			.listItem {
+				text-align: center;
+				.icon {
+					margin-right: 0.5rem;
+					font-size: 1.6rem;
+					transition: color 0.4s;
+				}
+			}
+			.profile:hover {
+				.icon {
+					color: var(--hover-color);
+				}
+			}
+			& > :first-child {
+				border: 1px solid #333;
+			}
+		}
+	}
+
+	// MEDIA QUERIES
+
+	@media (width >=800px) {
+		.navbar {
+			position: relative;
+			top: 0;
+			right: 0;
+			height: 100%;
+			width: 100%;
+			font-size: 1.2rem;
+			flex-direction: row;
+			transform: translateX(0);
+
+			.listItem {
+				position: relative;
+				height: 5rem;
+				border-bottom: none;
+				a {
+					display: flex;
+					align-items: center;
+				}
+			}
+
+			.leftNav {
+				flex-direction: row;
+				.listItem {
+					&::before {
+						content: '';
+						display: block;
+						position: absolute;
+						left: 0;
+						bottom: -1px;
+						height: 0px;
+						width: 100%;
+						background-color: var(--blue-color);
+						transition: height 0.2s ease-in-out;
+					}
+					&:hover {
+						color: var(--hover-color);
+						&::before {
+							height: 5px;
+						}
+					}
+				}
+			}
+
+			.rightNav {
+				& > :first-child {
+					border: none;
+				}
+
+				.icon {
+					margin-bottom: 0.5rem;
+				}
+			}
+			.active {
+				border-bottom: 3px solid var(--blue-color);
+			}
+		}
+	}
+
+	.navbar.open {
+		transform: translateX(0);
+	}
+
+	// BURGER MENU
+
+	.menu {
+		padding: 0 1rem;
+
+		background-color: var(--blue-color);
+		width: 58px;
+		cursor: pointer;
+		&:before,
+		&:after,
+		& div {
+			content: '';
+			position: relative;
+			display: block;
+			height: 2px;
+			background: #fff;
+			border-radius: 2px;
+			margin: 10.5px 0;
+			transition: 0.5s;
+		}
+		&::before {
+			top: 3px;
+		}
+		&::after {
+			top: -3px;
+		}
+
+		@media (width >= 800px) {
+			display: none;
+		}
+	}
+	.menu.close {
+		background-color: #252525;
+		&:before {
+			transform: translateY(10px) rotate(-45deg);
+		}
+		&:after {
+			transform: translateY(-10px) rotate(45deg);
+		}
+		& div {
+			transform: scale(0);
+		}
+	}
+}

@@ -1,0 +1,189 @@
+.actionsBar {
+	position: sticky;
+	top: 0;
+	height: 10rem;
+	width: min(87%, 1600px);
+	margin-inline: auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: var(--black-color);
+
+	z-index: 10;
+	button {
+		padding: 1rem;
+		font-size: 1.4rem;
+		font-weight: 700;
+		background-color: inherit;
+		color: inherit;
+		border: none;
+		cursor: pointer;
+	}
+
+	svg {
+		font-size: 1.6rem;
+	}
+
+	.searchBarSmall {
+		flex-basis: 20%;
+
+		.searchPanel {
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			background-color: #202020;
+			z-index: 100;
+			button {
+				text-align: center;
+				color: var(--hover-color);
+				flex-basis: 10%;
+				font-size: 1.4rem;
+			}
+		}
+	}
+
+	.searchBarLarge {
+		height: 40px;
+		width: 100%;
+		background-color: var(--grey-color);
+		border-radius: 24px;
+		flex-basis: 20%;
+		.searchBarContainer {
+			height: 100%;
+			display: flex;
+			align-items: center;
+			svg {
+				font-size: 1rem;
+			}
+		}
+	}
+
+	.searchInput {
+		border: none;
+		background-color: inherit;
+		outline: none;
+		color: var(--font-color);
+		font-size: 1.4rem;
+		flex-basis: 80%;
+	}
+
+	.mainBar {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-basis: 60%;
+		.listButton {
+			display: flex;
+			gap: 0.5rem;
+			svg {
+				font-size: 1.2rem;
+			}
+			.transformOpen {
+				transform: rotate(-180deg);
+				transition: transform 0.2s;
+			}
+			.transformClose {
+				transform: rotate(0deg);
+				transition: transform 0.2s;
+			}
+		}
+
+		
+	}
+	.rightBar {
+		flex-basis: 20%;
+		display: flex;
+		justify-content: flex-end;
+		gap: 1rem;
+
+		.link {
+			padding: 1rem;
+			color: var(--font-color);
+			display: flex;
+			align-items: center;
+			cursor: pointer;
+			transition: color 0.2s;
+			&:hover {
+				color: var(--hover-color);
+			}
+		}
+	}
+
+	.actionNav {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		width: 100%;
+		padding: 2.5rem 3rem;
+		background-color: inherit;
+		.actionList {
+			list-style: none;
+			display: flex;
+			flex-direction: column;
+			li {
+				padding: 2rem 0;
+				transition: color 0.2s;
+				cursor: pointer;
+				&:not(:last-child) {
+					border-bottom: 1px solid var(--border-color);
+				}
+				&:hover {
+					color: var(--hover-color);
+				}
+			}
+		}
+	}
+
+	// MEDIA QUERIES
+
+
+	@media (width >= 1024px) {
+		.mainBar {
+			padding-left: 2rem;
+			justify-content: start;
+		}
+		.actionNav {
+			width: 180px;
+			left: calc(20% + 2rem);
+			margin-top: -1.5rem;
+			padding: 1rem 2rem;
+			background-color: var(--grey-color);
+			border-radius: 7px;
+			.actionList {
+				li {
+					padding: 1rem 0;
+					&:not(:last-child) {
+						border-bottom: none;
+					}
+					
+				}
+			}
+		}
+	}
+
+	@media (width >= 1280px) {
+		.mainBar {
+
+			.actionNav {
+				position: relative;
+				width: 100%;
+				left: 0;
+				margin-top: 0;
+				padding: 0;
+				background-color: inherit;
+				.actionList {
+					flex-direction: row;
+					gap: 1rem;
+					li {
+						padding: 1rem 1.5rem;
+					}
+				}
+			}
+		}
+	}
+}
