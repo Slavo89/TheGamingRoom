@@ -1,14 +1,13 @@
-import ActionsBar from './ActionsBar'
-import classes from './MainSection.module.scss'
+import ActionsBar from './ActionsBar';
+import classes from './MainSection.module.scss';
 
-const MainSection = () => {
-  return (
-      <main>
-             <ActionsBar/>
-          <div className={classes.container}>CONTAINER
-          </div>
-    </main>
-  )
-}
+const MainSection = (props) => {
+	return (
+		<main>
+      <ActionsBar onClick={props.onClick} />
+			<div className={classes.container}>CONTAINER</div>
+		</main>
+	);
+};
 
 export default MainSection;

@@ -9,7 +9,7 @@ import {
 	BsXLg,
 } from 'react-icons/bs';
 
-const ActionsBar = () => {
+const ActionsBar = (props) => {
 	const [searchPanelOpen, setSearchPanelOpen] = useState(false);
 	const [listOpen, setListOpen] = useState(false);
 
@@ -18,6 +18,7 @@ const ActionsBar = () => {
 
 	const toggleSearchPanelHandler = () => {
 		setSearchPanelOpen(!searchPanelOpen);
+		props.onClick();
 	};
 
 	const toggleListHandler = () => {
@@ -47,9 +48,11 @@ const ActionsBar = () => {
 					<button
 						type="button"
 						className={classes.searchButton}
-						onClick={toggleSearchPanelHandler}
+						onClick={
+							toggleSearchPanelHandler
+						}
 					>
-						<BsSearch onClick={toggleSearchPanelHandler} />
+						<BsSearch />
 					</button>
 					{searchPanelOpen && (
 						<div className={classes.searchPanel}>
@@ -101,7 +104,9 @@ const ActionsBar = () => {
 							/>
 						</span>
 					</button>
-				) : mainBarList}
+				) : (
+					mainBarList
+				)}
 			</div>
 
 			<div className={classes.rightBar}>
@@ -113,9 +118,7 @@ const ActionsBar = () => {
 				</a>
 			</div>
 
-			{listOpen && (
-				mainBarList
-			)}
+			{listOpen && mainBarList}
 		</div>
 	);
 };
