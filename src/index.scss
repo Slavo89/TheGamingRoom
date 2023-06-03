@@ -34,6 +34,12 @@ body {
 	overflow-x: hidden;
 }
 
+main {
+    position: relative;
+}
+
+
+
 @media (width >= 1600px) {
 	body {
 		font-size: 1.6rem;

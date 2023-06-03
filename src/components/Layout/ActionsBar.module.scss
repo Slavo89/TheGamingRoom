@@ -125,15 +125,23 @@
 			list-style: none;
 			display: flex;
 			flex-direction: column;
+			gap: 2rem;
 			li {
-				padding: 2rem 0;
 				transition: color 0.2s;
+				display: flex;
 				cursor: pointer;
 				&:not(:last-child) {
 					border-bottom: 1px solid var(--border-color);
 				}
-				&:hover {
+				&:hover,
+				a.active {
 					color: var(--hover-color);
+				}
+				a {
+					min-width: 100%;
+					padding: 2rem 0;
+					text-decoration: none;
+					color: inherit;
 				}
 			}
 		}
@@ -155,10 +163,13 @@
 			background-color: var(--grey-color);
 			border-radius: 7px;
 			.actionList {
+				gap: 0;
 				li {
-					padding: 1rem 0;
 					&:not(:last-child) {
 						border-bottom: none;
+					}
+					a {
+						padding: 1rem 0;
 					}
 					
 				}
@@ -179,9 +190,10 @@
 				.actionList {
 					flex-direction: row;
 					gap: 1rem;
-					li {
-						padding: 1rem 1.5rem;
-					}
+						a {
+							padding: 1rem 1.5rem;
+						}
+					
 				}
 			}
 		}

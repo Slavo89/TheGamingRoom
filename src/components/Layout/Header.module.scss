@@ -56,6 +56,8 @@
 				height: 100%;
 				line-height: 2.2rem;
 				text-transform: uppercase;
+				text-decoration: none;
+				color: inherit;
 				cursor: pointer;
 			}
 		}
@@ -117,7 +119,7 @@
 
 			.leftNav {
 				flex-direction: row;
-				.listItem {
+				a {
 					&::before {
 						content: '';
 						display: block;
@@ -129,7 +131,9 @@
 						background-color: var(--blue-color);
 						transition: height 0.2s ease-in-out;
 					}
-					&:hover {
+					&:hover,
+					&.active
+					 {
 						color: var(--hover-color);
 						&::before {
 							height: 5px;
@@ -142,13 +146,14 @@
 				& > :first-child {
 					border: none;
 				}
+				li {
+					display: flex;
+					justify-content: flex-end;
+				}
 
 				.icon {
 					margin-bottom: 0.5rem;
 				}
-			}
-			.active {
-				border-bottom: 3px solid var(--blue-color);
 			}
 		}
 	}

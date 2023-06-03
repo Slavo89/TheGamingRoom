@@ -8,10 +8,13 @@ import {
 	BsChevronDown,
 	BsXLg,
 } from 'react-icons/bs';
+import { NavLink } from 'react-router-dom';
 
 const ActionsBar = (props) => {
 	const [searchPanelOpen, setSearchPanelOpen] = useState(false);
 	const [listOpen, setListOpen] = useState(false);
+
+	const [pageName, setPageName] = useState('Discover');
 
 	const isExtended = useMediaQuery('(width >= 1024px)');
 	const isWide = useMediaQuery('(width >= 1280px)');
@@ -22,20 +25,53 @@ const ActionsBar = (props) => {
 	};
 
 	const toggleListHandler = () => {
+		props.onClick();
 		setListOpen(!listOpen);
 	};
+
+	const changePageName = (value) => {
+		setPageName(value);
+		setListOpen(false);
+		props.onClose()
+	};
+
+	const linkClass = ({ isActive }) => (isActive ? classes.active : '');
 
 	const mainBarList = (
 		<div className={classes.actionNav}>
 			<ul className={classes.actionList}>
 				<li>
-					<a>Discover</a>
+					<NavLink
+						className={linkClass}
+						to="/"
+						onClick={() => {
+							changePageName('Discover');
+						}}
+					>
+						Discover
+					</NavLink>
 				</li>
 				<li>
-					<a>Browse</a>
+					<NavLink
+						className={linkClass}
+						to="/browse"
+						onClick={() => {
+							changePageName('Browse');
+						}}
+					>
+						Browse
+					</NavLink>
 				</li>
 				<li>
-					<a>News</a>
+					<NavLink
+						className={linkClass}
+						to="/news"
+						onClick={() => {
+							changePageName('News');
+						}}
+					>
+						News
+					</NavLink>
 				</li>
 			</ul>
 		</div>
@@ -48,9 +84,7 @@ const ActionsBar = (props) => {
 					<button
 						type="button"
 						className={classes.searchButton}
-						onClick={
-							toggleSearchPanelHandler
-						}
+						onClick={toggleSearchPanelHandler}
 					>
 						<BsSearch />
 					</button>
@@ -93,7 +127,7 @@ const ActionsBar = (props) => {
 						className={classes.listButton}
 						onClick={toggleListHandler}
 					>
-						<p>Discover</p>
+						<span>{pageName}</span>
 						<span>
 							<BsChevronDown
 								className={
