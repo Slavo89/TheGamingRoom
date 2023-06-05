@@ -13,7 +13,7 @@ import { NavLink } from 'react-router-dom';
 const ActionsBar = (props) => {
 	const [searchPanelOpen, setSearchPanelOpen] = useState(false);
 	const [listOpen, setListOpen] = useState(false);
-
+	// ADD RESET AT CHANGING SITES
 	const [pageName, setPageName] = useState('Discover');
 
 	const isExtended = useMediaQuery('(width >= 1024px)');
@@ -29,10 +29,10 @@ const ActionsBar = (props) => {
 		setListOpen(!listOpen);
 	};
 
-	const changePageName = (value) => {
-		setPageName(value);
+	const changePageName = () => {
+		setPageName(event.target.innerHTML);
 		setListOpen(false);
-		props.onClose()
+		props.onClose();
 	};
 
 	const linkClass = ({ isActive }) => (isActive ? classes.active : '');
@@ -44,9 +44,7 @@ const ActionsBar = (props) => {
 					<NavLink
 						className={linkClass}
 						to="/"
-						onClick={() => {
-							changePageName('Discover');
-						}}
+						onClick={changePageName}
 					>
 						Discover
 					</NavLink>
@@ -55,9 +53,7 @@ const ActionsBar = (props) => {
 					<NavLink
 						className={linkClass}
 						to="/browse"
-						onClick={() => {
-							changePageName('Browse');
-						}}
+						onClick={changePageName}
 					>
 						Browse
 					</NavLink>
@@ -66,9 +62,7 @@ const ActionsBar = (props) => {
 					<NavLink
 						className={linkClass}
 						to="/news"
-						onClick={() => {
-							changePageName('News');
-						}}
+						onClick={changePageName}
 					>
 						News
 					</NavLink>
