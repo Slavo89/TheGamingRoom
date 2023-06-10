@@ -35,10 +35,29 @@ body {
 }
 
 main {
-    position: relative;
+	position: relative;
 }
 
+h1 {
+	position: relative;
+}
 
+.swiper-pagination {
+	position: relative;
+	margin-top: 1rem;
+
+	.swiper-pagination-bullet {
+		height: 5px;
+		width: 5px;
+		margin-inline: 5px !important;
+		background-color: white;
+		opacity: 0.3;
+	}
+	.swiper-pagination-bullet-active {
+		background-color: white;
+		opacity: 1;
+	}
+}
 
 @media (width >= 1600px) {
 	body {

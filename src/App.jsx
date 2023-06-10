@@ -1,7 +1,3 @@
-// import { useState } from 'react';
-// import Header from './components/Layout/Header';
-// import MainSection from './components/Layout/MainSection';
-// import Backdrop from './components/UI/Backdrop';
 import {
 	createBrowserRouter, RouterProvider
 } from 'react-router-dom';
@@ -14,10 +10,6 @@ import BrowsePage from './pages/BrowsePage'
 import NewsPage from './pages/NewsPage'
 
 function App() {
-	// const [isOpen, setIsOpen] = useState(false);
-	// const toggleBackdrop = () => {
-	// 	setIsOpen(!isOpen);
-	// };
 
 	const router = createBrowserRouter([
 		{
@@ -33,7 +25,6 @@ function App() {
 			],
 		},
 	]);
-
 	return (
 		<RouterProvider router={router}></RouterProvider>
 	);

@@ -1,4 +1,4 @@
-import { ImUser } from 'react-icons/im';
+import { BsFillPersonFill } from 'react-icons/bs';
 import { useState } from 'react';
 import classes from './Header.module.scss';
 import { NavLink } from 'react-router-dom';
@@ -76,7 +76,7 @@ const Header = (props) => {
 					<li className={`${classes.listItem} ${classes.profile}`}>
 						<a>
 							{' '}
-							<ImUser className={classes.icon} />
+							<BsFillPersonFill className={classes.icon} />
 							Profile{' '}
 						</a>
 					</li>

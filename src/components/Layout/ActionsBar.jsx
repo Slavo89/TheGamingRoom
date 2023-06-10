@@ -16,8 +16,8 @@ const ActionsBar = (props) => {
 	// ADD RESET AT CHANGING SITES
 	const [pageName, setPageName] = useState('Discover');
 
-	const isExtended = useMediaQuery('(width >= 1024px)');
-	const isWide = useMediaQuery('(width >= 1280px)');
+	const is1024Px = useMediaQuery('(width >= 1024px)');
+	const is1280Px = useMediaQuery('(width >= 1280px)');
 
 	const toggleSearchPanelHandler = () => {
 		setSearchPanelOpen(!searchPanelOpen);
@@ -73,7 +73,7 @@ const ActionsBar = (props) => {
 
 	return (
 		<div className={classes.actionsBar}>
-			{!isExtended ? (
+			{!is1024Px ? (
 				<div className={classes.searchBarSmall}>
 					<button
 						type="button"
@@ -115,7 +115,7 @@ const ActionsBar = (props) => {
 				</div>
 			)}
 			<div className={classes.mainBar}>
-				{!isWide ? (
+				{!is1280Px ? (
 					<button
 						type="button"
 						className={classes.listButton}
@@ -139,10 +139,10 @@ const ActionsBar = (props) => {
 
 			<div className={classes.rightBar}>
 				<a className={classes.link}>
-					{!isExtended ? <BsCheckCircle /> : <span>Wishlist</span>}
+					{!is1024Px ? <BsCheckCircle /> : <span>Wishlist</span>}
 				</a>
 				<a className={classes.link}>
-					{!isExtended ? <BsCart2 /> : <span>Cart</span>}
+					{!is1024Px ? <BsCart2 /> : <span>Cart</span>}
 				</a>
 			</div>
 
