@@ -1,28 +1,67 @@
 .desktopCarouselItem {
-    margin-left: 1.5rem;
-    padding: 1rem 0;
-    width: 100%;
-    height: 20%;
-    cursor: pointer;
-    .listContaier {
-        height: 100%;
-        width: 100%;
-        display: flex;
-        text-align: center;
-        img {
-            margin: auto;
-            height: 100%;
-            width:  25%;
-            object-fit: cover;
-            border-radius: 7px;
-        }
-        div {
-            padding:0 0.5rem;
-            display: grid;
-            align-items: center;
-            flex-grow: 1;
-            font-size: 1.2rem;
-            word-break: break;
-        }
-    }
+	position: relative;
+	margin: 0.25rem 0;
+	margin-left: 1.5rem;
+	padding: 1rem 0;
+	width: 100%;
+	height: 20%;
+	border-radius: 20px;
+	overflow: hidden;
+	color: var(--font-white);
+	cursor: pointer;
+	transition: background-color 0.3s;
+	z-index: 1;
+
+	&.active {
+		background-color: rgba(255, 255, 255, 0.1);
+		&:before {
+			content: '';
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+			background-color: rgba(255, 255, 255, 0.3);
+			z-index: -5;
+			animation: backgroundFill 5s forwards;
+		}
+	}
+
+	&:hover {
+		background-color: rgba(255, 255, 255, 0.1);
+	}
+	.itemContaier {
+		height: 100%;
+		width: 100%;
+		display: flex;
+		img {
+			margin-left: 1.5rem;
+			height: 100%;
+			width: 25%;
+			object-fit: cover;
+			border-radius: 7px;
+		}
+		div {
+			display: grid;
+			align-items: center;
+			flex-grow: 1;
+			font-size: 1.4rem;
+			text-align: center;
+			p {
+				margin-inline: auto;
+				width: 80%;
+			}
+		}
+	}
+}
+
+@keyframes backgroundFill {
+	0% {
+		transform: translateX(-100%);
+	}
+
+	100% {
+		transform: translateX(0%);
+	}
 }

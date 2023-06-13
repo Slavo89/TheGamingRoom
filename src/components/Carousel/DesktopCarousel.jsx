@@ -1,93 +1,80 @@
 import classes from './DestkopCarousel.module.scss';
 import DesktopCarouselItem from './DesktopCarouselItem';
 import WishlistButton from '../Buttons/WishlistButton';
+import { useState, useEffect } from 'react';
 
-const DUMMY_GAMES = [
-	{
-		id: 1,
-		background_image:
-			'https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg',
-		name: 'Grand Theft Auto V',
-		rating: 4.47,
-		genres: ['Adventure', 'Action'],
-	},
-	{
-		id: 2,
-		background_image:
-			'https://media.rawg.io/media/games/618/618c2031a07bbff6b4f611f10b6bcdbc.jpg',
-		name: 'The Witcher 3: Wild Hunt',
-		rating: 4.66,
-		genres: ['Adventure', 'Action', 'RPG'],
-	},
-	{
-		id: 3,
-		background_image:
-			'https://media.rawg.io/media/games/328/3283617cb7d75d67257fc58339188742.jpg',
-		name: 'Portal 2',
-		rating: 4.66,
-		genres: ['Shooter', 'Puzzle'],
-	},
-	{
-		id: 4,
-		background_image:
-			'https://media.rawg.io/media/games/021/021c4e21a1824d2526f925eff6324653.jpg',
-		name: 'Tomb Raider (2013)',
-		rating: 4.05,
-		genres: ['Adventure', 'Action'],
-	},
-	{
-		id: 5,
-		background_image:
-			'https://media.rawg.io/media/games/7cf/7cfc9220b401b7a300e409e539c9afd5.jpg',
-		name: 'The Elder Scrolls V: Skyrim',
-		rating: 4.42,
-		genres: ['Action', 'RPG'],
-	},
-];
+const DesktopCarousel = (props) => {
+	const [rotate, setRotate] = useState(false);
+	const [wishlistButtonText, setWishlistButtonText] = useState('Add to Wishlist');
+	const [activeIndex, setActiveIndex] = useState(0);
+	
+	const DUMMY_GAMES = props.games;
+	
+	
+	// setting the active carouselItem
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setActiveIndex((prevIndex) => (prevIndex + 1) % DUMMY_GAMES.length);
+		}, 10000);
 
-const DesktopCarousel = () => {
+		return () => {
+			clearTimeout(timer);
+		};
+	}, [activeIndex]);
+
+	const addToWishlistHandler = () => {
+		setRotate(!rotate);
+		setWishlistButtonText(rotate ? 'Add to Wishlist' : 'In Wishlist');
+	};
+	
+	const setToActiveHandler = (index) => {
+		setActiveIndex(index)
+	}
+
+
 	return (
 		<div className={classes.desktopCarousel}>
 			<div className={classes.leftSide}>
 				<picture className={classes.picture}>
 					<source
 						media="(min-width: 0px)"
-						srcSet="https://media.rawg.io/media/games/328/3283617cb7d75d67257fc58339188742.jpg"
+						srcSet={DUMMY_GAMES[activeIndex].background_image}
 						alt="Game picture"
 					/>
 					<img
-						src="https://media.rawg.io/media/games/328/3283617cb7d75d67257fc58339188742.jpg"
+						src={DUMMY_GAMES[activeIndex].background_image}
 						alt="Game picture"
 					/>
 				</picture>
 				<div className={classes.gameDescription}>
-					<p>{DUMMY_GAMES[2].name}</p>
-					<p>Rating: {DUMMY_GAMES[2].rating}</p>
-					<p>Genres: {DUMMY_GAMES[2].genres.join(', ')}</p>
+					<p>{DUMMY_GAMES[activeIndex].name}</p>
+					<p>Rating: {DUMMY_GAMES[activeIndex].rating}</p>
+					<p>
+						Genres:{' '}
+						{DUMMY_GAMES[activeIndex].genres
+							.map((genre) => genre.name)
+							.join(', ')}
+					</p>
 					<div className={classes.buttonsContainer}>
 						<button className={classes.buyButton}>Buy Now</button>
 
 						<div className={classes.wishlistButtonContainer}>
-							<div>
-								<WishlistButton />
-							</div>
-							<div>
-								<p>Add to Wishlist</p>
-							</div>
+							<WishlistButton onClick={addToWishlistHandler} />
+							<p>{wishlistButtonText}</p>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div className={classes.rightSide}>
-				<ul className={classes.carouselList}>
-					{DUMMY_GAMES.map((game) => (
+				<ul className={classes.desktopCarouselList}>
+					{DUMMY_GAMES.map((game, index) => (
 						<DesktopCarouselItem
 							key={game.id}
 							id={game.id}
 							name={game.name}
 							img={game.background_image}
-							rating={game.rating}
-							genres={game.genres.map((genre) => genre.name)}
+							isActive={index === activeIndex}
+							onClick={() => setToActiveHandler(index)}
 						/>
 					))}
 				</ul>

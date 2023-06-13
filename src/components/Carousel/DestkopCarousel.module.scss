@@ -6,11 +6,13 @@
 	margin-top: 3rem;
 	display: flex;
 	justify-content: space-between;
+	
 	.leftSide {
 		height: 100%;
 		width: 100%;
 		position: relative;
 		cursor: pointer;
+		
 
 		&::before {
 			content: '';
@@ -19,6 +21,7 @@
 			width: 100%;
 			top: 0;
 			left: 0;
+			border-radius: 20px;
 			background-image: linear-gradient(
 				to right,
 				rgba(0, 0, 0, 0.4),
@@ -46,7 +49,7 @@
 			bottom: 0;
 			left: 0;
 			padding: 2rem;
-			color: white;
+			color: var(--font-white);
 			display: flex;
 			flex-direction: column;
 			gap: 1rem;
@@ -55,21 +58,38 @@
 			.buttonsContainer {
 				display: flex;
 				gap: 1rem;
-				.buyButton {
+				.buyButton,
+				.wishlistButtonContainer {
 					height: 50px;
-					padding: 0rem 4.5rem;
-					font-size: 1.2rem;
-					font-weight: 500;
+					width: 140px;
+					font-size: 1rem;
+					text-transform: uppercase;
 					border: none;
 					border-radius: 5px;
+					cursor: pointer;
+					transition: background-color 0.3s;
+				}
+				.buyButton {
+					padding: 0rem 4.5rem;
+					font-weight: 500;
+					&:hover {
+						background-color: rgba(255, 255, 255, 0.8);
+					}
 				}
 				.wishlistButtonContainer {
-					position: relative;
 					display: flex;
-					div {
-						position: relative;
-						display: flex;
-						align-items: center;
+					align-items: center;
+					background-color: transparent;
+					color: inherit;
+					
+					
+					p {
+						margin-left: -9.5rem;
+						
+					}
+					
+					&:hover {
+						background-color: rgba(245, 245, 245, 0.2);
 					}
 				}
 			}
@@ -77,14 +97,12 @@
 	}
 	.rightSide {
 		width: 22%;
-		.carouselList {
+		.desktopCarouselList {
 			position: relative;
 			height: 100%;
 			width: 100%;
 			display: flex;
 			flex-direction: column;
-			// flex-grow: 1;
-			// justify-content: space-between;
 			list-style: none;
 		}
 	}

@@ -11,7 +11,7 @@ const CarouselItem = (props) => {
 		setShowTooltip(!showTooltip);
 	};
 
-	const addToWishlist = () => {
+	const addToWishlistHandler = () => {
 		setRotate(!rotate);
 		setTooltipText(rotate ? 'Add to Wishlist' : 'Remove from Wishlist');
 	};
@@ -35,7 +35,7 @@ const CarouselItem = (props) => {
 			<div className={classes.buttonContainer}>
 				{/* <button
 					className={classes.button}
-					onClick={addToWishlist}
+					onClick={addToWishlistHandler}
 					onMouseEnter={showTooltipHandler}
 					onMouseLeave={showTooltipHandler}
 				>
@@ -53,7 +53,7 @@ const CarouselItem = (props) => {
 					</div>
 				</button> */}
 				<WishlistButton
-					onClick={addToWishlist}
+					onClick={addToWishlistHandler}
 					onMouseEnter={showTooltipHandler}
 					onMouseLeave={showTooltipHandler}
 				/>

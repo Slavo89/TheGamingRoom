@@ -33,7 +33,7 @@ const HomePage = () => {
 		<>
 			<h1>Mega Sales</h1>
 			{!is770Px && <Carousel games={gamesList} />}
-			{is770Px && <DesktopCarousel />}
+			{is770Px && <DesktopCarousel games={gamesList } />}
 		</>
 	);
 };
