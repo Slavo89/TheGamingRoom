@@ -31,7 +31,7 @@ const HomePage = () => {
 
 	return (
 		<>
-			<h1>Mega Sales</h1>
+			<h2>Mega Sales</h2>
 			{!is770Px && <Carousel games={gamesList} />}
 			{is770Px && <DesktopCarousel games={gamesList } />}
 		</>

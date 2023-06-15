@@ -8,9 +8,9 @@ const DesktopCarouselItem = (props) => {
 			
 		>
 			<div className={classes.itemContaier}>
-				<img src={props.img}></img>
-				<div>
-					<p>{props.name}</p>
+				<img src={props.img} alt="Game cover" className={classes.image}></img>
+				<div className={classes.titleContainer}>
+					<p className={classes.title}>{props.name}</p>
 				</div>
 			</div>
 		</li>

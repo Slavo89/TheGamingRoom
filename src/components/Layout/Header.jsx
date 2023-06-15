@@ -55,7 +55,7 @@ const Header = (props) => {
 					</li>
 					<li className={classes.listItem}>
 						<NavLink
-							to="https://www.epicgames.com/help/en-US/"
+							to="https://www.epicgames.com/help/"
 							target="_blank"
 							onClick={closeAndNavigate}
 						>
@@ -64,7 +64,7 @@ const Header = (props) => {
 					</li>
 					<li className={classes.listItem}>
 						<NavLink
-							to="https://www.unrealengine.com/en-US"
+							to="https://www.unrealengine.com/"
 							target="_blank"
 							onClick={closeAndNavigate}
 						>

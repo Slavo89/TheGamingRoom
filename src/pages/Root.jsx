@@ -6,6 +6,7 @@ import Header from './../components/Layout/Header';
 import ActionsBar from '../components/Layout/ActionsBar';
 import Backdrop from './../components/UI/Backdrop';
 import Container from '../components/Layout/Container';
+import Footer from '../components/Layout/Footer';
 
 const RootLayout = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -28,6 +29,7 @@ const RootLayout = () => {
 					<Outlet />
 				</Container>
 			</main>
+			<Footer/>
 			{isOpen && <Backdrop />}
 		</>
 	);

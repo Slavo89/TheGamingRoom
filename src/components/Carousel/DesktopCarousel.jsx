@@ -47,7 +47,7 @@ const DesktopCarousel = (props) => {
 					/>
 				</picture>
 				<div className={classes.gameDescription}>
-					<p>{DUMMY_GAMES[activeIndex].name}</p>
+					<p className={classes.title}>{DUMMY_GAMES[activeIndex].name}</p>
 					<p>Rating: {DUMMY_GAMES[activeIndex].rating}</p>
 					<p>
 						Genres:{' '}

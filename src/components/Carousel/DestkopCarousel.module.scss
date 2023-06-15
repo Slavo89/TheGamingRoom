@@ -1,6 +1,6 @@
 .desktopCarousel {
 	position: relative;
-	min-height: 320px;
+	min-height: 400px;
 	height: 35vw;
 	max-height: 740px;
 	margin-top: 3rem;
@@ -55,6 +55,10 @@
 			gap: 1rem;
 			z-index: 2;
 
+			.title {
+				animation: slide 1s;
+			}
+
 			.buttonsContainer {
 				display: flex;
 				gap: 1rem;
@@ -96,7 +100,7 @@
 		}
 	}
 	.rightSide {
-		width: 22%;
+		width: 30%;
 		.desktopCarouselList {
 			position: relative;
 			height: 100%;
@@ -105,5 +109,15 @@
 			flex-direction: column;
 			list-style: none;
 		}
+	}
+}
+
+@keyframes slide {
+	0% {
+		transform: translateY(-100%);
+	}
+
+	100% {
+		transform: translateY(0%);
 	}
 }
