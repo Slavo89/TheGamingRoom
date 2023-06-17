@@ -13,7 +13,7 @@ const Footer = () => {
 		window.scrollTo({
 			top: 0,
 		});
-	}
+	};
 
 	return (
 		<div className={classes.footer}>
@@ -35,16 +35,17 @@ const Footer = () => {
 						</a>
 					</li>
 				</ul>
-				<div className={classes.buttonContainer}>
-					
+				{/* <div className={classes.buttonContainer}> */}
 
-					<button type='button' className={classes.upButton}
+				<button
+					type="button"
+					className={classes.upButton}
 					onClick={scrollToTopHandler}
-					>
-						<BsChevronUp />
-					</button>
-					
-				</div>
+				>
+					<BsChevronUp />
+				</button>
+
+				{/* </div> */}
 			</div>
 			<div className={classes.footerLinks}>
 				<div>

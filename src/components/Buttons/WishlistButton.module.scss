@@ -1,6 +1,14 @@
 .buttonContainer {
 	width: 100%;
 	position: relative;
+	border: 2px solid transparent;
+	border-radius: 5px;
+
+	// &:focus {
+	// 	border: 2px solid white;
+	// }
+
+	
 	.button {
 		height: 50px;
 		width: 50px;
@@ -8,6 +16,7 @@
 		border: none;
 		outline: none;
 		cursor: pointer;
+		
 	}
 	div {
 		position: relative;

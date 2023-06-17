@@ -21,8 +21,18 @@ const WishlistButton = (props) => {
 			onClick={onClickHandler}
 			onMouseEnter={props.onMouseEnter}
 			onMouseLeave={props.onMouseLeave}
+			tabIndex="0"
+			onKeyPress={(event) => {
+				if (event.key === 'Enter') {
+					props.onClick();
+					onClickHandler();
+				}
+			}}
 		>
-			<button className={classes.button}>
+			<button
+				className={classes.button}
+				tabIndex="-1"
+			>
 				<div className={rotate ? `${classes.rotate}` : `${classes.rotateBack}`}>
 					<span>
 						<BsPlus />

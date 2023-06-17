@@ -12,9 +12,10 @@
 		display: flex;
 		align-items: center;
 		cursor: pointer;
-		
+
 		&:hover,
 		&:focus {
+			outline: none;
 			img {
 				transform: scale(1.05);
 			}
@@ -132,9 +133,10 @@
 						transition: height 0.2s ease-in-out;
 					}
 					&:hover,
-					&.active
-					 {
+					&.active,
+					&:focus {
 						color: var(--hover-color);
+						outline: none;
 						&::before {
 							height: 5px;
 						}
@@ -157,8 +159,6 @@
 			}
 		}
 	}
-
-	
 
 	// BURGER MENU
 

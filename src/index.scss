@@ -18,6 +18,11 @@
 	--border-color: #333;
 }
 
+	:focus-visible {
+		outline: 1px solid white;
+		border-radius: 5px;
+	}
+
 html {
 	box-sizing: border-box;
 	font-family: 'Nunito', sans-serif;

@@ -3,12 +3,25 @@ import classes from './DesktopCarouselItem.module.scss';
 const DesktopCarouselItem = (props) => {
 	return (
 		<li
-			className={props.isActive ? `${classes.desktopCarouselItem} ${classes.active}` : `${classes.desktopCarouselItem}`}
+			tabIndex="0"
+			className={
+				props.isActive
+					? `${classes.desktopCarouselItem} ${classes.active}`
+					: `${classes.desktopCarouselItem}`
+			}
 			onClick={props.onClick}
-			
+			onKeyPress={(event) => {
+				if (event.key === 'Enter') {
+					props.onClick()
+				}
+			}}
 		>
 			<div className={classes.itemContaier}>
-				<img src={props.img} alt="Game cover" className={classes.image}></img>
+				<img
+					src={props.img}
+					alt="Game cover"
+					className={classes.image}
+				></img>
 				<div className={classes.titleContainer}>
 					<p className={classes.title}>{props.name}</p>
 				</div>

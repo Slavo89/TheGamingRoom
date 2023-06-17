@@ -6,8 +6,8 @@ import Carousel from '../components/Carousel/Carousel';
 import DesktopCarousel from '../components/Carousel/DesktopCarousel';
 
 const HomePage = () => {
-	const [gamesList, setGamesList] = useState([]);
 	const is770Px = useMediaQuery('(width >= 770px)');
+	const [gamesList, setGamesList] = useState([]);
 
 	const gamesQuery = useQuery({
 		queryKey: gamesList,
@@ -25,16 +25,17 @@ const HomePage = () => {
 			return games;
 		},
 	});
+	
 
 	if (gamesQuery.isLoading) return <h1>Loading...</h1>;
 	if (gamesQuery.isError) return <h1>Error loading data!</h1>;
 
 	return (
-		<>
+		<section>
 			<h2>Mega Sales</h2>
 			{!is770Px && <Carousel games={gamesList} />}
 			{is770Px && <DesktopCarousel games={gamesList } />}
-		</>
+		</section>
 	);
 };
 

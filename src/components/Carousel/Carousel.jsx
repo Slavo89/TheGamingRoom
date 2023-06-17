@@ -24,6 +24,7 @@ const Carousel = (props) => {
 						img={game.background_image}
 						rating={game.rating}
 						genres={game.genres.map((genre) => genre.name)}
+						price={game.metacritic}
 					/>
 				</SwiperSlide>
 			))}

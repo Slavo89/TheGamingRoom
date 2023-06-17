@@ -1,0 +1,30 @@
+.listButton {
+	padding: 1rem;
+	font-size: 1.4rem;
+	font-weight: 700;
+	background-color: inherit;
+	color: inherit;
+	border: none;
+	cursor: pointer;
+	display: flex;
+	gap: 0.5rem;
+	&:focus {
+		color: var(--hover-color);
+		border: 1px solid currentColor;
+		border-radius: 5px;
+	}
+	&:hover {
+		color: var(--hover-color);
+	}
+	svg {
+		font-size: 1.2rem;
+	}
+	.transformOpen {
+		transform: rotate(-180deg);
+		transition: transform 0.2s;
+	}
+	.transformClose {
+		transform: rotate(0deg);
+		transition: transform 0.2s;
+	}
+}

@@ -8,6 +8,8 @@ import DistributionPage from './pages/DistributionPage'
 import SupportPage from './pages/SupportPage'
 import BrowsePage from './pages/BrowsePage'
 import NewsPage from './pages/NewsPage'
+import Wishlist from './pages/Wishlist'
+import Cart from './pages/Cart'
 
 function App() {
 
@@ -22,6 +24,8 @@ function App() {
 				{ path: 'support', element: <SupportPage /> },
 				{ path: 'browse', element: <BrowsePage /> },
 				{ path: 'news', element: <NewsPage /> },
+				{ path: 'wishlist', element: <Wishlist />},
+				{ path: 'cart', element: <Cart />}
 			],
 		},
 	]);

@@ -7,20 +7,35 @@
 	display: flex;
 	align-items: center;
 	background-color: var(--black-color);
-
 	z-index: 10;
-	button {
+	// button {
+	// 	padding: 1rem;
+	// 	font-size: 1.4rem;
+	// 	font-weight: 700;
+	// 	background-color: inherit;
+	// 	color: inherit;
+	// 	border: none;
+	// 	cursor: pointer;
+	// }
+
+	svg {
+		font-size: 1.6rem;
+	}
+
+	.searchButton,	
+	.closeButton {
 		padding: 1rem;
+		margin-inline: 1rem ;
 		font-size: 1.4rem;
 		font-weight: 700;
 		background-color: inherit;
 		color: inherit;
 		border: none;
 		cursor: pointer;
-	}
-
-	svg {
-		font-size: 1.6rem;
+		&:focus {
+			color: var(--hover-color);
+			// outline: none;
+		}
 	}
 
 	.searchBarSmall {
@@ -68,6 +83,7 @@
 		outline: none;
 		color: var(--font-color);
 		font-size: 1.4rem;
+		line-height: 2rem;
 		flex-basis: 80%;
 	}
 
@@ -76,23 +92,21 @@
 		justify-content: center;
 		align-items: center;
 		flex-basis: 60%;
-		.listButton {
-			display: flex;
-			gap: 0.5rem;
-			svg {
-				font-size: 1.2rem;
-			}
-			.transformOpen {
-				transform: rotate(-180deg);
-				transition: transform 0.2s;
-			}
-			.transformClose {
-				transform: rotate(0deg);
-				transition: transform 0.2s;
-			}
-		}
-
-		
+		// .listButton {
+		// 	display: flex;
+		// 	gap: 0.5rem;
+		// svg {
+		// 	font-size: 1.2rem;
+		// }
+		// .transformOpen {
+		// 	transform: rotate(-180deg);
+		// 	transition: transform 0.2s;
+		// }
+		// .transformClose {
+		// 	transform: rotate(0deg);
+		// 	transition: transform 0.2s;
+		// }
+		// }
 	}
 	.rightBar {
 		flex-basis: 20%;
@@ -101,13 +115,15 @@
 		gap: 1rem;
 
 		.link {
+			text-decoration: none;
 			padding: 1rem;
 			color: var(--font-color);
 			display: flex;
 			align-items: center;
 			cursor: pointer;
 			transition: color 0.2s;
-			&:hover {
+			&:hover,
+			&.active {
 				color: var(--hover-color);
 			}
 		}
@@ -148,7 +164,6 @@
 
 	// MEDIA QUERIES
 
-
 	@media (width >= 1024px) {
 		.mainBar {
 			padding-left: 2rem;
@@ -161,7 +176,7 @@
 			padding: 1rem 2rem;
 			background-color: var(--grey-color);
 			border-radius: 7px;
-			
+
 			.actionList {
 				gap: 0;
 				li {
@@ -171,7 +186,6 @@
 					a {
 						padding: 1rem 0;
 					}
-					
 				}
 			}
 		}
@@ -179,7 +193,6 @@
 
 	@media (width >= 1280px) {
 		.mainBar {
-
 			.actionNav {
 				position: relative;
 				width: 100%;
@@ -190,10 +203,9 @@
 				.actionList {
 					flex-direction: row;
 					gap: 1rem;
-						a {
-							padding: 1rem 1.5rem;
-						}
-					
+					a {
+						padding: 1rem 1.5rem;
+					}
 				}
 			}
 		}

@@ -5,20 +5,24 @@ import {
 	BsSearch,
 	BsCheckCircle,
 	BsCart2,
-	BsChevronDown,
+	// BsChevronDown,
 	BsXLg,
 } from 'react-icons/bs';
 import { NavLink } from 'react-router-dom';
+import OpenListButton from '../Buttons/OpenListButton.jsx';
 
 const ActionsBar = (props) => {
 	const [searchPanelOpen, setSearchPanelOpen] = useState(false);
 	const [listOpen, setListOpen] = useState(false);
-	// ADD RESET AT CHANGING SITES
-	const [pageName, setPageName] = useState('Discover');
 
-	const is1024Px = useMediaQuery('(width >= 1024px)');
-	const is1280Px = useMediaQuery('(width >= 1280px)');
+	const [pageName, setPageName] = useState('Discover'); // ADD RESET AT CHANGING SITES
 
+	const changePageName = () => {
+		setPageName(event.target.innerHTML);
+		setListOpen(false);
+		props.onClose();
+	};
+	
 	const toggleSearchPanelHandler = () => {
 		setSearchPanelOpen(!searchPanelOpen);
 		props.onClick();
@@ -28,14 +32,17 @@ const ActionsBar = (props) => {
 		props.onClick();
 		setListOpen(!listOpen);
 	};
-
-	const changePageName = () => {
-		setPageName(event.target.innerHTML);
-		setListOpen(false);
-		props.onClose();
-	};
+	
+	const is1024Px = useMediaQuery('(width >= 1024px)');
+	const is1280Px = useMediaQuery('(width >= 1280px)');
 
 	const linkClass = ({ isActive }) => (isActive ? classes.active : '');
+	const searchButton = (
+		<button type="button"
+		className={classes.searchButton}>
+			<BsSearch />
+		</button>
+	);
 
 	const mainBarList = (
 		<div className={classes.actionNav}>
@@ -84,9 +91,7 @@ const ActionsBar = (props) => {
 					</button>
 					{searchPanelOpen && (
 						<div className={classes.searchPanel}>
-							<button type="button">
-								<BsSearch />
-							</button>
+							{searchButton}
 
 							<input
 								className={classes.searchInput}
@@ -95,6 +100,7 @@ const ActionsBar = (props) => {
 							<button
 								type="button"
 								onClick={toggleSearchPanelHandler}
+								className={classes.closeButton}
 							>
 								<BsXLg />
 							</button>
@@ -104,9 +110,7 @@ const ActionsBar = (props) => {
 			) : (
 				<div className={classes.searchBarLarge}>
 					<div className={classes.searchBarContainer}>
-						<button type="button">
-							<BsSearch />
-						</button>
+						{searchButton}
 						<input
 							className={classes.searchInput}
 							placeholder="Search store"
@@ -116,34 +120,33 @@ const ActionsBar = (props) => {
 			)}
 			<div className={classes.mainBar}>
 				{!is1280Px ? (
-					<button
-						type="button"
-						className={classes.listButton}
+					<OpenListButton
 						onClick={toggleListHandler}
-					>
-						<span>{pageName}</span>
-						<span>
-							<BsChevronDown
-								className={
-									listOpen
-										? `${classes.transformOpen}`
-										: `${classes.transformClose}`
-								}
-							/>
-						</span>
-					</button>
+						onChangeText={pageName}
+						onListOpen={listOpen}
+					/>
 				) : (
 					mainBarList
 				)}
 			</div>
 
 			<div className={classes.rightBar}>
-				<a className={classes.link}>
+				<NavLink
+					to="/wishlist"
+					className={({ isActive }) =>
+						isActive ? `${classes.active} ${classes.link}` : classes.link
+					}
+				>
 					{!is1024Px ? <BsCheckCircle /> : <span>Wishlist</span>}
-				</a>
-				<a className={classes.link}>
+				</NavLink>
+				<NavLink
+					to="/cart"
+					className={({ isActive }) =>
+						isActive ? `${classes.active} ${classes.link}` : classes.link
+					}
+				>
 					{!is1024Px ? <BsCart2 /> : <span>Cart</span>}
-				</a>
+				</NavLink>
 			</div>
 
 			{listOpen && mainBarList}

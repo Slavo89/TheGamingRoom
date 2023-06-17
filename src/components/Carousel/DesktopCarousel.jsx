@@ -1,66 +1,103 @@
 import classes from './DestkopCarousel.module.scss';
 import DesktopCarouselItem from './DesktopCarouselItem';
 import WishlistButton from '../Buttons/WishlistButton';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const DesktopCarousel = (props) => {
 	const [rotate, setRotate] = useState(false);
-	const [wishlistButtonText, setWishlistButtonText] = useState('Add to Wishlist');
+	const [wishlistButtonText, setWishlistButtonText] =
+		useState('Add to Wishlist');
 	const [activeIndex, setActiveIndex] = useState(0);
-	
+	const [animate, setAnimate] = useState(false);
+
 	const DUMMY_GAMES = props.games;
-	
-	
+	const timeoutRef = useRef(null);
+
 	// setting the active carouselItem
 	useEffect(() => {
-		const timer = setTimeout(() => {
+		clearTimeout(timeoutRef.current);
+		const timer
+
+			= setTimeout(() => {
 			setActiveIndex((prevIndex) => (prevIndex + 1) % DUMMY_GAMES.length);
-		}, 10000);
+				setAnimate(true);
+			}, 7000);
+		
+
+		if (animate) {
+			const animationTimer = setTimeout(() => {
+				setAnimate(false);
+			}, 500);
+
+			return () => {
+				clearTimeout(timer)
+				clearTimeout(animationTimer);
+			};
+		}
 
 		return () => {
 			clearTimeout(timer);
 		};
-	}, [activeIndex]);
+	}, [activeIndex, animate]);
 
 	const addToWishlistHandler = () => {
 		setRotate(!rotate);
 		setWishlistButtonText(rotate ? 'Add to Wishlist' : 'In Wishlist');
 	};
-	
-	const setToActiveHandler = (index) => {
-		setActiveIndex(index)
-	}
 
+	const setToActiveHandler = (index) => {
+		setActiveIndex(index);
+		setAnimate(true);
+		
+		// reseting animation
+		// setTimeout(() => {
+		// 	setAnimate(false);
+		// }, 500);
+	};
 
 	return (
 		<div className={classes.desktopCarousel}>
-			<div className={classes.leftSide}>
-				<picture className={classes.picture}>
-					<source
-						media="(min-width: 0px)"
-						srcSet={DUMMY_GAMES[activeIndex].background_image}
-						alt="Game picture"
-					/>
-					<img
-						src={DUMMY_GAMES[activeIndex].background_image}
-						alt="Game picture"
-					/>
-				</picture>
-				<div className={classes.gameDescription}>
-					<p className={classes.title}>{DUMMY_GAMES[activeIndex].name}</p>
-					<p>Rating: {DUMMY_GAMES[activeIndex].rating}</p>
-					<p>
-						Genres:{' '}
-						{DUMMY_GAMES[activeIndex].genres
-							.map((genre) => genre.name)
-							.join(', ')}
-					</p>
-					<div className={classes.buttonsContainer}>
-						<button className={classes.buyButton}>Buy Now</button>
+			<div
+				className={` ${
+					animate
+						? `${classes.container} ${classes.animate}`
+						: `${classes.container}`
+				}`}
+			>
+				<div className={classes.leftSide}>
+					<picture className={classes.picture}>
+						<source
+							media="(min-width: 0px)"
+							srcSet={DUMMY_GAMES[activeIndex].background_image}
+							alt="Game picture"
+						/>
+						<img
+							src={DUMMY_GAMES[activeIndex].background_image}
+							alt="Game picture"
+						/>
+					</picture>
+					<div className={classes.gameDescription}>
+						<p className={classes.title}>{DUMMY_GAMES[activeIndex].name}</p>
+						<p className={classes.rating}>
+							Rating: {DUMMY_GAMES[activeIndex].rating}
+						</p>
+						<p className={classes.genres}>
+							Genres:{' '}
+							{DUMMY_GAMES[activeIndex].genres
+								.map((genre) => genre.name)
+								.join(', ')}
+						</p>
 
-						<div className={classes.wishlistButtonContainer}>
-							<WishlistButton onClick={addToWishlistHandler} />
-							<p>{wishlistButtonText}</p>
+						<p className={classes.price}>
+							Starting at $ {DUMMY_GAMES[activeIndex].metacritic}
+						</p>
+						<div className={classes.buttonsContainer}>
+							<button className={classes.buyButton}>Buy Now</button>
+
+							<div className={classes.wishlistButtonContainer}>
+								<WishlistButton onClick={addToWishlistHandler} />
+								<p>{wishlistButtonText}</p>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -74,7 +111,9 @@ const DesktopCarousel = (props) => {
 							name={game.name}
 							img={game.background_image}
 							isActive={index === activeIndex}
-							onClick={() => setToActiveHandler(index)}
+							onClick={() => {
+								setToActiveHandler(index);
+							}}
 						/>
 					))}
 				</ul>

@@ -16,6 +16,7 @@ const CarouselItem = (props) => {
 		setTooltipText(rotate ? 'Add to Wishlist' : 'Remove from Wishlist');
 	};
 
+
 	return (
 		<div className={classes.carouselItem}>
 			<picture>
@@ -60,9 +61,10 @@ const CarouselItem = (props) => {
 			</div>
 			{showTooltip && <div className={classes.tooltip}>{tooltipText}</div>}
 			<div className={classes.itemDescription}>
-				<p>{props.name}</p>
+				<p className={classes.title}>{props.name}</p>
 				<p>Rating: {props.rating}</p>
 				<p>Genres: {props.genres.join(', ')}</p>
+				<p className={classes.price}>Starting at $ {props.price}</p>
 			</div>
 		</div>
 	);
