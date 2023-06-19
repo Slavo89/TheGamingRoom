@@ -4,6 +4,7 @@ import {
 import RootLayout from './pages/Root';
 import ErrorPage from './pages/ErrorPage'
 import HomePage from './pages/HomePage'
+import GameDetailsPage from './pages/GameDetailsPage';
 import DistributionPage from './pages/DistributionPage'
 import SupportPage from './pages/SupportPage'
 import BrowsePage from './pages/BrowsePage'
@@ -24,8 +25,9 @@ function App() {
 				{ path: 'support', element: <SupportPage /> },
 				{ path: 'browse', element: <BrowsePage /> },
 				{ path: 'news', element: <NewsPage /> },
-				{ path: 'wishlist', element: <Wishlist />},
-				{ path: 'cart', element: <Cart />}
+				{ path: 'wishlist', element: <Wishlist /> },
+				{ path: 'cart', element: <Cart /> },
+				{ path: ':gameId', element: <GameDetailsPage /> },
 			],
 		},
 	]);

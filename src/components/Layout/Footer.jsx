@@ -20,22 +20,36 @@ const Footer = () => {
 			<div className={classes.social}>
 				<ul className={classes.socialLinks}>
 					<li>
-						<a className={classes.link}>
+						<a
+							href="https://www.facebook.com/epicgames"
+							target="_blank"
+							rel="noreferrer"
+							className={classes.link}
+						>
 							<SiFacebook />
 						</a>
 					</li>
 					<li>
-						<a className={classes.link}>
+						<a
+							href="https://twitter.com/epicgames"
+							target="_blank"
+							rel="noreferrer"
+							className={classes.link}
+						>
 							<SiTwitter />
 						</a>
 					</li>
 					<li>
-						<a className={classes.link}>
+						<a
+							href="https://www.youtube.com/channel/UC5Qk8mWBwtMyEj7iQQYRk1A"
+							target="_blank"
+							rel="noreferrer"
+							className={classes.link}
+						>
 							<SiYoutube />
 						</a>
 					</li>
 				</ul>
-				{/* <div className={classes.buttonContainer}> */}
 
 				<button
 					type="button"
@@ -53,38 +67,98 @@ const Footer = () => {
 					<div className={classes.listContainer}>
 						<ul className={classes.list}>
 							<li>
-								<a href="">Support-A-Creator</a>
+								<a
+									href=""
+									target="_blank"
+									rel="noreferrer"
+								>
+									Support-A-Creator
+								</a>
 							</li>
 							<li>
-								<a href="">Distribute on Epic Games</a>
+								<a
+									href=""
+									target="_blank"
+									rel="noreferrer"
+								>
+									Distribute on Epic Games
+								</a>
 							</li>
 							<li>
-								<a href="">Careers</a>
+								<a
+									href=""
+									target="_blank"
+									rel="noreferrer"
+								>
+									Careers
+								</a>
 							</li>
 							<li>
-								<a href="">Company</a>
+								<a
+									href=""
+									target="_blank"
+									rel="noreferrer"
+								>
+									Company
+								</a>
 							</li>
 						</ul>
 						<ul className={classes.list}>
 							<li>
-								<a href="">Fan art Policy</a>
+								<a
+									href=""
+									target="_blank"
+									rel="noreferrer"
+								>
+									Fan art Policy
+								</a>
 							</li>
 							<li>
-								<a href="">UX Researcgh</a>
+								<a
+									href=""
+									target="_blank"
+									rel="noreferrer"
+								>
+									UX Researcgh
+								</a>
 							</li>
 							<li>
-								<a href="">Store EULA</a>
+								<a
+									href=""
+									target="_blank"
+									rel="noreferrer"
+								>
+									Store EULA
+								</a>
 							</li>
 						</ul>
 						<ul className={classes.list}>
 							<li>
-								<a href="">Online Services</a>
+								<a
+									href=""
+									target="_blank"
+									rel="noreferrer"
+								>
+									Online Services
+								</a>
 							</li>
 							<li>
-								<a href="">Comunity Rules</a>
+								<a
+									href=""
+									target="_blank"
+									rel="noreferrer"
+								>
+									Comunity Rules
+								</a>
 							</li>
 							<li>
-								<a href="">Epic Newsroom</a>
+								<a
+									href=""
+									target="_blank"
+									rel="noreferrer"
+								>
+									Epic Newsroom
+								</a>
 							</li>
 						</ul>
 					</div>

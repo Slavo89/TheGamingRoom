@@ -6,6 +6,8 @@
 	display: flex;
 	justify-content: space-between;
 
+	display: none;  // TURNING OFF NAVBAR FOR DEVELOPMENT
+
 	.logo {
 		margin-left: 0.5rem;
 		padding: 0 1rem;
@@ -27,6 +29,7 @@
 		}
 	}
 	.navbar {
+
 		position: absolute;
 		top: 5rem;
 		right: 0;
@@ -43,6 +46,7 @@
 		.leftNav {
 			display: flex;
 			flex-direction: column;
+
 			.listItem {
 				border-bottom: 1px solid var(--border-color);
 			}
@@ -75,6 +79,7 @@
 		.rightNav {
 			display: grid;
 			grid-template-columns: 3fr 2fr;
+
 			.listItem {
 				text-align: center;
 				.icon {
@@ -98,6 +103,8 @@
 
 	@media (width >=800px) {
 		.navbar {
+			// display: none;
+
 			position: relative;
 			top: 0;
 			right: 0;
@@ -163,6 +170,9 @@
 	// BURGER MENU
 
 	.menu {
+		// display: none;
+
+
 		padding: 0 1rem;
 
 		background-color: var(--blue-color);

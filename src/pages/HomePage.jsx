@@ -25,6 +25,8 @@ const HomePage = () => {
 			return games;
 		},
 	});
+
+	// console.log(gamesList);
 	
 
 	if (gamesQuery.isLoading) return <h1>Loading...</h1>;

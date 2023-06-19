@@ -2,6 +2,8 @@ import classes from './DestkopCarousel.module.scss';
 import DesktopCarouselItem from './DesktopCarouselItem';
 import WishlistButton from '../Buttons/WishlistButton';
 import { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import AddToCartButton from '../Buttons/AddToCartButton';
 
 const DesktopCarousel = (props) => {
 	const [rotate, setRotate] = useState(false);
@@ -13,16 +15,14 @@ const DesktopCarousel = (props) => {
 	const DUMMY_GAMES = props.games;
 	const timeoutRef = useRef(null);
 
+	console.log(DUMMY_GAMES.id);
 	// setting the active carouselItem
 	useEffect(() => {
 		clearTimeout(timeoutRef.current);
-		const timer
-
-			= setTimeout(() => {
+		const timer = setTimeout(() => {
 			setActiveIndex((prevIndex) => (prevIndex + 1) % DUMMY_GAMES.length);
-				setAnimate(true);
-			}, 7000);
-		
+			setAnimate(true);
+		}, 7000);
 
 		if (animate) {
 			const animationTimer = setTimeout(() => {
@@ -30,7 +30,7 @@ const DesktopCarousel = (props) => {
 			}, 500);
 
 			return () => {
-				clearTimeout(timer)
+				clearTimeout(timer);
 				clearTimeout(animationTimer);
 			};
 		}
@@ -48,7 +48,7 @@ const DesktopCarousel = (props) => {
 	const setToActiveHandler = (index) => {
 		setActiveIndex(index);
 		setAnimate(true);
-		
+
 		// reseting animation
 		// setTimeout(() => {
 		// 	setAnimate(false);
@@ -64,43 +64,44 @@ const DesktopCarousel = (props) => {
 						: `${classes.container}`
 				}`}
 			>
-				<div className={classes.leftSide}>
-					<picture className={classes.picture}>
-						<source
-							media="(min-width: 0px)"
-							srcSet={DUMMY_GAMES[activeIndex].background_image}
-							alt="Game picture"
-						/>
-						<img
-							src={DUMMY_GAMES[activeIndex].background_image}
-							alt="Game picture"
-						/>
-					</picture>
-					<div className={classes.gameDescription}>
-						<p className={classes.title}>{DUMMY_GAMES[activeIndex].name}</p>
-						<p className={classes.rating}>
-							Rating: {DUMMY_GAMES[activeIndex].rating}
-						</p>
-						<p className={classes.genres}>
-							Genres:{' '}
-							{DUMMY_GAMES[activeIndex].genres
-								.map((genre) => genre.name)
-								.join(', ')}
-						</p>
-
-						<p className={classes.price}>
-							Starting at $ {DUMMY_GAMES[activeIndex].metacritic}
-						</p>
-						<div className={classes.buttonsContainer}>
-							<button className={classes.buyButton}>Buy Now</button>
-
-							<div className={classes.wishlistButtonContainer}>
-								<WishlistButton onClick={addToWishlistHandler} />
-								<p>{wishlistButtonText}</p>
+				<Link to={`${DUMMY_GAMES[activeIndex].id}`}>
+					<div className={classes.leftSide}>
+						<picture className={classes.image}>
+							<source
+								media="(min-width: 0px)"
+								srcSet={DUMMY_GAMES[activeIndex].background_image}
+								alt="Game picture"
+							/>
+							<img
+								src={DUMMY_GAMES[activeIndex].background_image}
+								alt="Game picture"
+							/>
+						</picture>
+						<div className={classes.gameDescription}>
+							<p className={classes.title}>{DUMMY_GAMES[activeIndex].name}</p>
+							<p className={classes.rating}>
+								Rating: {DUMMY_GAMES[activeIndex].rating}
+							</p>
+							<p className={classes.genres}>
+								Genres:{' '}
+								{DUMMY_GAMES[activeIndex].genres
+									.map((genre) => genre.name)
+									.join(', ')}
+							</p>
+							<p className={classes.price}>
+								Starting at $ {DUMMY_GAMES[activeIndex].metacritic}
+							</p>
+							<div className={classes.buttonsContainer}>
+								<AddToCartButton />
+								<div className={classes.wishlistButtonContainer}>
+									<WishlistButton onClick={addToWishlistHandler}/>
+									
+									<p>{wishlistButtonText}</p>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				</Link>
 			</div>
 			<div className={classes.rightSide}>
 				<ul className={classes.desktopCarouselList}>

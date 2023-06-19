@@ -41,7 +41,6 @@ const WishlistButton = (props) => {
 						<BsCheck2 />
 					</span>
 				</div>
-				{props.children}
 			</button>
 		</div>
 	);

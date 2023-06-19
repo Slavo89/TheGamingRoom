@@ -8,6 +8,7 @@
 	cursor: pointer;
 	display: flex;
 	gap: 0.5rem;
+	border: 1px solid transparent;
 	&:focus {
 		color: var(--hover-color);
 		border: 1px solid currentColor;

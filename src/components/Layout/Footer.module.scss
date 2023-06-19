@@ -31,17 +31,6 @@
 				display: flex;
 			}
 		}
-		// .buttonContainer {
-		// 	height: 35px;
-		// 	width: 35px;
-		// 	border: 2px solid currentColor;
-		// 	border-radius: 3px;
-		// 	display: flex;
-		// 	justify-content: center;
-		// 	transition: color 0.3s;
-		// &:hover {
-		// 	color: var(--blue-color);
-		// }
 		.upButton {
 			padding: 1rem;
 			display: flex;
@@ -89,7 +78,7 @@
 	}
 	.copyright {
 		font-size: 1.1rem;
-		text-wrap: balance;
+		text-align: justify;
 	}
 	.policyLinks {
 		display: grid;
@@ -138,6 +127,12 @@
 	@media (width >= 1200px) {
 		.copyright {
 			width: 50%;
+		}
+	}
+
+	@media (width >=1920px) {
+		.footerLinks {
+			flex-direction: row;
 		}
 	}
 }

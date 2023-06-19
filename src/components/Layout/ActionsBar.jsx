@@ -52,6 +52,7 @@ const ActionsBar = (props) => {
 						className={linkClass}
 						to="/"
 						onClick={changePageName}
+						end={true}
 					>
 						Discover
 					</NavLink>

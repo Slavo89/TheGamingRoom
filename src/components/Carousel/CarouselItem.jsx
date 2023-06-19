@@ -1,6 +1,7 @@
 import classes from './CarouselItem.module.scss';
 import { useState } from 'react';
 import WishlistButton from '../Buttons/WishlistButton';
+import { Link } from 'react-router-dom';
 
 const CarouselItem = (props) => {
 	const [rotate, setRotate] = useState(false);
@@ -18,23 +19,24 @@ const CarouselItem = (props) => {
 
 
 	return (
-		<div className={classes.carouselItem}>
-			<picture>
-				<source
-					media="(min-width: 0px)"
-					// srcSet="https://cdn2.unrealengine.com/egs-jedi-survivor-carousel-mobile-1200x1600-1c09f31797fd.jpg"
-					srcSet={props.img}
-					alt="Game picture"
-				/>
-				<img
-					// src="https://cdn2.unrealengine.com/egs-jedi-survivor-carousel-mobile-1200x1600-1c09f31797fd.jpg"
-					src={props.img}
-					alt="Game picture"
-				/>
-			</picture>
+		<Link to={`${props.id}`}>
+			<div className={classes.carouselItem}>
+				<picture>
+					<source
+						media="(min-width: 0px)"
+						// srcSet="https://cdn2.unrealengine.com/egs-jedi-survivor-carousel-mobile-1200x1600-1c09f31797fd.jpg"
+						srcSet={props.img}
+						alt="Game picture"
+					/>
+					<img
+						// src="https://cdn2.unrealengine.com/egs-jedi-survivor-carousel-mobile-1200x1600-1c09f31797fd.jpg"
+						src={props.img}
+						alt="Game picture"
+					/>
+				</picture>
 
-			<div className={classes.buttonContainer}>
-				{/* <button
+				<div className={classes.buttonContainer}>
+					{/* <button
 					className={classes.button}
 					onClick={addToWishlistHandler}
 					onMouseEnter={showTooltipHandler}
@@ -53,20 +55,21 @@ const CarouselItem = (props) => {
 						</span>
 					</div>
 				</button> */}
-				<WishlistButton
-					onClick={addToWishlistHandler}
-					onMouseEnter={showTooltipHandler}
-					onMouseLeave={showTooltipHandler}
-				/>
+					<WishlistButton
+						onClick={addToWishlistHandler}
+						onMouseEnter={showTooltipHandler}
+						onMouseLeave={showTooltipHandler}
+					/>
+				</div>
+				{showTooltip && <div className={classes.tooltip}>{tooltipText}</div>}
+				<div className={classes.itemDescription}>
+					<p className={classes.title}>{props.name}</p>
+					<p>Rating: {props.rating}</p>
+					<p>Genres: {props.genres.join(', ')}</p>
+					<p className={classes.price}>Starting at $ {props.price}</p>
+				</div>
 			</div>
-			{showTooltip && <div className={classes.tooltip}>{tooltipText}</div>}
-			<div className={classes.itemDescription}>
-				<p className={classes.title}>{props.name}</p>
-				<p>Rating: {props.rating}</p>
-				<p>Genres: {props.genres.join(', ')}</p>
-				<p className={classes.price}>Starting at $ {props.price}</p>
-			</div>
-		</div>
+		</Link>
 	);
 };
 

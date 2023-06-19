@@ -1,6 +1,4 @@
-// import React from 'react'
 import { Outlet } from 'react-router-dom';
-
 import { useState } from 'react';
 import Header from './../components/Layout/Header';
 import ActionsBar from '../components/Layout/ActionsBar';

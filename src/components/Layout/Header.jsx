@@ -21,6 +21,7 @@ const Header = (props) => {
 			<NavLink
 				className={classes.logo}
 				to="/"
+				end={true}
 			>
 				<img
 					src="/src/assets/logo.png"
