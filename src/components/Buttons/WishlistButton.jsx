@@ -16,23 +16,13 @@ const WishlistButton = (props) => {
 		props.onClick();
 	};
 	return (
-		<div
-			className={classes.buttonContainer}
+		<button
+			className={classes.wishlistButton}
 			onClick={onClickHandler}
 			onMouseEnter={props.onMouseEnter}
 			onMouseLeave={props.onMouseLeave}
-			tabIndex="0"
-			onKeyPress={(event) => {
-				if (event.key === 'Enter') {
-					props.onClick();
-					onClickHandler();
-				}
-			}}
 		>
-			<button
-				className={classes.button}
-				tabIndex="-1"
-			>
+			<div className={classes.container}>
 				<div className={rotate ? `${classes.rotate}` : `${classes.rotateBack}`}>
 					<span>
 						<BsPlus />
@@ -41,8 +31,9 @@ const WishlistButton = (props) => {
 						<BsCheck2 />
 					</span>
 				</div>
-			</button>
-		</div>
+				{props.children}
+			</div>
+		</button>
 	);
 };
 

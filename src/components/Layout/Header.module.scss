@@ -69,10 +69,10 @@
 
 		.downloadButton {
 			background-color: var(--blue-color);
-			transition: 0.2s;
+			transition: all 0.2s;
 			&:hover {
 				color: var(--hover-color);
-				background-color: var(--blue-color);
+				background-color: var(--blue-hover);
 			}
 		}
 

@@ -11,6 +11,10 @@
 
 		.carousel {
 			margin: 2rem auto;
+			width: 100%;
+			.thumbnails {
+				justify-content: center;
+			}
 		}
 
 		.actions {
@@ -27,9 +31,29 @@
 			}
 			.buttons {
 				width: 100%;
-				display: grid;
+				display: flex;
+				flex-direction: column;
 				grid-row-gap: 1rem;
 				justify-content: center;
+				.buttonContainer {
+					width: 100%;
+					height: 50px;
+					position: relative;
+					display: flex;
+					align-items: center;
+					border-radius: 5px;
+				}
+				.wishlist {
+					border: 1px solid var(--font-white);
+					transition: background-color 0.3s;
+					&:hover {
+						background-color: rgba(255, 255, 255, 0.16);
+					}
+
+					& > * > * {
+						justify-content: center;
+					}
+				}
 			}
 		}
 
@@ -66,12 +90,15 @@
 
 		.gameDescription {
 			text-align: justify;
+			color: var(--font-color);
+			opacity: .6;
 		}
 
 		.gameTypes {
 			display: flex;
 			justify-content: space-between;
 			&Container {
+				padding-inline: 1rem;
 				width: 50%;
 				display: flex;
 				flex-direction: column;
@@ -96,11 +123,19 @@
 			.actions {
 				grid-column: 2/3;
 				grid-row: 1/1;
+				justify-content: end;
 			}
-			
+
 			.infoTable {
 				grid-column: 2/3;
-				grid-row:2/3;
+				grid-row: 2/3;
+			}
+			.gameDescription {
+				grid-row: 3/5;
+			}
+
+			.gameTypes {
+				grid-row: 3/3;
 			}
 		}
 	}

@@ -11,17 +11,18 @@
 :root {
 	--black-color: #181818;
 	--grey-color: #2a2a2a;
-	--blue-color: #0074E4;
+	--blue-color: #0074e4;
+	--blue-hover: #055bac;
 	--font-color: #ccc;
 	--font-white: #fff;
 	--hover-color: #fff;
 	--border-color: #333;
 }
 
-	:focus-visible {
-		outline: 1px solid white;
-		border-radius: 5px;
-	}
+:focus-visible {
+	outline: 1px solid white;
+	border-radius: 5px;
+}
 
 html {
 	box-sizing: border-box;
@@ -63,6 +64,10 @@ h1 {
 		background-color: white;
 		opacity: 1;
 	}
+}
+
+.thumbnails {
+	justify-content: center;
 }
 
 @media (width >= 1600px) {
