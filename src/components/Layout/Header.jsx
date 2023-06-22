@@ -55,22 +55,22 @@ const Header = (props) => {
 						</NavLink>
 					</li>
 					<li className={classes.listItem}>
-						<NavLink
+						<a
 							to="https://www.epicgames.com/help/"
 							target="_blank"
 							onClick={closeAndNavigate}
 						>
 							Support
-						</NavLink>
+						</a>
 					</li>
 					<li className={classes.listItem}>
-						<NavLink
+						<a
 							to="https://www.unrealengine.com/"
 							target="_blank"
 							onClick={closeAndNavigate}
 						>
 							Unreal Engine
-						</NavLink>
+						</a>
 					</li>
 				</ul>
 				<ul className={classes.rightNav}>

@@ -1,7 +1,6 @@
 import classes from './GameDetailsPage.module.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Carousel } from 'react-carousel-minimal';
 import WishlistButton from '../components/Buttons/WishlistButton';
@@ -9,34 +8,47 @@ import AddToCartButton from '../components/Buttons/AddToCartButton';
 
 const GameDetailsPage = () => {
 	const params = useParams();
-	const [gameDetails, setGameDetails] = useState({});
+	// const [gameDetails, setGameDetails] = useState({});
+	const [gameDetails, setGameDetails] = useState(null);
+	const [isLoading, setIsLoading] = useState(true);
+	const [isError, setIsError] = useState(false);
 	const [rotate, setRotate] = useState(false);
 	const [wishlistButtonText, setWishlistButtonText] =
-	useState('Add to Wishlist');
+		useState('Add to Wishlist');
 
 	const addToWishlistHandler = () => {
 		setWishlistButtonText(rotate ? 'Add to Wishlist' : 'In Wishlist');
-		setRotate(!rotate)
+		setRotate(!rotate);
+	};
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const response = await axios.get(
+					`https://api.rawg.io/api/games/${params.gameId}?key=8c5f5a03a748417b9752c0b536fa1e98`
+				);
+				const data = response.data;
+				setGameDetails(data);
+				setIsLoading(false);
+			} catch (error) {
+				setIsError(true);
+				setIsLoading(false);
+				console.error('Error loading data!', error);
+			}
+		};
+
+		fetchData();
+	}, [params.gameId]);
+
+	if (isLoading) {
+		return <h1>Loading...</h1>;
 	}
 
-	const gamesQuery = useQuery({
-		queryKey: [],
-		queryFn: async () => {
-			const response = await axios.get(
-				`https://api.rawg.io/api/games/${params.gameId}?key=8c5f5a03a748417b9752c0b536fa1e98`
-			);
-
-			const data = await response.data;
-			setGameDetails(data);
-			return gameDetails;
-		},
-	});
+	if (isError) {
+		return <h1>Error loading data!</h1>;
+	}
 
 	// console.log(gameDetails);
-
-	if (gamesQuery.isLoading) return <h1>Loading...</h1>;
-	if (gamesQuery.isError) return <h1>Error loading data!</h1>;
-
 	return (
 		<div className={classes.gameDetails}>
 			<h1 className={classes.title}>{gameDetails.name}</h1>
@@ -58,9 +70,10 @@ const GameDetailsPage = () => {
 						width="100%"
 						radius="10px"
 						slideBackgroundColor="transparent"
-						slideImageFit="cover"
+						// slideImageFit="cover"
 						thumbnails={true}
 						thumbnailWidth="100px"
+						thumbnailHeight="50px"
 					/>
 				</div>
 				<div className={classes.actions}>

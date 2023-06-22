@@ -18,11 +18,15 @@ const WishlistButton = (props) => {
 	return (
 		<button
 			className={classes.wishlistButton}
-			onClick={onClickHandler}
+			onClick={() => {
+				onClickHandler();
+			}}
 			onMouseEnter={props.onMouseEnter}
 			onMouseLeave={props.onMouseLeave}
 		>
-			<div className={classes.container}>
+			<div
+				className={classes.container}
+			>
 				<div className={rotate ? `${classes.rotate}` : `${classes.rotateBack}`}>
 					<span>
 						<BsPlus />

@@ -17,9 +17,8 @@ const CarouselItem = (props) => {
 		setTooltipText(rotate ? 'Add to Wishlist' : 'Remove from Wishlist');
 	};
 
-
 	return (
-		// <Link to={`${props.id}`}>
+		<Link to={`${props.id}`}>
 			<div className={classes.carouselItem}>
 				<picture>
 					<source
@@ -35,7 +34,8 @@ const CarouselItem = (props) => {
 					/>
 				</picture>
 
-				<div className={classes.buttonContainer}>
+				<div className={classes.buttonContainer}
+				onClick={event=>event.preventDefault()}>
 					{/* <button
 					className={classes.button}
 					onClick={addToWishlistHandler}
@@ -69,7 +69,7 @@ const CarouselItem = (props) => {
 					<p className={classes.price}>Starting at $ {props.price}</p>
 				</div>
 			</div>
-		// </Link>
+		</Link>
 	);
 };
 

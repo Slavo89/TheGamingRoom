@@ -15,7 +15,6 @@ const DesktopCarousel = (props) => {
 	const DUMMY_GAMES = props.games;
 	const timeoutRef = useRef(null);
 
-	console.log(DUMMY_GAMES[activeIndex].id);
 	// setting the active carouselItem
 	useEffect(() => {
 		clearTimeout(timeoutRef.current);
@@ -44,8 +43,6 @@ const DesktopCarousel = (props) => {
 		setRotate(!rotate);
 		setWishlistButtonText(rotate ? 'Add to Wishlist' : 'In Wishlist');
 	};
-
-
 
 	const setToActiveHandler = (index) => {
 		setActiveIndex(index);
@@ -93,11 +90,18 @@ const DesktopCarousel = (props) => {
 							<p className={classes.price}>
 								Starting at $ {DUMMY_GAMES[activeIndex].metacritic}
 							</p>
+
 							<div className={classes.buttons}>
-								<div className={classes.buttonContainer}>
+								<div
+									className={classes.buttonContainer}
+									onClick={(event) => event.preventDefault()}
+								>
 									<AddToCartButton />
 								</div>
-								<div className={`${classes.buttonContainer} ${classes.wishlist}`}>
+								<div
+									className={`${classes.buttonContainer} ${classes.wishlist}`}
+									onClick={(event) => event.preventDefault()}
+								>
 									<WishlistButton onClick={addToWishlistHandler} />
 
 									<p>{wishlistButtonText}</p>
