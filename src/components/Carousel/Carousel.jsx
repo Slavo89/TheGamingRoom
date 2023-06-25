@@ -5,7 +5,7 @@ import 'swiper/scss';
 import 'swiper/scss/pagination';
 
 const Carousel = (props) => {
-	const DUMMY_GAMES = props.games;
+	const GAMES = props.games;
 
 	return (
 		<Swiper
@@ -16,7 +16,7 @@ const Carousel = (props) => {
 				clickable: true,
 			}}
 		>
-			{DUMMY_GAMES.map((game) => (
+			{GAMES.map((game) => (
 				<SwiperSlide key={game.id}>
 					<CarouselItem
 						id={game.id}

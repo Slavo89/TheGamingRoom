@@ -1,0 +1,114 @@
+.card {
+	list-style: none;
+	margin-bottom: 1.5rem;
+	.link {
+		padding: 2rem;
+		max-height: 400px;
+		display: grid;
+		grid-template-columns: 150px auto;
+		grid-template-rows: minmax(100px, 1fr) minmax(100px, 1fr) auto;
+		grid-column-gap: 1.25rem;
+		grid-row-gap: 2rem;
+		background-color: var(--grey-color);
+		border-radius: 5px;
+		text-decoration: none;
+		color: inherit;
+		transition: background-color 0.3s;
+		&:hover {
+			background-color: var(--border-color);
+		}
+		.imageSection {
+			display: flex;
+			flex-direction: column;
+			gap: 1rem;
+			grid-row: 1/2;
+			grid-column: 1/2;
+			.image {
+				display: block;
+				max-width: 150px;
+				max-height: 200px;
+
+				source,
+				img {
+					border-radius: 5px;
+					width: 100%;
+					object-fit: cover;
+				}
+			}
+		}
+
+		.titleSection {
+			grid-row: 1/2;
+			grid-column: 2/3;
+			display: flex;
+			flex-direction: column;
+			text-align: right;
+			font-weight: 600;
+			gap: 2rem;
+		}
+		.contentRatingSection {
+			grid-column: 2/3;
+			grid-row: 2/3;
+			display: flex;
+			align-items: flex-start;
+			justify-self: end;
+		}
+		.buttonsSection {
+			width: 100%;
+			grid-row: 3/4;
+			grid-column: 1/-1;
+			display: flex;
+			flex-direction: column;
+			gap: 2rem;
+			.removeButton {
+				border: none;
+				background-color: inherit;
+				color: var(--font-color);
+				opacity: 0.6;
+				text-decoration: underline;
+				align-self: start;
+				cursor: pointer;
+				&:hover {
+					text-decoration: none;
+				}
+			}
+		}
+
+		@media (width >= 750px) {
+			max-height: 350px;
+			grid-gap: 2rem;
+            grid-template-columns: 150px auto auto;
+			grid-template-rows: auto minmax(100px, 1fr);
+
+			.imageSection {
+				grid-row: 1/-1;
+			}
+
+			.titleSection {
+				flex-direction: row;
+				justify-content: space-between;
+				font-size: 2rem;
+				grid-column: 2/-1;
+			}
+
+			.contentRatingSection {
+				justify-self: start;
+				align-self: center;
+			}
+			.buttonsSection {
+				width: 280px;
+				height: 50px;
+				margin-left: auto;
+				flex-direction: row;
+				grid-column: 3/-1;
+				grid-row: 2/3;
+				align-self: end;
+				.removeButton {
+					align-self: center;
+					font-size: 1.6rem;
+				}
+				
+			}
+		}
+	}
+}

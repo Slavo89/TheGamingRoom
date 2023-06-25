@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigation } from 'react-router-dom';
 import { useState } from 'react';
 import Header from './../components/Layout/Header';
 import ActionsBar from '../components/Layout/ActionsBar';
@@ -8,10 +8,12 @@ import Footer from '../components/Layout/Footer';
 
 const RootLayout = () => {
 	const [isOpen, setIsOpen] = useState(false);
+	const navigation = useNavigation();
+
+
 	const toggleBackdrop = () => {
 		setIsOpen(!isOpen);
 	};
-
 	const closeBackdrop = () => {
 		setIsOpen(false)
 	}
@@ -22,12 +24,16 @@ const RootLayout = () => {
 				onClose={closeBackdrop}
 			/>
 			<main>
-				<ActionsBar onClick={toggleBackdrop} onClose={closeBackdrop} />
+				<ActionsBar
+					onClick={toggleBackdrop}
+					onClose={closeBackdrop}
+				/>
 				<Container>
+					{navigation.state === 'loading' && <h1>Loading...</h1>}
 					<Outlet />
 				</Container>
 			</main>
-			<Footer/>
+			<Footer />
 			{isOpen && <Backdrop />}
 		</>
 	);

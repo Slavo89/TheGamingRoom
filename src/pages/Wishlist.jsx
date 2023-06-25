@@ -7,37 +7,41 @@ import { useState, useEffect, useRef } from 'react';
 import CartCard from '../components/Cards/CartCard';
 
 const DUMMY_WISHLIST = [
-	{	
-		id:1,
-		title: 'Dead Island 2',
-		img: 'https://cdn1.epicgames.com/offer/236c74b4cd2e4e3099cbe2ebdc9686fd/EGS_DeadIsland2_DeepSilverDambusterStudios_S2_1200x1600-efc5201842cf642eb45f73227cd0789b?h=480&quality=medium&resize=1&w=360',
-		price: 249,
+	{
+		id: 1,
+		name: 'Dead Island 2',
+		background_image:
+			'https://cdn1.epicgames.com/offer/236c74b4cd2e4e3099cbe2ebdc9686fd/EGS_DeadIsland2_DeepSilverDambusterStudios_S2_1200x1600-efc5201842cf642eb45f73227cd0789b?h=480&quality=medium&resize=1&w=360',
+		metacritic: 249,
 		platform: ['PC', 'PS5', 'Xbox'],
-		esrb_rating: ['Violence', 'Bad language'],
+		esrb_rating: ['everyone'],
 	},
-	{	
-		id:2,
-		title: 'Dead Island 2',
-		img: 'https://cdn1.epicgames.com/offer/236c74b4cd2e4e3099cbe2ebdc9686fd/EGS_DeadIsland2_DeepSilverDambusterStudios_S2_1200x1600-efc5201842cf642eb45f73227cd0789b?h=480&quality=medium&resize=1&w=360',
-		price: 249,
+	{
+		id: 2,
+		name: 'Dead Island 2',
+		background_image:
+			'https://cdn1.epicgames.com/offer/236c74b4cd2e4e3099cbe2ebdc9686fd/EGS_DeadIsland2_DeepSilverDambusterStudios_S2_1200x1600-efc5201842cf642eb45f73227cd0789b?h=480&quality=medium&resize=1&w=360',
+		metacritic: 249,
 		platform: ['PC', 'PS5', 'Xbox', 'Apple'],
-		esrb_rating: ['Violence', 'Bad language'],
+		esrb_rating: ['teen'],
 	},
-	{	
-		id:3,
-		title: 'Dead Island 2',
-		img: 'https://cdn1.epicgames.com/offer/236c74b4cd2e4e3099cbe2ebdc9686fd/EGS_DeadIsland2_DeepSilverDambusterStudios_S2_1200x1600-efc5201842cf642eb45f73227cd0789b?h=480&quality=medium&resize=1&w=360',
-		price: 249,
+	{
+		id: 3,
+		name: 'Dead Island 2',
+		background_image:
+			'https://cdn1.epicgames.com/offer/236c74b4cd2e4e3099cbe2ebdc9686fd/EGS_DeadIsland2_DeepSilverDambusterStudios_S2_1200x1600-efc5201842cf642eb45f73227cd0789b?h=480&quality=medium&resize=1&w=360',
+		metacritic: 249,
 		platform: ['PC', 'PS5', 'Xbox'],
-		esrb_rating: [],
+		esrb_rating: ['mature'],
 	},
-	{	
-		id:4,
-		title: 'Dead Island 2',
-		img: 'https://cdn1.epicgames.com/offer/236c74b4cd2e4e3099cbe2ebdc9686fd/EGS_DeadIsland2_DeepSilverDambusterStudios_S2_1200x1600-efc5201842cf642eb45f73227cd0789b?h=480&quality=medium&resize=1&w=360',
-		price: 249,
+	{
+		id: 4,
+		name: 'Dead Island 2',
+		background_image:
+			'https://cdn1.epicgames.com/offer/236c74b4cd2e4e3099cbe2ebdc9686fd/EGS_DeadIsland2_DeepSilverDambusterStudios_S2_1200x1600-efc5201842cf642eb45f73227cd0789b?h=480&quality=medium&resize=1&w=360',
+		metacritic: 249,
 		platform: ['PC', 'PS5', 'Xbox'],
-		esrb_rating: ['Violence', 'Bad language'],
+		esrb_rating: ['adult'],
 	},
 ];
 
@@ -45,6 +49,8 @@ const Wishlist = () => {
 	const [listOpen, setListOpen] = useState(false);
 	const [sortBy, setSortBy] = useState('On Sale');
 	const sortListRef = useRef(null);
+	const is1024Px = useMediaQuery('(width >= 1024px)');
+	const is770Px = useMediaQuery('(width >= 770px)');
 
 	useEffect(() => {
 		const closeListHandler = () => {
@@ -76,8 +82,6 @@ const Wishlist = () => {
 	const toggleListHandler = () => {
 		setListOpen(!listOpen);
 	};
-
-	const is770Px = useMediaQuery('(width >= 770px)');
 
 	return (
 		<>
@@ -133,14 +137,27 @@ const Wishlist = () => {
 					)}
 				</div>
 
-
-						<CartCard />
-				
-				{ /* EMPTY WISHLIST */}
-				
-
 				<div className={classes.gameList}>
-					<div className={classes.emptyList}>
+					<ul className={classes.list}>
+						{DUMMY_WISHLIST.map((game) => (
+							<CartCard
+								key={game.id}
+								id={game.id}
+								name={game.name}
+								img={game.background_image}
+								platforms={game.platform
+									.map((platform) => platform)
+									.join(', ')}
+								price={game.metacritic}
+								rating={game.esrb_rating}
+							/>
+						))}
+					</ul>
+					{is1024Px && <aside className={classes.filters}>FILTERS</aside>}
+				</div>
+
+				{/* EMPTY LIST */}
+				<div className={classes.emptyList}>
 						<span>
 							<FaRegSadCry className={classes.emptyIcon} />
 						</span>
@@ -154,7 +171,6 @@ const Wishlist = () => {
 							Shop for Games & Apps
 						</Link>
 					</div>
-				</div>
 			</section>
 		</>
 	);

@@ -1,17 +1,13 @@
 import classes from './GameDetailsPage.module.scss';
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useState } from 'react';
+import { useLoaderData, json } from 'react-router-dom';
 import axios from 'axios';
 import { Carousel } from 'react-carousel-minimal';
 import WishlistButton from '../components/Buttons/WishlistButton';
 import AddToCartButton from '../components/Buttons/AddToCartButton';
 
 const GameDetailsPage = () => {
-	const params = useParams();
-	// const [gameDetails, setGameDetails] = useState({});
-	const [gameDetails, setGameDetails] = useState(null);
-	const [isLoading, setIsLoading] = useState(true);
-	const [isError, setIsError] = useState(false);
+	const gameDetails = useLoaderData();
 	const [rotate, setRotate] = useState(false);
 	const [wishlistButtonText, setWishlistButtonText] =
 		useState('Add to Wishlist');
@@ -21,40 +17,19 @@ const GameDetailsPage = () => {
 		setRotate(!rotate);
 	};
 
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const response = await axios.get(
-					`https://api.rawg.io/api/games/${params.gameId}?key=8c5f5a03a748417b9752c0b536fa1e98`
-				);
-				const data = response.data;
-				setGameDetails(data);
-				setIsLoading(false);
-			} catch (error) {
-				setIsError(true);
-				setIsLoading(false);
-				console.error('Error loading data!', error);
-			}
-		};
+	const ratingStyle = {
+		'--rating': gameDetails.rating,
+	};
 
-		fetchData();
-	}, [params.gameId]);
-
-	if (isLoading) {
-		return <h1>Loading...</h1>;
-	}
-
-	if (isError) {
-		return <h1>Error loading data!</h1>;
-	}
-
-	// console.log(gameDetails);
 	return (
 		<div className={classes.gameDetails}>
 			<h1 className={classes.title}>{gameDetails.name}</h1>
 			<div className={classes.rating}>
-				<div className={classes.stars}></div>
-				<span>{gameDetails.rating}</span>
+				<div
+					className={classes.stars}
+					style={ratingStyle}
+				></div>
+				<span className={classes.numeralRating}>{gameDetails.rating}</span>
 			</div>
 			<div className={classes.detailsContainer}>
 				<div className={classes.carousel}>
@@ -136,6 +111,7 @@ const GameDetailsPage = () => {
 							{gameDetails.genres.map((genre) => genre.name).join(', ')}
 						</span>
 					</div>
+					<hr />
 					<div className={classes.gameTypesContainer}>
 						<span>Features</span>
 						<span>
@@ -152,3 +128,54 @@ const GameDetailsPage = () => {
 };
 
 export default GameDetailsPage;
+
+// eslint-disable-next-line react-refresh/only-export-components
+export async function loader({ params }) {
+	const id = params.gameId;
+	try {
+		const response = await axios.get(
+			`https://api.rawg.io/api/games/${id}?key=8c5f5a03a748417b9752c0b536fa1e98`
+		);
+		const data = response.data;
+		return data;
+	} catch (error) {
+		return json(
+			{ message: 'Could not fetch game details.' },
+			{
+				status: 500,
+			}
+		);
+	}
+}
+
+// const params = useParams();
+// const [gameDetails, setGameDetails] = useState(null);
+// const [isLoading, setIsLoading] = useState(true);
+// const [isError, setIsError] = useState(false);
+
+// useEffect(() => {
+// 	const fetchData = async () => {
+// 		try {
+// 			const response = await axios.get(
+// 				`https://api.rawg.io/api/games/${params.gameId}?key=8c5f5a03a748417b9752c0b536fa1e98`
+// 			);
+// 			const data = response.data;
+// 			setGameDetails(data);
+// 			setIsLoading(false);
+// 		} catch (error) {
+// 			setIsError(true);
+// 			setIsLoading(false);
+// 			console.error('Error loading data!', error);
+// 		}
+// 	};
+
+// 	fetchData();
+// }, [params.gameId]);
+
+// if (isLoading) {
+// 	return <h1>Loading...</h1>;
+// }
+
+// if (isError) {
+// 	return <h1>Error loading data!</h1>;
+// }
