@@ -5,14 +5,20 @@ import axios from 'axios';
 import { Carousel } from 'react-carousel-minimal';
 import WishlistButton from '../components/Buttons/WishlistButton';
 import AddToCartButton from '../components/Buttons/AddToCartButton';
+import { useDispatch } from 'react-redux';
+import { wishlistActions, addToWishlist } from '../store/wishlist-slice';
 
 const GameDetailsPage = () => {
 	const gameDetails = useLoaderData();
+	const dispatch = useDispatch();
 	const [rotate, setRotate] = useState(false);
 	const [wishlistButtonText, setWishlistButtonText] =
 		useState('Add to Wishlist');
 
 	const addToWishlistHandler = () => {
+		const gameData = addToWishlist(gameDetails);
+		dispatch(wishlistActions.addItemToWishlist(gameData));
+		
 		setWishlistButtonText(rotate ? 'Add to Wishlist' : 'In Wishlist');
 		setRotate(!rotate);
 	};

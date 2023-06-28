@@ -21,10 +21,15 @@ const Carousel = (props) => {
 					<CarouselItem
 						id={game.id}
 						name={game.name}
-						img={game.background_image}
+						background_image={game.background_image}
 						rating={game.rating}
 						genres={game.genres.map((genre) => genre.name)}
-						price={game.metacritic}
+						metacritic={game.metacritic}
+						esrb_rating={game.esrb_rating}
+						parent_platforms={game.parent_platforms}
+						// platforms={game.parent_platforms
+						// 	.map((item) => item.platform.name)
+						// 	.join(', ')}
 					/>
 				</SwiperSlide>
 			))}

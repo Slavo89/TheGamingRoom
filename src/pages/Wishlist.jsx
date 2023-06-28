@@ -1,51 +1,20 @@
-import { FaRegSadCry, FaRegQuestionCircle, FaMailBulk } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import classes from './Wishilst.module.scss';
-import useMediaQuery from '../hooks/use-MediaQuery';
-import OpenListButton from '../components/Buttons/OpenListButton';
 import { useState, useEffect, useRef } from 'react';
+import useMediaQuery from '../hooks/use-MediaQuery';
+import { Link } from 'react-router-dom';
+import { FaRegSadCry, FaRegQuestionCircle, FaMailBulk } from 'react-icons/fa';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
+import classes from './Wishilst.module.scss';
+import OpenListButton from '../components/Buttons/OpenListButton';
 import CartCard from '../components/Cards/CartCard';
 
-const DUMMY_WISHLIST = [
-	{
-		id: 1,
-		name: 'Dead Island 2',
-		background_image:
-			'https://cdn1.epicgames.com/offer/236c74b4cd2e4e3099cbe2ebdc9686fd/EGS_DeadIsland2_DeepSilverDambusterStudios_S2_1200x1600-efc5201842cf642eb45f73227cd0789b?h=480&quality=medium&resize=1&w=360',
-		metacritic: 249,
-		platform: ['PC', 'PS5', 'Xbox'],
-		esrb_rating: ['everyone'],
-	},
-	{
-		id: 2,
-		name: 'Dead Island 2',
-		background_image:
-			'https://cdn1.epicgames.com/offer/236c74b4cd2e4e3099cbe2ebdc9686fd/EGS_DeadIsland2_DeepSilverDambusterStudios_S2_1200x1600-efc5201842cf642eb45f73227cd0789b?h=480&quality=medium&resize=1&w=360',
-		metacritic: 249,
-		platform: ['PC', 'PS5', 'Xbox', 'Apple'],
-		esrb_rating: ['teen'],
-	},
-	{
-		id: 3,
-		name: 'Dead Island 2',
-		background_image:
-			'https://cdn1.epicgames.com/offer/236c74b4cd2e4e3099cbe2ebdc9686fd/EGS_DeadIsland2_DeepSilverDambusterStudios_S2_1200x1600-efc5201842cf642eb45f73227cd0789b?h=480&quality=medium&resize=1&w=360',
-		metacritic: 249,
-		platform: ['PC', 'PS5', 'Xbox'],
-		esrb_rating: ['mature'],
-	},
-	{
-		id: 4,
-		name: 'Dead Island 2',
-		background_image:
-			'https://cdn1.epicgames.com/offer/236c74b4cd2e4e3099cbe2ebdc9686fd/EGS_DeadIsland2_DeepSilverDambusterStudios_S2_1200x1600-efc5201842cf642eb45f73227cd0789b?h=480&quality=medium&resize=1&w=360',
-		metacritic: 249,
-		platform: ['PC', 'PS5', 'Xbox'],
-		esrb_rating: ['adult'],
-	},
-];
+import { useDispatch } from 'react-redux';
+import { wishlistActions } from '../store/wishlist-slice';
+
 
 const Wishlist = () => {
+	const wishlistItems = useSelector((state) => state.wishlist.items);
+	const dispatch = useDispatch();
+
 	const [listOpen, setListOpen] = useState(false);
 	const [sortBy, setSortBy] = useState('On Sale');
 	const sortListRef = useRef(null);
@@ -81,6 +50,10 @@ const Wishlist = () => {
 
 	const toggleListHandler = () => {
 		setListOpen(!listOpen);
+	};
+
+	const removeFromWishlistHandler = (itemId) => {
+		dispatch(wishlistActions.removeItemFromWishlist(itemId));
 	};
 
 	return (
@@ -139,25 +112,29 @@ const Wishlist = () => {
 
 				<div className={classes.gameList}>
 					<ul className={classes.list}>
-						{DUMMY_WISHLIST.map((game) => (
+						{wishlistItems.map((game) => (
 							<CartCard
 								key={game.id}
-								id={game.id}
-								name={game.name}
-								img={game.background_image}
-								platforms={game.platform
-									.map((platform) => platform)
-									.join(', ')}
-								price={game.metacritic}
-								rating={game.esrb_rating}
+								item={{
+									id: game.id,
+									name: game.name,
+									img: game.img,
+									platforms: game.platforms,
+									price: game.price,
+									rating: game.esrb_rating,
+								}}
+								onRemove={() => removeFromWishlistHandler(game.id)}
 							/>
 						))}
 					</ul>
-					{is1024Px && <aside className={classes.filters}>FILTERS</aside>}
+					{is1024Px && wishlistItems.length > 0 && (
+						<aside className={classes.filters}>FILTERS</aside>
+					)}
 				</div>
 
 				{/* EMPTY LIST */}
-				<div className={classes.emptyList}>
+				{wishlistItems.length < 1 && (
+					<div className={classes.emptyList}>
 						<span>
 							<FaRegSadCry className={classes.emptyIcon} />
 						</span>
@@ -171,9 +148,52 @@ const Wishlist = () => {
 							Shop for Games & Apps
 						</Link>
 					</div>
+				)}
 			</section>
 		</>
 	);
 };
 
 export default Wishlist;
+
+
+
+
+// const wishlistItems = [
+// 	{
+// 		id: 1,
+// 		name: 'Dead Island 2',
+// 		img:
+// 			'https://cdn1.epicgames.com/offer/236c74b4cd2e4e3099cbe2ebdc9686fd/EGS_DeadIsland2_DeepSilverDambusterStudios_S2_1200x1600-efc5201842cf642eb45f73227cd0789b?h=480&quality=medium&resize=1&w=360',
+// 		price: 249,
+// 		platforms: ['PC', 'PS5', 'Xbox'],
+// 		esrb_rating: ['everyone'],
+// 	},
+// 	{
+// 		id: 2,
+// 		name: 'Dead Island 2',
+// 		img:
+// 			'https://cdn1.epicgames.com/offer/236c74b4cd2e4e3099cbe2ebdc9686fd/EGS_DeadIsland2_DeepSilverDambusterStudios_S2_1200x1600-efc5201842cf642eb45f73227cd0789b?h=480&quality=medium&resize=1&w=360',
+// 		price: 249,
+// 		platforms: ['PC', 'PS5', 'Xbox', 'Apple'],
+// 		esrb_rating: ['teen'],
+// 	},
+// 	{
+// 		id: 3,
+// 		name: 'Dead Island 2',
+// 		img:
+// 			'https://cdn1.epicgames.com/offer/236c74b4cd2e4e3099cbe2ebdc9686fd/EGS_DeadIsland2_DeepSilverDambusterStudios_S2_1200x1600-efc5201842cf642eb45f73227cd0789b?h=480&quality=medium&resize=1&w=360',
+// 		price: 249,
+// 		platforms: ['PC', 'PS5', 'Xbox'],
+// 		esrb_rating: ['mature'],
+// 	},
+// 	{
+// 		id: 4,
+// 		name: 'Dead Island 2',
+// 		img:
+// 			'https://cdn1.epicgames.com/offer/236c74b4cd2e4e3099cbe2ebdc9686fd/EGS_DeadIsland2_DeepSilverDambusterStudios_S2_1200x1600-efc5201842cf642eb45f73227cd0789b?h=480&quality=medium&resize=1&w=360',
+// 		price: 249,
+// 		platforms: ['PC', 'PS5', 'Xbox'],
+// 		esrb_rating: ['adult'],
+// 	},
+// ];

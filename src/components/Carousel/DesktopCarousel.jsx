@@ -5,7 +5,12 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import AddToCartButton from '../Buttons/AddToCartButton';
 
+import { useDispatch } from 'react-redux';
+import { wishlistActions, addToWishlist } from '../../store/wishlist-slice';
+// import { addToWishlist } from '../../store/wishlist-slice';
+
 const DesktopCarousel = (props) => {
+	const dispatch = useDispatch();
 	const [rotate, setRotate] = useState(false);
 	const [wishlistButtonText, setWishlistButtonText] =
 		useState('Add to Wishlist');
@@ -39,7 +44,26 @@ const DesktopCarousel = (props) => {
 		};
 	}, [activeIndex, animate]);
 
+
 	const addToWishlistHandler = () => {
+		const gameData = addToWishlist(GAMES[activeIndex]);
+		dispatch(wishlistActions.addItemToWishlist(gameData));
+
+		// dispatch(
+		// 	wishlistActions.addItemToWishlist({
+		// 		key: GAMES[activeIndex].id,
+		// 		id: GAMES[activeIndex].id,
+		// 		name: GAMES[activeIndex].name,
+		// 		price: GAMES[activeIndex].metacritic,
+		// 		img: GAMES[activeIndex].background_image,
+		// 		esrb_rating: GAMES[activeIndex].esrb_rating,
+		// 		platforms: GAMES[activeIndex].parent_platforms
+		// 			.map((item) => item.platform.name)
+		// 			.join(', '),
+		// 	})
+		// );
+
+
 		setRotate(!rotate);
 		setWishlistButtonText(rotate ? 'Add to Wishlist' : 'In Wishlist');
 	};

@@ -25,12 +25,13 @@
 			grid-column: 1/2;
 			.image {
 				display: block;
-				max-width: 150px;
+				// max-width: 150px;
 				max-height: 200px;
 
 				source,
 				img {
 					border-radius: 5px;
+					height: 200px;
 					width: 100%;
 					object-fit: cover;
 				}

@@ -1,9 +1,13 @@
+import WishlistButton from '../Buttons/WishlistButton';
 import classes from './CarouselItem.module.scss';
 import { useState } from 'react';
-import WishlistButton from '../Buttons/WishlistButton';
 import { Link } from 'react-router-dom';
 
+import { useDispatch } from 'react-redux';
+import { wishlistActions, addToWishlist } from '../../store/wishlist-slice';
+
 const CarouselItem = (props) => {
+	const dispatch = useDispatch();
 	const [rotate, setRotate] = useState(false);
 	const [showTooltip, setShowTooltip] = useState(false);
 	const [tooltipText, setTooltipText] = useState('Add to Wishlist');
@@ -13,6 +17,33 @@ const CarouselItem = (props) => {
 	};
 
 	const addToWishlistHandler = () => {
+		const gameData = addToWishlist(props);
+		dispatch(wishlistActions.addItemToWishlist(gameData));
+		// dispatch(
+		// 	wishlistActions.addItemToWishlist({
+		// 		key: props.id,
+		// 		id: props.id,
+		// 		name: props.name,
+		// 		price: props.price,
+		// 		img: props.img,
+		// 		esrb_rating: props.esrb_rating,
+		// 		platforms: props.platforms,
+		// 	})
+		// );
+		// dispatch(
+		// 	wishlistActions.addItemToWishlist({
+		// 		key: props.id,
+		// 		id: props.id,
+		// 		name: props.name,
+		// 		price: props.metacritic,
+		// 		img: props.img,
+		// 		esrb_rating: props.esrb_rating,
+		// 		platforms: props.platforms
+		// 					.map((item) => item.platform.name)
+		// 					.join(', '),
+		// 	})
+		// );
+
 		setRotate(!rotate);
 		setTooltipText(rotate ? 'Add to Wishlist' : 'Remove from Wishlist');
 	};
@@ -24,18 +55,20 @@ const CarouselItem = (props) => {
 					<source
 						media="(min-width: 0px)"
 						// srcSet="https://cdn2.unrealengine.com/egs-jedi-survivor-carousel-mobile-1200x1600-1c09f31797fd.jpg"
-						srcSet={props.img}
+						srcSet={props.background_image}
 						alt="Game picture"
 					/>
 					<img
 						// src="https://cdn2.unrealengine.com/egs-jedi-survivor-carousel-mobile-1200x1600-1c09f31797fd.jpg"
-						src={props.img}
+						src={props.background_image}
 						alt="Game picture"
 					/>
 				</picture>
 
-				<div className={classes.buttonContainer}
-				onClick={event=>event.preventDefault()}>
+				<div
+					className={classes.buttonContainer}
+					onClick={(event) => event.preventDefault()}
+				>
 					{/* <button
 					className={classes.button}
 					onClick={addToWishlistHandler}

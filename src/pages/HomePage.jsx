@@ -10,6 +10,7 @@ const HomePage = () => {
 	const data = useLoaderData();
 	const games = data.slice(0, 5);
 
+	// console.log(games);
 	return (
 		<section>
 			<h2>Mega Sales</h2>
