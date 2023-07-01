@@ -2,18 +2,18 @@ import classes from './DestkopCarousel.module.scss';
 import DesktopCarouselItem from './DesktopCarouselItem';
 import WishlistButton from '../Buttons/WishlistButton';
 import { useState, useEffect, useRef } from 'react';
+import useWishlist from '../../hooks/useWishlist';
 import { Link } from 'react-router-dom';
-import AddToCartButton from '../Buttons/AddToCartButton';
+import CTAButton from '../Buttons/CTAButton';
 
-import { useDispatch } from 'react-redux';
-import { wishlistActions, addToWishlist } from '../../store/wishlist-slice';
-// import { addToWishlist } from '../../store/wishlist-slice';
+import { useDispatch, useSelector } from 'react-redux';
+// import { wishlistActions, addToWishlist } from '../../store/wishlist-slice';
+import { cartActions, addToCart } from '../../store/cart-slice';
 
 const DesktopCarousel = (props) => {
 	const dispatch = useDispatch();
-	const [rotate, setRotate] = useState(false);
-	const [wishlistButtonText, setWishlistButtonText] =
-		useState('Add to Wishlist');
+	// const wishlistItems = useSelector((state) => state.wishlist.items);
+	// const [inWishlist, setInWishlist] = useState(false);
 	const [activeIndex, setActiveIndex] = useState(0);
 	const [animate, setAnimate] = useState(false);
 
@@ -42,30 +42,32 @@ const DesktopCarousel = (props) => {
 		return () => {
 			clearTimeout(timer);
 		};
-	}, [activeIndex, animate]);
+	}, [animate]);
+	const [inWishlist, wishlistHandler] = useWishlist(GAMES[activeIndex]);
 
+	// useEffect(() => {
+	// 	const itemInWishlist = wishlistItems.some(
+	// 		(item) => item.id === GAMES[activeIndex].id
+	// 	);
+	// 	if (itemInWishlist) {
+	// 		setInWishlist(true);
+	// 	}
+	// }, [GAMES[activeIndex].id, wishlistItems]);
 
-	const addToWishlistHandler = () => {
-		const gameData = addToWishlist(GAMES[activeIndex]);
-		dispatch(wishlistActions.addItemToWishlist(gameData));
+	// const wishlistHandler = () => {
+	// 	if (!inWishlist) {
+	// 		const gameData = addToWishlist(GAMES[activeIndex]);
+	// 		dispatch(wishlistActions.addItemToWishlist(gameData));
 
-		// dispatch(
-		// 	wishlistActions.addItemToWishlist({
-		// 		key: GAMES[activeIndex].id,
-		// 		id: GAMES[activeIndex].id,
-		// 		name: GAMES[activeIndex].name,
-		// 		price: GAMES[activeIndex].metacritic,
-		// 		img: GAMES[activeIndex].background_image,
-		// 		esrb_rating: GAMES[activeIndex].esrb_rating,
-		// 		platforms: GAMES[activeIndex].parent_platforms
-		// 			.map((item) => item.platform.name)
-		// 			.join(', '),
-		// 	})
-		// );
-
-
-		setRotate(!rotate);
-		setWishlistButtonText(rotate ? 'Add to Wishlist' : 'In Wishlist');
+	// 		setInWishlist(true);
+	// 	} else {
+	// 		dispatch(wishlistActions.removeItemFromWishlist(GAMES[activeIndex].id));
+	// 		setInWishlist(false);
+	// 	}
+	// };
+	const addToCartHandler = () => {
+		const gameData = addToCart(GAMES[activeIndex]);
+		dispatch(cartActions.addItemToCart(gameData));
 	};
 
 	const setToActiveHandler = (index) => {
@@ -120,15 +122,15 @@ const DesktopCarousel = (props) => {
 									className={classes.buttonContainer}
 									onClick={(event) => event.preventDefault()}
 								>
-									<AddToCartButton />
+									<CTAButton onClick={addToCartHandler}>Add to Cart</CTAButton>
 								</div>
 								<div
 									className={`${classes.buttonContainer} ${classes.wishlist}`}
 									onClick={(event) => event.preventDefault()}
 								>
-									<WishlistButton onClick={addToWishlistHandler} />
+									<WishlistButton onClick={wishlistHandler} />
 
-									<p>{wishlistButtonText}</p>
+									<p>{!inWishlist ? 'Add to Wishlist' : 'In Wishlist'}</p>
 								</div>
 							</div>
 						</div>
@@ -156,3 +158,17 @@ const DesktopCarousel = (props) => {
 };
 
 export default DesktopCarousel;
+
+// dispatch(
+// 	wishlistActions.addItemToWishlist({
+// 		key: GAMES[activeIndex].id,
+// 		id: GAMES[activeIndex].id,
+// 		name: GAMES[activeIndex].name,
+// 		price: GAMES[activeIndex].metacritic,
+// 		img: GAMES[activeIndex].background_image,
+// 		esrb_rating: GAMES[activeIndex].esrb_rating,
+// 		platforms: GAMES[activeIndex].parent_platforms
+// 			.map((item) => item.platform.name)
+// 			.join(', '),
+// 	})
+// );

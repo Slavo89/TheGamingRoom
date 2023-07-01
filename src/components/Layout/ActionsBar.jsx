@@ -5,15 +5,16 @@ import {
 	BsSearch,
 	BsCheckCircle,
 	BsCart2,
-	// BsChevronDown,
 	BsXLg,
 } from 'react-icons/bs';
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import OpenListButton from '../Buttons/OpenListButton.jsx';
 
 const ActionsBar = (props) => {
 	const [searchPanelOpen, setSearchPanelOpen] = useState(false);
 	const [listOpen, setListOpen] = useState(false);
+	const cartItems = useSelector((state) => state.cart.items.length);
 
 	const [pageName, setPageName] = useState('Discover'); // ADD RESET AT CHANGING SITES
 
@@ -22,7 +23,7 @@ const ActionsBar = (props) => {
 		setListOpen(false);
 		props.onClose();
 	};
-	
+
 	const toggleSearchPanelHandler = () => {
 		setSearchPanelOpen(!searchPanelOpen);
 		props.onClick();
@@ -32,14 +33,16 @@ const ActionsBar = (props) => {
 		props.onClick();
 		setListOpen(!listOpen);
 	};
-	
+
 	const is1024Px = useMediaQuery('(width >= 1024px)');
 	const is1280Px = useMediaQuery('(width >= 1280px)');
 
 	const linkClass = ({ isActive }) => (isActive ? classes.active : '');
 	const searchButton = (
-		<button type="button"
-		className={classes.searchButton}>
+		<button
+			type="button"
+			className={classes.searchButton}
+		>
 			<BsSearch />
 		</button>
 	);
@@ -147,6 +150,9 @@ const ActionsBar = (props) => {
 					}
 				>
 					{!is1024Px ? <BsCart2 /> : <span>Cart</span>}
+					{cartItems > 0 && <div className={classes.badge}>
+						<span>{cartItems}</span>
+					</div>}
 				</NavLink>
 			</div>
 

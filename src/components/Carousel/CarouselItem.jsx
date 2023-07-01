@@ -1,52 +1,28 @@
 import WishlistButton from '../Buttons/WishlistButton';
 import classes from './CarouselItem.module.scss';
 import { useState } from 'react';
+import useWishlist from '../../hooks/useWishlist';
 import { Link } from 'react-router-dom';
 
-import { useDispatch } from 'react-redux';
-import { wishlistActions, addToWishlist } from '../../store/wishlist-slice';
+// import { useDispatch } from 'react-redux';
+// import { wishlistActions, addToWishlist } from '../../store/wishlist-slice';
 
 const CarouselItem = (props) => {
-	const dispatch = useDispatch();
-	const [rotate, setRotate] = useState(false);
 	const [showTooltip, setShowTooltip] = useState(false);
-	const [tooltipText, setTooltipText] = useState('Add to Wishlist');
 
 	const showTooltipHandler = () => {
 		setShowTooltip(!showTooltip);
 	};
 
-	const addToWishlistHandler = () => {
-		const gameData = addToWishlist(props);
-		dispatch(wishlistActions.addItemToWishlist(gameData));
-		// dispatch(
-		// 	wishlistActions.addItemToWishlist({
-		// 		key: props.id,
-		// 		id: props.id,
-		// 		name: props.name,
-		// 		price: props.price,
-		// 		img: props.img,
-		// 		esrb_rating: props.esrb_rating,
-		// 		platforms: props.platforms,
-		// 	})
-		// );
-		// dispatch(
-		// 	wishlistActions.addItemToWishlist({
-		// 		key: props.id,
-		// 		id: props.id,
-		// 		name: props.name,
-		// 		price: props.metacritic,
-		// 		img: props.img,
-		// 		esrb_rating: props.esrb_rating,
-		// 		platforms: props.platforms
-		// 					.map((item) => item.platform.name)
-		// 					.join(', '),
-		// 	})
-		// );
+	const [inWishlist, wishlistHandler] = useWishlist(props);
 
-		setRotate(!rotate);
-		setTooltipText(rotate ? 'Add to Wishlist' : 'Remove from Wishlist');
-	};
+	// const addToWishlistHandler = () => {
+	// 	const gameData = addToWishlist(props);
+	// 	dispatch(wishlistActions.addItemToWishlist(gameData));
+
+	// 	setRotate(!rotate);
+	// 	setTooltipText(rotate ? 'Add to Wishlist' : 'Remove from Wishlist');
+	// };
 
 	return (
 		<Link to={`${props.id}`}>
@@ -69,32 +45,13 @@ const CarouselItem = (props) => {
 					className={classes.buttonContainer}
 					onClick={(event) => event.preventDefault()}
 				>
-					{/* <button
-					className={classes.button}
-					onClick={addToWishlistHandler}
-					onMouseEnter={showTooltipHandler}
-					onMouseLeave={showTooltipHandler}
-				>
-					<div
-						className={rotate ? `${classes.rotate}` : `${classes.rotateBack}`}
-					>
-						<span>
-							<BsPlus />
-						</span>
-						<span
-							className={rotate ? ` ${classes.visible}` : `${classes.check}`}
-						>
-							<BsCheck2 />
-						</span>
-					</div>
-				</button> */}
 					<WishlistButton
-						onClick={addToWishlistHandler}
+						onClick={wishlistHandler}
 						onMouseEnter={showTooltipHandler}
 						onMouseLeave={showTooltipHandler}
 					/>
 				</div>
-				{showTooltip && <div className={classes.tooltip}>{tooltipText}</div>}
+				{showTooltip && <div className={classes.tooltip}>{!inWishlist ? 'Add to Wishlist' : 'Remove from Wishlist'}</div>}
 				<div className={classes.itemDescription}>
 					<p className={classes.title}>{props.name}</p>
 					<p>Rating: {props.rating}</p>

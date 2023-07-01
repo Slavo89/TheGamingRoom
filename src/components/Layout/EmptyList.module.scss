@@ -1,0 +1,36 @@
+.emptyList {
+	margin-top: 5rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	line-height: 5rem;
+	gap: 3.5rem;
+
+	.emptyIcon {
+		font-size: 6rem;
+		color: var(--blue-color);
+		border-radius: 50%;
+		transform: rotate(-15deg);
+	}
+	.text {
+		text-align: center;
+		font-size: 3.5rem;
+		color: white;
+		@media (width>= px) {
+			
+		}
+	}
+
+	.link {
+		text-align: center;
+		padding: 0.5rem 1rem;
+		color: #868686;
+		font-size: 2.6rem;
+		border-bottom: 1px;
+		transition: color 0.3s;
+		&:hover {
+			color: white;
+		}
+	}
+}

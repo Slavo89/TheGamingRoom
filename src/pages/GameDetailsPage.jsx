@@ -1,30 +1,52 @@
 import classes from './GameDetailsPage.module.scss';
-import { useState } from 'react';
+// import { useState,useEffect } from 'react';
 import { useLoaderData, json } from 'react-router-dom';
 import axios from 'axios';
 import { Carousel } from 'react-carousel-minimal';
 import WishlistButton from '../components/Buttons/WishlistButton';
-import AddToCartButton from '../components/Buttons/AddToCartButton';
-import { useDispatch } from 'react-redux';
-import { wishlistActions, addToWishlist } from '../store/wishlist-slice';
+import CTAButton from '../components/Buttons/CTAButton';
+import { useDispatch, useSelector } from 'react-redux';
+// import { wishlistActions, addToWishlist } from '../store/wishlist-slice';
+import { cartActions, addToCart } from '../store/cart-slice';
+import useWishlist from '../hooks/useWishlist';
 
 const GameDetailsPage = () => {
 	const gameDetails = useLoaderData();
 	const dispatch = useDispatch();
-	const [rotate, setRotate] = useState(false);
-	const [wishlistButtonText, setWishlistButtonText] =
-		useState('Add to Wishlist');
-
-	const addToWishlistHandler = () => {
-		const gameData = addToWishlist(gameDetails);
-		dispatch(wishlistActions.addItemToWishlist(gameData));
-		
-		setWishlistButtonText(rotate ? 'Add to Wishlist' : 'In Wishlist');
-		setRotate(!rotate);
-	};
-
+	// const wishlistItems = useSelector((state) => state.wishlist.items);
+	// const [inWishlist, setInWishlist] = useState(false);
 	const ratingStyle = {
 		'--rating': gameDetails.rating,
+	};
+
+	const [inWishlist, wishlistHandler] = useWishlist(
+		gameDetails
+	);
+	// useEffect(() => {
+	// 	const itemInWishlist = wishlistItems.some(
+	// 		(item) => item.id === gameDetails.id
+	// 	);
+	// 	if (itemInWishlist) {
+	// 		setInWishlist(true);
+	// 	}
+	// }, [gameDetails.id, wishlistItems]);
+
+	// // add or remove item from wishlist
+	// const wishlistHandler = () => {
+	// 	if (!inWishlist) {
+	// 		const gameData = addToWishlist(gameDetails);
+	// 		dispatch(wishlistActions.addItemToWishlist(gameData));
+
+	// 		setInWishlist(true);
+	// 	} else {
+	// 		dispatch(wishlistActions.removeItemFromWishlist(gameDetails.id))
+	// 		setInWishlist(false)
+	// 	}
+	// };
+
+	const addToCartHandler = () => {
+		const gameData = addToCart(gameDetails);
+		dispatch(cartActions.addItemToCart(gameData));
 	};
 
 	return (
@@ -64,11 +86,11 @@ const GameDetailsPage = () => {
 					</div>
 					<div className={classes.buttons}>
 						<div className={classes.buttonContainer}>
-							<AddToCartButton />
+							<CTAButton onClick={addToCartHandler}>Add to Cart</CTAButton>
 						</div>
 						<div className={`${classes.buttonContainer} ${classes.wishlist}`}>
-							<WishlistButton onClick={addToWishlistHandler}>
-								<p>{wishlistButtonText}</p>
+							<WishlistButton onClick={wishlistHandler}>
+								<p>{!inWishlist ? 'Add to Wishlist' : 'In Wishlist'}</p>
 							</WishlistButton>
 						</div>
 					</div>

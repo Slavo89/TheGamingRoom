@@ -22,10 +22,10 @@
 		font-size: 1.6rem;
 	}
 
-	.searchButton,	
+	.searchButton,
 	.closeButton {
 		padding: 1rem;
-		margin-inline: 1rem ;
+		margin-inline: 1rem;
 		font-size: 1.4rem;
 		font-weight: 700;
 		background-color: inherit;
@@ -112,19 +112,34 @@
 		flex-basis: 20%;
 		display: flex;
 		justify-content: flex-end;
-		gap: 1rem;
+		gap: 1.5rem;
 
 		.link {
 			text-decoration: none;
 			padding: 1rem;
 			color: var(--font-color);
 			display: flex;
+			gap: 1rem;
 			align-items: center;
 			cursor: pointer;
 			transition: color 0.2s;
 			&:hover,
 			&.active {
 				color: var(--hover-color);
+			}
+			.badge {
+				width: 30px;
+				height: 20px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 1.2rem;
+				font-weight: 700;
+				color: var(--black-color);
+				background-color: #fff;
+				border-radius: 20px;
+				// span {
+				// }
 			}
 		}
 	}

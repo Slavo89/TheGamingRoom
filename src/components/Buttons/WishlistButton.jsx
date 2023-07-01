@@ -36,6 +36,7 @@ const WishlistButton = (props) => {
 					</span>
 				</div>
 				{props.children}
+				{/* Add to Wishlist */}
 			</div>
 		</button>
 	);

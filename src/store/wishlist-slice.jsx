@@ -11,6 +11,7 @@ const wishlistSlice = createSlice({
 			const existingItem = state.items.find((item) => item.id === newItem.id);
 			if (!existingItem) {
 				state.items.push({
+					key: newItem.id,
 					id: newItem.id,
 					name: newItem.name,
 					price: newItem.price,

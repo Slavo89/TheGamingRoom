@@ -1,17 +1,15 @@
 import { useState, useEffect, useRef } from 'react';
 import useMediaQuery from '../hooks/use-MediaQuery';
-import { Link } from 'react-router-dom';
-import { FaRegSadCry, FaRegQuestionCircle, FaMailBulk } from 'react-icons/fa';
-import { useSelector } from 'react-redux/es/hooks/useSelector';
-import classes from './Wishilst.module.scss';
+import { FaRegQuestionCircle, FaMailBulk } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import { wishlistActions } from '../store/wishlist-slice';
+import classes from './WishilstPage.module.scss';
 import OpenListButton from '../components/Buttons/OpenListButton';
 import CartCard from '../components/Cards/CartCard';
+import EmptyList from '../components/Layout/EmptyList';
+import { cartActions } from '../store/cart-slice';
 
-import { useDispatch } from 'react-redux';
-import { wishlistActions } from '../store/wishlist-slice';
-
-
-const Wishlist = () => {
+const WishlistPage = () => {
 	const wishlistItems = useSelector((state) => state.wishlist.items);
 	const dispatch = useDispatch();
 
@@ -50,6 +48,20 @@ const Wishlist = () => {
 
 	const toggleListHandler = () => {
 		setListOpen(!listOpen);
+	};
+
+	const addToCartHandler = (item) => {
+		dispatch(
+			cartActions.addItemToCart({
+				key: item.id,
+				id: item.id,
+				name: item.name,
+				price: item.price,
+				img: item.img,
+				esrb_rating: item.esrb_rating,
+				platforms: item.platforms
+			})
+		);
 	};
 
 	const removeFromWishlistHandler = (itemId) => {
@@ -110,54 +122,44 @@ const Wishlist = () => {
 					)}
 				</div>
 
-				<div className={classes.gameList}>
-					<ul className={classes.list}>
-						{wishlistItems.map((game) => (
-							<CartCard
-								key={game.id}
-								item={{
-									id: game.id,
-									name: game.name,
-									img: game.img,
-									platforms: game.platforms,
-									price: game.price,
-									rating: game.esrb_rating,
-								}}
-								onRemove={() => removeFromWishlistHandler(game.id)}
-							/>
-						))}
-					</ul>
-					{is1024Px && wishlistItems.length > 0 && (
-						<aside className={classes.filters}>FILTERS</aside>
-					)}
-				</div>
-
-				{/* EMPTY LIST */}
-				{wishlistItems.length < 1 && (
-					<div className={classes.emptyList}>
-						<span>
-							<FaRegSadCry className={classes.emptyIcon} />
-						</span>
-						<p className={classes.text}>
-							You haven`t added anything to your wishlist yet.
-						</p>
-						<Link
-							to="/"
-							className={classes.link}
-						>
-							Shop for Games & Apps
-						</Link>
+				{wishlistItems.length > 0 ? (
+					<div className={classes.gameList}>
+						<ul className={classes.list}>
+							{wishlistItems.map((game) => (
+								<CartCard
+									key={game.id}
+									item={{
+										id: game.id,
+										name: game.name,
+										img: game.img,
+										platforms: game.platforms,
+										price: game.price,
+										rating: game.esrb_rating,
+									}}
+									// onAdd={() => {
+									// 	const gameData = addToCart(game);
+									// 	dispatch(cartActions.addItemToCart(gameData));
+									// }}
+									// onAdd={addToCartHandler(game)}
+									onRemove={() => removeFromWishlistHandler(game.id)}
+								/>
+							))}
+						</ul>
+						{is1024Px && wishlistItems.length > 0 && (
+							<aside className={classes.filters}>FILTERS</aside>
+						)}
 					</div>
+				) : (
+					<EmptyList>
+						You haven`t added anything to your wishlist yet.
+					</EmptyList>
 				)}
 			</section>
 		</>
 	);
 };
 
-export default Wishlist;
-
-
-
+export default WishlistPage;
 
 // const wishlistItems = [
 // 	{
@@ -197,3 +199,49 @@ export default Wishlist;
 // 		esrb_rating: ['adult'],
 // 	},
 // ];
+
+{
+	/* <div className={classes.gameList}>
+					<ul className={classes.list}>
+						{wishlistItems.map((game) => (
+							<CartCard
+								key={game.id}
+								item={{
+									id: game.id,
+									name: game.name,
+									img: game.img,
+									platforms: game.platforms,
+									price: game.price,
+									rating: game.esrb_rating,
+								}}
+								onRemove={() => removeFromWishlistHandler(game.id)}
+							/>
+						))}
+					</ul>
+					{is1024Px && wishlistItems.length > 0 && (
+						<aside className={classes.filters}>FILTERS</aside>
+					)}
+				</div> */
+}
+
+{
+	/* EMPTY LIST */
+}
+{
+	/* {wishlistItems.length < 1 && (
+					<div className={classes.emptyList}>
+						<span>
+							<FaRegSadCry className={classes.emptyIcon} />
+						</span>
+						<p className={classes.text}>
+							You haven`t added anything to your wishlist yet.
+						</p>
+						<Link
+							to="/"
+							className={classes.link}
+						>
+							Shop for Games & Apps
+						</Link>
+					</div>
+				)} */
+}

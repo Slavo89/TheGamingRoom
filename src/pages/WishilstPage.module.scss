@@ -125,7 +125,7 @@
 	}
 	.gameList {
 		display: flex;
-		gap: 2rem;
+		gap: 3rem;
 		width: 100%;
 		.list {
 			flex-grow: 1;
@@ -133,36 +133,6 @@
 		.filters {
 			width: 245px;
 			flex-shrink: 0;
-		}
-	}
-	.emptyList {
-		display: grid;
-		justify-content: center;
-		justify-items: center;
-		grid-row-gap: 2.5rem;
-
-		.emptyIcon {
-			font-size: 6rem;
-			color: var(--blue-color);
-			border-radius: 50%;
-			transform: rotate(-15deg);
-		}
-		.text {
-			text-align: center;
-			font-size: 3rem;
-			line-height: 3.5rem;
-			color: white;
-		}
-
-		.link {
-			padding: 0.5rem 1rem;
-			color: #868686;
-			font-size: 2.6rem;
-			border-bottom: 1px;
-			transition: color 0.3s;
-			&:hover {
-				color: white;
-			}
 		}
 	}
 }
