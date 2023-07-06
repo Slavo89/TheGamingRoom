@@ -4,8 +4,6 @@ import { useState } from 'react';
 import useWishlist from '../../hooks/useWishlist';
 import { Link } from 'react-router-dom';
 
-// import { useDispatch } from 'react-redux';
-// import { wishlistActions, addToWishlist } from '../../store/wishlist-slice';
 
 const CarouselItem = (props) => {
 	const [showTooltip, setShowTooltip] = useState(false);
@@ -15,14 +13,6 @@ const CarouselItem = (props) => {
 	};
 
 	const [inWishlist, wishlistHandler] = useWishlist(props);
-
-	// const addToWishlistHandler = () => {
-	// 	const gameData = addToWishlist(props);
-	// 	dispatch(wishlistActions.addItemToWishlist(gameData));
-
-	// 	setRotate(!rotate);
-	// 	setTooltipText(rotate ? 'Add to Wishlist' : 'Remove from Wishlist');
-	// };
 
 	return (
 		<Link to={`${props.id}`}>

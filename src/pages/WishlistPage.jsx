@@ -3,11 +3,11 @@ import useMediaQuery from '../hooks/use-MediaQuery';
 import { FaRegQuestionCircle, FaMailBulk } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { wishlistActions } from '../store/wishlist-slice';
+import { cartActions } from '../store/cart-slice';
 import classes from './WishilstPage.module.scss';
 import OpenListButton from '../components/Buttons/OpenListButton';
 import CartCard from '../components/Cards/CartCard';
 import EmptyList from '../components/Layout/EmptyList';
-import { cartActions } from '../store/cart-slice';
 
 const WishlistPage = () => {
 	const wishlistItems = useSelector((state) => state.wishlist.items);
@@ -49,17 +49,16 @@ const WishlistPage = () => {
 	const toggleListHandler = () => {
 		setListOpen(!listOpen);
 	};
-
-	const addToCartHandler = (item) => {
+	const addToCartHandler = (game) => {
 		dispatch(
 			cartActions.addItemToCart({
-				key: item.id,
-				id: item.id,
-				name: item.name,
-				price: item.price,
-				img: item.img,
-				esrb_rating: item.esrb_rating,
-				platforms: item.platforms
+				key: game.id,
+				id: game.id,
+				name: game.name,
+				price: game.price,
+				img: game.img,
+				esrb_rating: game.esrb_rating,
+				platforms: game.platforms
 			})
 		);
 	};
@@ -136,11 +135,8 @@ const WishlistPage = () => {
 										price: game.price,
 										rating: game.esrb_rating,
 									}}
-									// onAdd={() => {
-									// 	const gameData = addToCart(game);
-									// 	dispatch(cartActions.addItemToCart(gameData));
-									// }}
-									// onAdd={addToCartHandler(game)}
+									
+									onAdd={() => addToCartHandler(game)}
 									onRemove={() => removeFromWishlistHandler(game.id)}
 								/>
 							))}
@@ -160,88 +156,3 @@ const WishlistPage = () => {
 };
 
 export default WishlistPage;
-
-// const wishlistItems = [
-// 	{
-// 		id: 1,
-// 		name: 'Dead Island 2',
-// 		img:
-// 			'https://cdn1.epicgames.com/offer/236c74b4cd2e4e3099cbe2ebdc9686fd/EGS_DeadIsland2_DeepSilverDambusterStudios_S2_1200x1600-efc5201842cf642eb45f73227cd0789b?h=480&quality=medium&resize=1&w=360',
-// 		price: 249,
-// 		platforms: ['PC', 'PS5', 'Xbox'],
-// 		esrb_rating: ['everyone'],
-// 	},
-// 	{
-// 		id: 2,
-// 		name: 'Dead Island 2',
-// 		img:
-// 			'https://cdn1.epicgames.com/offer/236c74b4cd2e4e3099cbe2ebdc9686fd/EGS_DeadIsland2_DeepSilverDambusterStudios_S2_1200x1600-efc5201842cf642eb45f73227cd0789b?h=480&quality=medium&resize=1&w=360',
-// 		price: 249,
-// 		platforms: ['PC', 'PS5', 'Xbox', 'Apple'],
-// 		esrb_rating: ['teen'],
-// 	},
-// 	{
-// 		id: 3,
-// 		name: 'Dead Island 2',
-// 		img:
-// 			'https://cdn1.epicgames.com/offer/236c74b4cd2e4e3099cbe2ebdc9686fd/EGS_DeadIsland2_DeepSilverDambusterStudios_S2_1200x1600-efc5201842cf642eb45f73227cd0789b?h=480&quality=medium&resize=1&w=360',
-// 		price: 249,
-// 		platforms: ['PC', 'PS5', 'Xbox'],
-// 		esrb_rating: ['mature'],
-// 	},
-// 	{
-// 		id: 4,
-// 		name: 'Dead Island 2',
-// 		img:
-// 			'https://cdn1.epicgames.com/offer/236c74b4cd2e4e3099cbe2ebdc9686fd/EGS_DeadIsland2_DeepSilverDambusterStudios_S2_1200x1600-efc5201842cf642eb45f73227cd0789b?h=480&quality=medium&resize=1&w=360',
-// 		price: 249,
-// 		platforms: ['PC', 'PS5', 'Xbox'],
-// 		esrb_rating: ['adult'],
-// 	},
-// ];
-
-{
-	/* <div className={classes.gameList}>
-					<ul className={classes.list}>
-						{wishlistItems.map((game) => (
-							<CartCard
-								key={game.id}
-								item={{
-									id: game.id,
-									name: game.name,
-									img: game.img,
-									platforms: game.platforms,
-									price: game.price,
-									rating: game.esrb_rating,
-								}}
-								onRemove={() => removeFromWishlistHandler(game.id)}
-							/>
-						))}
-					</ul>
-					{is1024Px && wishlistItems.length > 0 && (
-						<aside className={classes.filters}>FILTERS</aside>
-					)}
-				</div> */
-}
-
-{
-	/* EMPTY LIST */
-}
-{
-	/* {wishlistItems.length < 1 && (
-					<div className={classes.emptyList}>
-						<span>
-							<FaRegSadCry className={classes.emptyIcon} />
-						</span>
-						<p className={classes.text}>
-							You haven`t added anything to your wishlist yet.
-						</p>
-						<Link
-							to="/"
-							className={classes.link}
-						>
-							Shop for Games & Apps
-						</Link>
-					</div>
-				)} */
-}

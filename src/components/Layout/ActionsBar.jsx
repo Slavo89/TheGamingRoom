@@ -1,12 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useMediaQuery from './../../hooks/use-MediaQuery.js';
 import classes from './ActionsBar.module.scss';
-import {
-	BsSearch,
-	BsCheckCircle,
-	BsCart2,
-	BsXLg,
-} from 'react-icons/bs';
+import { BsSearch, BsCheckCircle, BsCart2, BsXLg } from 'react-icons/bs';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import OpenListButton from '../Buttons/OpenListButton.jsx';
@@ -17,6 +12,40 @@ const ActionsBar = (props) => {
 	const cartItems = useSelector((state) => state.cart.items.length);
 
 	const [pageName, setPageName] = useState('Discover'); // ADD RESET AT CHANGING SITES
+
+	// badge animation
+	const [key, setKey] = useState(0);
+	const [prevCartItems, setPrevCartItems] = useState(0);
+	const [badgeClass, setBadgeClass] = useState(`${classes.badge}`);
+	console.log(cartItems, prevCartItems, key);
+	useEffect(() => {
+		setKey(cartItems);
+		if (cartItems > 0) {
+			setBadgeClass(`${classes.badge} ${classes.show}`);
+		}
+
+		if (cartItems > prevCartItems) {
+			setBadgeClass(`${classes.badge} ${classes.show} ${classes.increase}`);
+			// setPrevCartItems(key + 1);
+			setTimeout(() => {
+				setPrevCartItems(key + 1);
+			}, 700);
+		}
+		// setKey(key + 1)
+		// console.log(key);
+
+		if (cartItems < prevCartItems) {
+			setBadgeClass(`${classes.badge} ${classes.show} ${classes.decrease}`);
+			// setPrevCartItems(key - 1);
+			setTimeout(() => {
+				setPrevCartItems(key - 1);
+			}, 700);
+		}
+
+		if (cartItems === 0) {
+			setBadgeClass(`${classes.badge} ${classes.hide}`);
+		}
+	}, [cartItems]);
 
 	const changePageName = () => {
 		setPageName(event.target.innerHTML);
@@ -46,6 +75,11 @@ const ActionsBar = (props) => {
 			<BsSearch />
 		</button>
 	);
+
+	// let badgeClass;
+	// if (cartItems > key) {
+	// 	badgeClass = `${classes.show} ${classes.badge}`
+	// }
 
 	const mainBarList = (
 		<div className={classes.actionNav}>
@@ -150,9 +184,16 @@ const ActionsBar = (props) => {
 					}
 				>
 					{!is1024Px ? <BsCart2 /> : <span>Cart</span>}
-					{cartItems > 0 && <div className={classes.badge}>
-						<span>{cartItems}</span>
-					</div>}
+
+					<div className={badgeClass}>
+						<span key={key}>{prevCartItems}</span>
+					</div>
+
+					{/* {cartItems > 0 && (
+						<div className={badgeClass}>
+							<span key={key}>{cartItems}</span>
+						</div>
+					)} */}
 				</NavLink>
 			</div>
 

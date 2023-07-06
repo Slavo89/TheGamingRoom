@@ -1,20 +1,17 @@
-import classes from './GameDetailsPage.module.scss';
-// import { useState,useEffect } from 'react';
-import { useLoaderData, json } from 'react-router-dom';
 import axios from 'axios';
+import { useLoaderData, json } from 'react-router-dom';
 import { Carousel } from 'react-carousel-minimal';
+// import { useDispatch } from 'react-redux';
+// import { cartActions, addToCart } from '../store/cart-slice';
+import useWishlist from '../hooks/useWishlist';
+import classes from './GameDetailsPage.module.scss';
 import WishlistButton from '../components/Buttons/WishlistButton';
 import CTAButton from '../components/Buttons/CTAButton';
-import { useDispatch, useSelector } from 'react-redux';
-// import { wishlistActions, addToWishlist } from '../store/wishlist-slice';
-import { cartActions, addToCart } from '../store/cart-slice';
-import useWishlist from '../hooks/useWishlist';
+import useCart from '../hooks/useCart';
 
 const GameDetailsPage = () => {
 	const gameDetails = useLoaderData();
-	const dispatch = useDispatch();
-	// const wishlistItems = useSelector((state) => state.wishlist.items);
-	// const [inWishlist, setInWishlist] = useState(false);
+	// const dispatch = useDispatch();
 	const ratingStyle = {
 		'--rating': gameDetails.rating,
 	};
@@ -22,32 +19,14 @@ const GameDetailsPage = () => {
 	const [inWishlist, wishlistHandler] = useWishlist(
 		gameDetails
 	);
-	// useEffect(() => {
-	// 	const itemInWishlist = wishlistItems.some(
-	// 		(item) => item.id === gameDetails.id
-	// 	);
-	// 	if (itemInWishlist) {
-	// 		setInWishlist(true);
-	// 	}
-	// }, [gameDetails.id, wishlistItems]);
 
-	// // add or remove item from wishlist
-	// const wishlistHandler = () => {
-	// 	if (!inWishlist) {
-	// 		const gameData = addToWishlist(gameDetails);
-	// 		dispatch(wishlistActions.addItemToWishlist(gameData));
-
-	// 		setInWishlist(true);
-	// 	} else {
-	// 		dispatch(wishlistActions.removeItemFromWishlist(gameDetails.id))
-	// 		setInWishlist(false)
-	// 	}
+	const [inCart, cartHandler] = useCart(
+		gameDetails
+	);
+	// const addToCartHandler = () => {
+	// 	const gameData = addToCart(gameDetails);
+	// 	dispatch(cartActions.addItemToCart(gameData));
 	// };
-
-	const addToCartHandler = () => {
-		const gameData = addToCart(gameDetails);
-		dispatch(cartActions.addItemToCart(gameData));
-	};
 
 	return (
 		<div className={classes.gameDetails}>
@@ -86,7 +65,7 @@ const GameDetailsPage = () => {
 					</div>
 					<div className={classes.buttons}>
 						<div className={classes.buttonContainer}>
-							<CTAButton onClick={addToCartHandler}>Add to Cart</CTAButton>
+							<CTAButton onClick={cartHandler}>{!inCart ? "Add to Cart" : 'View in Cart'}</CTAButton>
 						</div>
 						<div className={`${classes.buttonContainer} ${classes.wishlist}`}>
 							<WishlistButton onClick={wishlistHandler}>
@@ -175,35 +154,3 @@ export async function loader({ params }) {
 		);
 	}
 }
-
-// const params = useParams();
-// const [gameDetails, setGameDetails] = useState(null);
-// const [isLoading, setIsLoading] = useState(true);
-// const [isError, setIsError] = useState(false);
-
-// useEffect(() => {
-// 	const fetchData = async () => {
-// 		try {
-// 			const response = await axios.get(
-// 				`https://api.rawg.io/api/games/${params.gameId}?key=8c5f5a03a748417b9752c0b536fa1e98`
-// 			);
-// 			const data = response.data;
-// 			setGameDetails(data);
-// 			setIsLoading(false);
-// 		} catch (error) {
-// 			setIsError(true);
-// 			setIsLoading(false);
-// 			console.error('Error loading data!', error);
-// 		}
-// 	};
-
-// 	fetchData();
-// }, [params.gameId]);
-
-// if (isLoading) {
-// 	return <h1>Loading...</h1>;
-// }
-
-// if (isError) {
-// 	return <h1>Error loading data!</h1>;
-// }
