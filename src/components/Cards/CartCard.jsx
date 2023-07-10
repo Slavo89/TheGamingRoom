@@ -2,8 +2,6 @@ import { Link } from 'react-router-dom';
 import WishlistButton from '../Buttons/WishlistButton'
 import classes from './CartCard.module.scss';
 import CTAButton from '../Buttons/CTAButton';
-// import { wishlistActions } from '../../store/wishlist-slice';
-// import { useDispatch } from 'react-redux';
 
 
 const ratings = {
@@ -68,7 +66,7 @@ const CartCard = (props) => {
 					event.preventDefault()
 				}}>
 					<button className={classes.removeButton} onClick={handleClick}>Remove</button>
-					{props.onCart ? <WishlistButton onClick={props.onAdd}> Move to Wishlist </WishlistButton> : <CTAButton onClick={onAdd}>Add to Cart</CTAButton>}
+					{props.inCart ? <WishlistButton onClick={props.onAdd}> Move to Wishlist </WishlistButton> : <CTAButton onClick={onAdd}>Add to Cart</CTAButton>}
 				</div>
 			</Link>
 		</li>

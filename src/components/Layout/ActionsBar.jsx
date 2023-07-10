@@ -17,7 +17,6 @@ const ActionsBar = (props) => {
 	const [key, setKey] = useState(0);
 	const [prevCartItems, setPrevCartItems] = useState(0);
 	const [badgeClass, setBadgeClass] = useState(`${classes.badge}`);
-	console.log(cartItems, prevCartItems, key);
 	useEffect(() => {
 		setKey(cartItems);
 		if (cartItems > 0) {
@@ -26,17 +25,13 @@ const ActionsBar = (props) => {
 
 		if (cartItems > prevCartItems) {
 			setBadgeClass(`${classes.badge} ${classes.show} ${classes.increase}`);
-			// setPrevCartItems(key + 1);
 			setTimeout(() => {
 				setPrevCartItems(key + 1);
 			}, 700);
 		}
-		// setKey(key + 1)
-		// console.log(key);
 
 		if (cartItems < prevCartItems) {
 			setBadgeClass(`${classes.badge} ${classes.show} ${classes.decrease}`);
-			// setPrevCartItems(key - 1);
 			setTimeout(() => {
 				setPrevCartItems(key - 1);
 			}, 700);
@@ -75,11 +70,6 @@ const ActionsBar = (props) => {
 			<BsSearch />
 		</button>
 	);
-
-	// let badgeClass;
-	// if (cartItems > key) {
-	// 	badgeClass = `${classes.show} ${classes.badge}`
-	// }
 
 	const mainBarList = (
 		<div className={classes.actionNav}>
@@ -189,11 +179,6 @@ const ActionsBar = (props) => {
 						<span key={key}>{prevCartItems}</span>
 					</div>
 
-					{/* {cartItems > 0 && (
-						<div className={badgeClass}>
-							<span key={key}>{cartItems}</span>
-						</div>
-					)} */}
 				</NavLink>
 			</div>
 

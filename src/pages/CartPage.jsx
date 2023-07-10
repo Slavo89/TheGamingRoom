@@ -1,7 +1,7 @@
 import classes from './CartPage.module.scss';
 import CartCard from '../components/Cards/CartCard';
 import CTAButton from '../components/Buttons/CTAButton';
-import EmptyList from '../components/Layout/EmptyList';
+import EmptyCartList from '../components/Layout/EmptyCartList';
 import { cartActions } from '../store/cart-slice';
 import { useDispatch, useSelector } from 'react-redux';
 import { wishlistActions } from '../store/wishlist-slice';
@@ -91,7 +91,7 @@ const CartPage = () => {
 										price: game.price,
 										rating: game.esrb_rating,
 									}}
-									onCart={true}
+									inCart={true}
 									onAdd={() => {
 										addToWishlistHandler(game);
 									}}
@@ -117,7 +117,7 @@ const CartPage = () => {
 						</div>
 					</div>
 				) : (
-					<EmptyList>Your cart is empty.</EmptyList>
+					<EmptyCartList>Your cart is empty.</EmptyCartList>
 				)}
 			</section>
 		</>

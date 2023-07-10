@@ -37,6 +37,7 @@ const CarouselItem = (props) => {
 				>
 					<WishlistButton
 						onClick={wishlistHandler}
+						inWishlist={inWishlist}
 						onMouseEnter={showTooltipHandler}
 						onMouseLeave={showTooltipHandler}
 					/>

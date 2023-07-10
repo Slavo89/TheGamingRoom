@@ -7,7 +7,7 @@ import { cartActions } from '../store/cart-slice';
 import classes from './WishilstPage.module.scss';
 import OpenListButton from '../components/Buttons/OpenListButton';
 import CartCard from '../components/Cards/CartCard';
-import EmptyList from '../components/Layout/EmptyList';
+import EmptyCartList from '../components/Layout/EmptyCartList';
 
 const WishlistPage = () => {
 	const wishlistItems = useSelector((state) => state.wishlist.items);
@@ -146,9 +146,9 @@ const WishlistPage = () => {
 						)}
 					</div>
 				) : (
-					<EmptyList>
+					<EmptyCartList>
 						You haven`t added anything to your wishlist yet.
-					</EmptyList>
+					</EmptyCartList>
 				)}
 			</section>
 		</>

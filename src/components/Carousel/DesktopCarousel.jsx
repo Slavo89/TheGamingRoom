@@ -45,7 +45,7 @@ const DesktopCarousel = (props) => {
 			<div className={classes.container}>
 				<DesktoCarouselMainSlide
 					key={key}
-					onGame={GAMES[activeIndex]}
+					game={GAMES[activeIndex]}
 				/>
 			</div>
 			<div className={classes.rightSection}>

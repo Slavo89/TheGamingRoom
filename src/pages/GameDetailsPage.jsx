@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { useLoaderData, json } from 'react-router-dom';
 import { Carousel } from 'react-carousel-minimal';
-// import { useDispatch } from 'react-redux';
-// import { cartActions, addToCart } from '../store/cart-slice';
 import useWishlist from '../hooks/useWishlist';
 import classes from './GameDetailsPage.module.scss';
 import WishlistButton from '../components/Buttons/WishlistButton';
@@ -11,7 +9,6 @@ import useCart from '../hooks/useCart';
 
 const GameDetailsPage = () => {
 	const gameDetails = useLoaderData();
-	// const dispatch = useDispatch();
 	const ratingStyle = {
 		'--rating': gameDetails.rating,
 	};
@@ -23,13 +20,8 @@ const GameDetailsPage = () => {
 	const [inCart, cartHandler] = useCart(
 		gameDetails
 	);
-	// const addToCartHandler = () => {
-	// 	const gameData = addToCart(gameDetails);
-	// 	dispatch(cartActions.addItemToCart(gameData));
-	// };
-
 	return (
-		<div className={classes.gameDetails}>
+		<section className={classes.gameDetails}>
 			<h1 className={classes.title}>{gameDetails.name}</h1>
 			<div className={classes.rating}>
 				<div
@@ -68,7 +60,7 @@ const GameDetailsPage = () => {
 							<CTAButton onClick={cartHandler}>{!inCart ? "Add to Cart" : 'View in Cart'}</CTAButton>
 						</div>
 						<div className={`${classes.buttonContainer} ${classes.wishlist}`}>
-							<WishlistButton onClick={wishlistHandler}>
+							<WishlistButton onClick={wishlistHandler} inWishlist={inWishlist}>
 								<p>{!inWishlist ? 'Add to Wishlist' : 'In Wishlist'}</p>
 							</WishlistButton>
 						</div>
@@ -130,7 +122,7 @@ const GameDetailsPage = () => {
 					</div>
 				</div>
 			</div>
-		</div>
+		</section>
 	);
 };
 

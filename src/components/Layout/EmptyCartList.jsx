@@ -1,8 +1,8 @@
-import classes from './EmptyList.module.scss'
+import classes from './EmptyCartList.module.scss'
 import { Link } from 'react-router-dom';
 import { FaRegSadCry } from 'react-icons/fa';
 
-const EmptyList = (props) => {
+const EmptyCartList = (props) => {
   return (
 		<div className={classes.emptyList}>
 			<span>
@@ -21,4 +21,4 @@ const EmptyList = (props) => {
 	);
 }
 
-export default EmptyList
+export default EmptyCartList

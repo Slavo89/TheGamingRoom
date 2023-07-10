@@ -6,30 +6,30 @@ import useWishlist from '../../hooks/useWishlist';
 import useCart from '../../hooks/useCart';
 
 const DesktoCarouselMainSlide = (props) => {
-	const [inWishlist, wishlistHandler] = useWishlist(props.onGame);
-	const [inCart, cartHandler] = useCart(props.onGame);
+	const [inWishlist, wishlistHandler] = useWishlist(props.game);
+	const [inCart, cartHandler] = useCart(props.game);
 
 	return (
-		<Link to={`${props.onGame.id}`}>
+		<Link to={`${props.game.id}`}>
 			<div className={classes.leftSection}>
 				<picture className={classes.image}>
 					<source
 						media="(min-width: 0px)"
-						srcSet={props.onGame.background_image}
+						srcSet={props.game.background_image}
 						alt="Game picture"
 					/>
 					<img
-						src={props.onGame.background_image}
+						src={props.game.background_image}
 						alt="Game picture"
 					/>
 				</picture>
 				<div className={classes.gameDescription}>
-					<p className={classes.title}>{props.onGame.name}</p>
-					<p className={classes.rating}>Rating: {props.onGame.rating}</p>
+					<p className={classes.title}>{props.game.name}</p>
+					<p className={classes.rating}>Rating: {props.game.rating}</p>
 					<p className={classes.genres}>
-						Genres: {props.onGame.genres.map((genre) => genre.name).join(', ')}
+						Genres: {props.game.genres.map((genre) => genre.name).join(', ')}
 					</p>
-					<p className={classes.price}>Starting at $ {props.onGame.metacritic}</p>
+					<p className={classes.price}>Starting at $ {props.game.metacritic}</p>
 
 					<div className={classes.buttons}>
 						<div
@@ -44,7 +44,7 @@ const DesktoCarouselMainSlide = (props) => {
 							className={`${classes.buttonContainer} ${classes.wishlist}`}
 							onClick={(event) => event.preventDefault()}
 						>
-							<WishlistButton onClick={wishlistHandler} />
+							<WishlistButton onClick={wishlistHandler} inWishlist={inWishlist} />
 
 							<p>{!inWishlist ? 'Add to Wishlist' : 'In Wishlist'}</p>
 						</div>
