@@ -148,11 +148,13 @@ const ActionsBar = (props) => {
 			)}
 			<div className={classes.mainBar}>
 				{!is1280Px ? (
-					<OpenListButton
-						onClick={toggleListHandler}
-						onChangeText={pageName}
-						onListOpen={listOpen}
-					/>
+					<div>
+						<OpenListButton
+							onClick={toggleListHandler}
+							onChangeText={pageName}
+							onListOpen={listOpen}
+						/>
+					</div>
 				) : (
 					mainBarList
 				)}
@@ -178,7 +180,6 @@ const ActionsBar = (props) => {
 					<div className={badgeClass}>
 						<span key={key}>{prevCartItems}</span>
 					</div>
-
 				</NavLink>
 			</div>
 

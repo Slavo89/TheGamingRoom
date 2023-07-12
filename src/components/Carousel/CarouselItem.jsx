@@ -47,7 +47,7 @@ const CarouselItem = (props) => {
 					<p className={classes.title}>{props.name}</p>
 					<p>Rating: {props.rating}</p>
 					<p>Genres: {props.genres.join(', ')}</p>
-					<p className={classes.price}>Starting at $ {props.price}</p>
+					<p className={classes.price}>Starting at $ {props.metacritic}</p>
 				</div>
 			</div>
 		</Link>

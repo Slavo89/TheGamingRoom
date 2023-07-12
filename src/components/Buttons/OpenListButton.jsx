@@ -8,7 +8,7 @@ const OpenListButton = (props) => {
 			type="button"
 			className={classes.listButton}
 			onClick={props.onClick}
-		>
+		>{props.children}
 			<span className={classes.text}>{props.onChangeText}</span>
 			<span>
               <BsChevronDown

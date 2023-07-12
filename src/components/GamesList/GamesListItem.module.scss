@@ -2,6 +2,10 @@
 	padding: 1.5rem;
 	list-style: none;
 	transition: background-color 0.3s;
+	a {
+		text-decoration: none;
+		color: inherit;
+	}
 	.container {
 		height: 65px;
 		display: grid;
@@ -12,6 +16,7 @@
 		.image {
 			position: relative;
 			height: 100%;
+			max-height: 65px;
 			source,
 			img {
 				width: 100%;
@@ -20,17 +25,17 @@
 				object-fit: cover;
 			}
 			.buttonContainer {
+				display: none;
 				height: 45px;
 				width: 45px;
 				position: absolute;
 				top: -10px;
 				right: -5px;
 				opacity: 0;
-				background: none;
 			}
 		}
 		.info {
-            grid-column: 2/3;
+			grid-column: 2/3;
 			display: flex;
 			flex-direction: column;
 			gap: 0.5rem;
@@ -57,28 +62,40 @@
 	}
 	// MEDIA QUERIES
 }
+
+@media (width >= 768px) {
+	.gamesListItem {
+		.container {
+			.image {
+				.buttonContainer {
+					display: block;
+				}
+			}
+		}
+	}
+}
+
 @media (width >= 1100px) {
 	.gamesListItem {
 		padding: 1.5rem 2rem;
-        .container {
-            height: 100px;
-            grid-column-gap: 3rem;
-            .image {
-                height: 100%;
-            }
-        }
+		.container {
+			height: 100px;
+			grid-column-gap: 3rem;
+			.image {
+				max-height: 100px;
+			}
+		}
 	}
 }
 
 @media (width >= 1600px) {
 	.gamesListItem {
 		padding: 2rem 3rem;
-        .container {
-            height: 130px;
-            grid-column-gap: 3rem;
-            .image {
-                height: 100%;
-            }
-        }
+		.container {
+			height: 130px;
+			.image {
+				max-height: 130px;
+			}
+		}
 	}
 }

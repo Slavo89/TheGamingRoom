@@ -4,23 +4,25 @@ import Carousel from '../components/Carousel/Carousel';
 import DesktopCarousel from '../components/Carousel/DesktopCarousel';
 
 import { useLoaderData, json } from 'react-router-dom';
+import DesktopGamesList from '../components/GamesList/DesktopGamesList';
 import GamesList from '../components/GamesList/GamesList';
 
 const HomePage = () => {
-	const is770Px = useMediaQuery('(width >= 770px)');
+	const is768Px = useMediaQuery('(width >= 768px)');
 	const data = useLoaderData();
-	const carouselGames = data.slice(0, 5);
-	const listGames = data.slice(5, 20)
+	const gamesCarousel = data.slice(0, 5);
+	const gamesList = data.slice(5, 20);
 
-	// console.log(listGames);
+	// console.log(gamesList);
 	return (
 		<>
 			<section>
 				<h2>Bestsellers</h2>
-				{!is770Px && <Carousel games={carouselGames} />}
-				{is770Px && <DesktopCarousel games={carouselGames} />}
+				{!is768Px && <Carousel games={gamesCarousel} />}
+				{is768Px && <DesktopCarousel games={gamesCarousel} />}
 			</section>
-			{is770Px && <GamesList games={listGames}/>}
+			{!is768Px && <GamesList games={gamesList} />}
+			{is768Px && <DesktopGamesList games={gamesList} />}
 		</>
 	);
 };

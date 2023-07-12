@@ -1,0 +1,24 @@
+.asideFilters {
+	width: 245px;
+	flex-shrink: 0;
+
+	& > :first-child {
+		margin-bottom: 2rem;
+        height: 38px;
+		display: flex;
+		align-items: center;
+		font-weight: 700;
+	}
+	.buttonContainer {
+		padding: 0.5rem 0;
+		height: 60px;
+		border-top: 1px solid var(--border-color);
+	}
+   
+    .listItem {
+        padding: 1rem;
+        margin-bottom: 0.5rem;
+        opacity: 0.6;
+        list-style: none;
+    }
+}

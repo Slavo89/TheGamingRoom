@@ -8,6 +8,7 @@ import useCart from '../../hooks/useCart';
 const DesktoCarouselMainSlide = (props) => {
 	const [inWishlist, wishlistHandler] = useWishlist(props.game);
 	const [inCart, cartHandler] = useCart(props.game);
+	// console.log(props.game);
 
 	return (
 		<Link to={`${props.game.id}`}>

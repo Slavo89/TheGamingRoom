@@ -8,13 +8,15 @@ import classes from './WishilstPage.module.scss';
 import OpenListButton from '../components/Buttons/OpenListButton';
 import CartCard from '../components/Cards/CartCard';
 import EmptyCartList from '../components/Layout/EmptyCartList';
+import AsideFilters from '../components/Layout/AsideFilters';
 
 const WishlistPage = () => {
 	const wishlistItems = useSelector((state) => state.wishlist.items);
+	const [sortedWishlistItems, setSortedWishlistItems] = useState(wishlistItems);
 	const dispatch = useDispatch();
 
 	const [listOpen, setListOpen] = useState(false);
-	const [sortBy, setSortBy] = useState('On Sale');
+	const [activeSort, setActiveSort] = useState('Recently Added');
 	const sortListRef = useRef(null);
 	const is1024Px = useMediaQuery('(width >= 1024px)');
 	const is770Px = useMediaQuery('(width >= 770px)');
@@ -41,9 +43,44 @@ const WishlistPage = () => {
 		};
 	}, [listOpen]);
 
-	const sortByHandler = () => {
-		setSortBy(event.target.innerHTML);
-		setListOpen(false);
+	const sortByRecentlyAddedHandler = () => {
+		setSortedWishlistItems(wishlistItems);
+		setActiveSort('Recently Added');
+	};
+
+	const sortByNameHandler = () => {
+		const sortedItems = [...wishlistItems];
+		sortedItems.sort((a, b) => {
+			const nameA = a.name.toLowerCase();
+			const nameB = b.name.toLowerCase();
+
+			if (nameA < nameB) {
+				return -1;
+			}
+			if (nameA > nameB) {
+				return 1;
+			}
+			return 0;
+		});
+		setSortedWishlistItems(sortedItems);
+		setActiveSort('Alphabetical');
+	};
+
+	const sortByPriceHandler = (price) => {
+		const sortedItems = [...wishlistItems];
+		if (price === 'lowToHigh') {
+			sortedItems.sort((a, b) => {
+				return a.price - b.price;
+			});
+			setSortedWishlistItems(sortedItems);
+			setActiveSort('Price: Low to High');
+		} else if (price === 'highToLow') {
+			sortedItems.sort((a, b) => {
+				return b.price - a.price;
+			});
+			setSortedWishlistItems(sortedItems);
+			setActiveSort('Price: High to Low');
+		}
 	};
 
 	const toggleListHandler = () => {
@@ -58,13 +95,17 @@ const WishlistPage = () => {
 				price: game.price,
 				img: game.img,
 				esrb_rating: game.esrb_rating,
-				platforms: game.platforms
+				platforms: game.platforms,
 			})
 		);
 	};
 
 	const removeFromWishlistHandler = (itemId) => {
 		dispatch(wishlistActions.removeItemFromWishlist(itemId));
+		const updatedItems = sortedWishlistItems.filter(
+			(game) => game.id !== itemId
+		);
+		setSortedWishlistItems(updatedItems);
 	};
 
 	return (
@@ -96,54 +137,135 @@ const WishlistPage = () => {
 						<span className={classes.slider}></span>
 					</label>
 				</div>
-				<div className={classes.sortList}>
+				{/* <div className={classes.sortList}>
 					<span className={classes.span}>Sort By :</span>
 					<div ref={sortListRef}>
 						<OpenListButton
 							onClick={toggleListHandler}
-							onChangeText={sortBy}
+							onChangeText={activeSort}
 							onListOpen={listOpen}
 						/>
 					</div>
 					{listOpen && (
 						<ul>
 							<li
-								className={classes.active}
-								onClick={sortByHandler}
+								className={
+									activeSort === 'Recently Added' ? classes.active : ''
+								}
+								onClick={sortByRecentlyAddedHandler}
 							>
-								On Sale
+								Recenty Added
 							</li>
-							<li onClick={sortByHandler}>Recently Added</li>
-							<li onClick={sortByHandler}>Alphabetical</li>
-							<li onClick={sortByHandler}>Price: Low to High</li>
-							<li onClick={sortByHandler}>Price: High to Low</li>
+							<li
+								className={activeSort === 'Alphabetical' ? classes.active : ''}
+								onClick={sortByNameHandler}
+							>
+								Alphabetical
+							</li>
+							<li
+								className={
+									activeSort === 'Price: Low to High' ? classes.active : ''
+								}
+								onClick={() => {
+									sortByPriceHandler('lowToHigh');
+								}}
+							>
+								Price: Low to High
+							</li>
+							<li
+								className={
+									activeSort === 'Price: High to Low' ? classes.active : ''
+								}
+								onClick={() => {
+									sortByPriceHandler('highToLow');
+								}}
+							>
+								Price: High to Low
+							</li>
 						</ul>
 					)}
-				</div>
+					{is1024Px && wishlistItems.length > 0 && <AsideFilters />}
+				</div> */}
 
-				{wishlistItems.length > 0 ? (
-					<div className={classes.gameList}>
-						<ul className={classes.list}>
-							{wishlistItems.map((game) => (
-								<CartCard
-									key={game.id}
-									item={{
-										id: game.id,
-										name: game.name,
-										img: game.img,
-										platforms: game.platforms,
-										price: game.price,
-										rating: game.esrb_rating,
-									}}
-									
-									onAdd={() => addToCartHandler(game)}
-									onRemove={() => removeFromWishlistHandler(game.id)}
-								/>
-							))}
-						</ul>
-						{is1024Px && wishlistItems.length > 0 && (
-							<aside className={classes.filters}>FILTERS</aside>
-						)}
+				{sortedWishlistItems.length > 0 ? (
+					<div className={classes.mainContent}>
+						<div className={classes.list}>
+							<div className={classes.sortList}>
+								<span className={classes.span}>Sort By :</span>
+								<div ref={sortListRef}>
+									<OpenListButton
+										onClick={toggleListHandler}
+										onChangeText={activeSort}
+										onListOpen={listOpen}
+									/>
+								</div>
+								{listOpen && (
+									<ul>
+										<li
+											className={
+												activeSort === 'Recently Added' ? classes.active : ''
+											}
+											onClick={sortByRecentlyAddedHandler}
+										>
+											Recenty Added
+										</li>
+										<li
+											className={
+												activeSort === 'Alphabetical' ? classes.active : ''
+											}
+											onClick={sortByNameHandler}
+										>
+											Alphabetical
+										</li>
+										<li
+											className={
+												activeSort === 'Price: Low to High'
+													? classes.active
+													: ''
+											}
+											onClick={() => {
+												sortByPriceHandler('lowToHigh');
+											}}
+										>
+											Price: Low to High
+										</li>
+										<li
+											className={
+												activeSort === 'Price: High to Low'
+													? classes.active
+													: ''
+											}
+											onClick={() => {
+												sortByPriceHandler('highToLow');
+											}}
+										>
+											Price: High to Low
+										</li>
+									</ul>
+								)}
+							</div>
+							<div className={classes.gameList}>
+								<ul className={classes.list}>
+									{sortedWishlistItems.map((game) => (
+										<CartCard
+											key={game.id}
+											item={{
+												id: game.id,
+												name: game.name,
+												img: game.img,
+												platforms: game.platforms,
+												price: game.price,
+												rating: game.esrb_rating,
+											}}
+											onAdd={() => addToCartHandler(game)}
+											onRemove={() => removeFromWishlistHandler(game.id)}
+										/>
+									))}
+								</ul>
+								{/* {is1024Px && wishlistItems.length > 0 && <AsideFilters />} */}
+							</div>
+						</div>
+						{is1024Px && wishlistItems.length > 0 && <AsideFilters />}
 					</div>
 				) : (
 					<EmptyCartList>

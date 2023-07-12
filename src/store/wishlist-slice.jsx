@@ -10,7 +10,7 @@ const wishlistSlice = createSlice({
 			const newItem = action.payload;
 			const existingItem = state.items.find((item) => item.id === newItem.id);
 			if (!existingItem) {
-				state.items.push({
+				state.items.unshift({
 					key: newItem.id,
 					id: newItem.id,
 					name: newItem.name,
@@ -18,7 +18,10 @@ const wishlistSlice = createSlice({
 					img: newItem.img,
 					platforms: newItem.platforms,
 					esrb_rating: newItem.esrb_rating,
+					tags: newItem.tags,
+					genres: newItem.genres,
 				});
+				
 			} else {
 				return;
 			}
@@ -48,5 +51,7 @@ export const addToWishlist = (gameData) => {
 		platforms: gameData.parent_platforms
 			.map((item) => item.platform.name)
 			.join(', '),
+		genres: gameData.genres.map((item) => item.name),
+		tags: gameData.tags.map((item => item.name))
 	};
 };

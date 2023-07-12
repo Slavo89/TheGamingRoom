@@ -1,19 +1,12 @@
-.gamesList {
-    margin: 0auto;
-    display: flex;
-    justify-content: space-evenly;
-    .list {
-        padding: 0rem 1rem;
-        width: 33%;
-        border-right: 1px solid var(--border-color);
-        &:last-child {
-            border: none;
-        }
-        .columnTitle {
-            margin-bottom: 2rem;
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
-    }
-    
+.list {
+	padding: 0rem 2rem;
+	.columnTitle {
+		margin-bottom: 2rem;
+		font-size: 1.8rem;
+		font-weight: 700;
+	}
+}
+
+.border {
+	border-right: 1px solid var(--border-color);
 }

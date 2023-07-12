@@ -14,7 +14,7 @@ const cartSlice = createSlice({
 			
 			const existingItem = state.items.find((item) => item.id === newItem.id);
 			if (!existingItem) {
-				state.items.push({
+				state.items.unshift({
 					key: newItem.id,
 					id: newItem.id,
 					name: newItem.name,
