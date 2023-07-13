@@ -1,22 +1,118 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { BsCheck2 } from 'react-icons/bs';
 import OpenListButton from '../Buttons/OpenListButton';
 import classes from './AsideFiltes.module.scss';
 
 const AsideFilters = (props) => {
-	const [listOpen, setListOpen] = useState(false);
-	const [genreList, setGenreList] = useState(false);
-	const [featuresList, setFeaturesList] = useState(false);
-	const [platformList, setPlatformList] = useState(false);
+	// const [listOpen, setListOpen] = useState(false);
+	const [genreListOpen, setGenreListOpen] = useState(false);
+	const [featuresListOpen, setFeaturesListOpen] = useState(false);
+	const [platformListOpen, setPlatformListOpen] = useState(false);
+
+	const [selectedFilters, setSelectedFilters] = useState([]);
+
+	function getFilters(prop) {
+		let filtersArray;
+		switch (prop) {
+			case 'genres':
+				filtersArray = props.games.map((game) => game.genres).flat();
+				break;
+			case 'features':
+				filtersArray = props.games
+					.map((game) => game.tags)
+					.flat()
+					.filter((value) => {
+						return value.charAt(0) === value.charAt(0).toUpperCase();
+					});
+
+				break;
+			case 'platforms':
+				filtersArray = props.games.map((game) => game.platforms).flat();
+				break;
+			default:
+				filtersArray = [];
+				break;
+		}
+		const unique = filtersArray.filter((value, index, self) => {
+			return self.indexOf(value) === index;
+		});
+		return unique;
+	}
+	const genres = getFilters('genres');
+	const features = getFilters('features');
+	const platforms = getFilters('platforms');
+
+	const selectFilterHandler = (item) => {
+		if (selectedFilters.includes(item)) {
+			setSelectedFilters(selectedFilters.filter((i) => i !== item));
+		} else {
+			setSelectedFilters([...selectedFilters, item]);
+		}
+	};
+
+	const genresFilterHandler = (event) => {
+		const filterGamesByGenre = (games, genre) => {
+			return games.filter((game) => game.genres.includes(genre));
+		};
+		const selectedGenre = event.target.innerText;
+		const filteredGames = filterGamesByGenre(props.games, selectedGenre);
+		props.onFilterChange(filteredGames);
+		selectFilterHandler(selectedGenre);
+	};
+
+	const featuresFilterHandler = (event) => {
+		const filterGamesByFeatures = (games, feature) => {
+			return games.filter((game) => game.tags.includes(feature));
+		};
+		const selectedFeature = event.target.innerText;
+		const filteredGames = filterGamesByFeatures(props.games, selectedFeature);
+		props.onFilterChange(filteredGames);
+		selectFilterHandler(selectedFeature);
+	};
+
+	const platformsFilterHandler = (event) => {
+		const filterGamesByPlatforms = (games, features) => {
+			return games.filter((game) => game.platforms.includes(features));
+		};
+		const selectedPlatform = event.target.innerText;
+		const filteredGames = filterGamesByPlatforms(props.games, selectedPlatform);
+		props.onFilterChange(filteredGames);
+		selectFilterHandler(selectedPlatform);
+	};
+
+	useEffect(() => {
+		const filterGames = () => {
+			let filteredGames = props.games;
+
+			// Filter games based on selected filters
+			if (selectedFilters.length > 0) {
+				filteredGames = filteredGames.filter((game) => {
+					return selectedFilters.every((filter) => {
+						return (
+							game.genres.includes(filter) ||
+							game.tags.includes(filter) ||
+							game.platforms.includes(filter)
+						);
+					});
+				});
+			}
+
+			props.onFilterChange(filteredGames);
+		};
+
+		filterGames();
+	}, [selectedFilters]);
+
 	const toggleListHandler = (event) => {
-		setListOpen(!listOpen);
+		// setListOpen(!listOpen);
 		if (event.target.innerText === 'Genre') {
-			setGenreList(!genreList)
+			setGenreListOpen(!genreListOpen);
 		}
 		if (event.target.innerText === 'Features') {
-			setFeaturesList(!featuresList)
+			setFeaturesListOpen(!featuresListOpen);
 		}
 		if (event.target.innerText === 'Platform') {
-			setPlatformList(!platformList)
+			setPlatformListOpen(!platformListOpen);
 		}
 	};
 
@@ -28,182 +124,79 @@ const AsideFilters = (props) => {
 			{props.children}
 			<div className={classes.buttonContainer}>
 				<OpenListButton
-					onClick={toggleListHandler}
-					onListOpen={genreList}
+					onClick={() => {
+						toggleListHandler(event);
+					}}
+					onListOpen={genreListOpen}
 				>
 					Genre
 				</OpenListButton>
 			</div>
-			{genreList && (
+			{genreListOpen && (
 				<ul>
-					<li
-						className={classes.listItem}
-						onClick={() => {}}
-					>
-						Action
-					</li>
-					<li
-						className={classes.listItem}
-						onClick={() => {}}
-					>
-						Strategy
-					</li>
-					<li
-						className={classes.listItem}
-						onClick={() => {}}
-					>
-						RPG
-					</li>
-					<li
-						className={classes.listItem}
-						onClick={() => {}}
-					>
-						Shooter
-					</li>
-					<li
-						className={classes.listItem}
-						onClick={() => {}}
-					>
-						Adventure
-					</li>
-					<li
-						className={classes.listItem}
-						onClick={() => {}}
-					>
-						Puzzle
-					</li>
-					<li
-						className={classes.listItem}
-						onClick={() => {}}
-					>
-						Racing
-					</li>
-					<li
-						className={classes.listItem}
-						onClick={() => {}}
-					>
-						Sports
-					</li>
+					{genres.map((genre) => (
+						<li
+							key={genre}
+							className={`${classes.listItem} ${
+								selectedFilters.includes(genre) ? classes.selected : ''
+							}`}
+							tabIndex="0"
+							onClick={genresFilterHandler}
+						>
+							{genre}
+							<BsCheck2 />
+						</li>
+					))}
 				</ul>
 			)}
 			<div className={classes.buttonContainer}>
 				<OpenListButton
 					onClick={toggleListHandler}
-					onListOpen={featuresList}
+					onListOpen={featuresListOpen}
 				>
 					Features
 				</OpenListButton>
 			</div>
-			{featuresList && (
+			{featuresListOpen && (
 				<ul>
-					<li
-						className={classes.listItem}
-						onClick={() => {}}
-					>
-						Single Player
-					</li>
-					<li
-						className={classes.listItem}
-						onClick={() => {}}
-					>
-						Multi Player
-					</li>
-					<li
-						className={classes.listItem}
-						onClick={() => {}}
-					>
-						Co-op
-					</li>
-					<li
-						className={classes.listItem}
-						onClick={() => {}}
-					>
-						Open World
-					</li>
-					<li
-						className={classes.listItem}
-						onClick={() => {}}
-					>
-						First-Person
-					</li>
-					<li
-						className={classes.listItem}
-						onClick={() => {}}
-					>
-						2D
-					</li>
-					<li
-						className={classes.listItem}
-						onClick={() => {}}
-					>
-						Third Person
-					</li>
-					<li
-						className={classes.listItem}
-						onClick={() => {}}
-					>
-						Sci-fi
-					</li>
-					<li
-						className={classes.listItem}
-						onClick={() => {}}
-					>
-						Horror
-					</li>
-					<li
-						className={classes.listItem}
-						onClick={() => {}}
-					>
-						Fantasy
-					</li>
+					{features.map((feature) => (
+						<li
+							key={feature}
+							className={`${classes.listItem} ${
+								selectedFilters.includes(feature) ? classes.selected : ''
+							}`}
+							tabIndex="0"
+							onClick={featuresFilterHandler}
+						>
+							{feature}
+							<BsCheck2 />
+						</li>
+					))}
 				</ul>
 			)}
 			<div className={classes.buttonContainer}>
 				<OpenListButton
 					onClick={toggleListHandler}
-					onListOpen={platformList}
+					onListOpen={platformListOpen}
 				>
 					Platform
 				</OpenListButton>
 			</div>
-			{platformList && (
+			{platformListOpen && (
 				<ul>
-					<li
-							className={classes.listItem}
-							onClick={() => {}}
+					{platforms.map((platform) => (
+						<li
+							key={platform}
+							className={`${classes.listItem} ${
+								selectedFilters.includes(platform) ? classes.selected : ''
+							}`}
+							tabIndex="0"
+							onClick={platformsFilterHandler}
 						>
-							PC
+							{platform}
+							<BsCheck2 />
 						</li>
-					<li
-							className={classes.listItem}
-							onClick={() => {}}
-						>
-							PlayStation
-						</li>
-					<li
-							className={classes.listItem}
-							onClick={() => {}}
-						>
-							Xbox
-						</li>
-					<li
-							className={classes.listItem}
-							onClick={() => {}}
-						>
-							Android
-						</li>
-					<li
-							className={classes.listItem}
-							onClick={() => {}}
-						>
-							Apple
-						</li>
-					<li
-							className={classes.listItem}
-							onClick={() => {}}
-						>
-							Nintendo
-						</li>
+					))}
 				</ul>
 			)}
 		</aside>

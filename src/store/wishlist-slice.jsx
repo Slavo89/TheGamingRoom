@@ -49,8 +49,11 @@ export const addToWishlist = (gameData) => {
 		img: gameData.background_image,
 		esrb_rating: gameData.esrb_rating,
 		platforms: gameData.parent_platforms
-			.map((item) => item.platform.name)
-			.join(', '),
+			.map((item) => item.platform.name),
+		// 	.join(', '),
+		// platforms: gameData.parent_platforms
+		// 	.map((item) => item.platform.name)
+		// 	.join(', '),
 		genres: gameData.genres.map((item) => item.name),
 		tags: gameData.tags.map((item => item.name))
 	};

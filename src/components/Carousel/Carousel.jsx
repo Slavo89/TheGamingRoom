@@ -27,6 +27,7 @@ const Carousel = (props) => {
 						metacritic={game.metacritic}
 						esrb_rating={game.esrb_rating}
 						parent_platforms={game.parent_platforms}
+						tags={game.tags}
 						// platforms={game.parent_platforms
 						// 	.map((item) => item.platform.name)
 						// 	.join(', ')}

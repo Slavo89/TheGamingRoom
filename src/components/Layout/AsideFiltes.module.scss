@@ -4,7 +4,7 @@
 
 	& > :first-child {
 		margin-bottom: 2rem;
-        height: 38px;
+		height: 38px;
 		display: flex;
 		align-items: center;
 		font-weight: 700;
@@ -14,11 +14,36 @@
 		height: 60px;
 		border-top: 1px solid var(--border-color);
 	}
-   
-    .listItem {
-        padding: 1rem;
-        margin-bottom: 0.5rem;
-        opacity: 0.6;
-        list-style: none;
-    }
+
+	.listItem {
+		padding: 1rem;
+		margin-bottom: 0.5rem;
+		opacity: 0.6;
+		list-style: none;
+		cursor: pointer;
+		transition: all 0.3s;
+		border-radius: 3px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		svg {
+			display: none;
+		}
+		&.selected {
+			background-color: var(--grey-color);
+			color: var(--font-white);
+			opacity: 1;
+			svg {
+				display: block;
+			}
+		}
+
+		&:hover {
+			color: var(--hover-color);
+			opacity: 1;
+		}
+		&:focus {
+			border: 1px solid white;
+		}
+	}
 }

@@ -13,6 +13,7 @@ import AsideFilters from '../components/Layout/AsideFilters';
 const WishlistPage = () => {
 	const wishlistItems = useSelector((state) => state.wishlist.items);
 	const [sortedWishlistItems, setSortedWishlistItems] = useState(wishlistItems);
+	const [filteredWishlistItems] = useState(sortedWishlistItems);
 	const dispatch = useDispatch();
 
 	const [listOpen, setListOpen] = useState(false);
@@ -108,6 +109,10 @@ const WishlistPage = () => {
 		setSortedWishlistItems(updatedItems);
 	};
 
+	const handleFilterChange = (filteredGames) => {
+		setSortedWishlistItems(filteredGames);
+	};
+
 	return (
 		<>
 			<h1>Wishlist</h1>
@@ -137,57 +142,8 @@ const WishlistPage = () => {
 						<span className={classes.slider}></span>
 					</label>
 				</div>
-				{/* <div className={classes.sortList}>
-					<span className={classes.span}>Sort By :</span>
-					<div ref={sortListRef}>
-						<OpenListButton
-							onClick={toggleListHandler}
-							onChangeText={activeSort}
-							onListOpen={listOpen}
-						/>
-					</div>
-					{listOpen && (
-						<ul>
-							<li
-								className={
-									activeSort === 'Recently Added' ? classes.active : ''
-								}
-								onClick={sortByRecentlyAddedHandler}
-							>
-								Recenty Added
-							</li>
-							<li
-								className={activeSort === 'Alphabetical' ? classes.active : ''}
-								onClick={sortByNameHandler}
-							>
-								Alphabetical
-							</li>
-							<li
-								className={
-									activeSort === 'Price: Low to High' ? classes.active : ''
-								}
-								onClick={() => {
-									sortByPriceHandler('lowToHigh');
-								}}
-							>
-								Price: Low to High
-							</li>
-							<li
-								className={
-									activeSort === 'Price: High to Low' ? classes.active : ''
-								}
-								onClick={() => {
-									sortByPriceHandler('highToLow');
-								}}
-							>
-								Price: High to Low
-							</li>
-						</ul>
-					)}
-					{is1024Px && wishlistItems.length > 0 && <AsideFilters />}
-				</div> */}
 
-				{sortedWishlistItems.length > 0 ? (
+				{wishlistItems.length > 0 ? (
 					<div className={classes.mainContent}>
 						<div className={classes.list}>
 							<div className={classes.sortList}>
@@ -253,7 +209,7 @@ const WishlistPage = () => {
 												id: game.id,
 												name: game.name,
 												img: game.img,
-												platforms: game.platforms,
+												platforms: game.platforms.join(', '),
 												price: game.price,
 												rating: game.esrb_rating,
 											}}
@@ -262,10 +218,14 @@ const WishlistPage = () => {
 										/>
 									))}
 								</ul>
-								{/* {is1024Px && wishlistItems.length > 0 && <AsideFilters />} */}
 							</div>
 						</div>
-						{is1024Px && wishlistItems.length > 0 && <AsideFilters />}
+						{is1024Px && wishlistItems.length > 0 && (
+							<AsideFilters
+								games={filteredWishlistItems}
+								onFilterChange={handleFilterChange}
+							/>
+						)}
 					</div>
 				) : (
 					<EmptyCartList>
