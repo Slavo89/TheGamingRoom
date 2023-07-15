@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 import { BsCheck2 } from 'react-icons/bs';
 import OpenListButton from '../Buttons/OpenListButton';
 import classes from './AsideFiltes.module.scss';
+import CTAButton from '../Buttons/CTAButton';
 
 const AsideFilters = (props) => {
 	// const [listOpen, setListOpen] = useState(false);
 	const [genreListOpen, setGenreListOpen] = useState(false);
 	const [featuresListOpen, setFeaturesListOpen] = useState(false);
 	const [platformListOpen, setPlatformListOpen] = useState(false);
-
 	const [selectedFilters, setSelectedFilters] = useState([]);
 
 	function getFilters(prop) {
@@ -80,6 +80,10 @@ const AsideFilters = (props) => {
 		selectFilterHandler(selectedPlatform);
 	};
 
+	const resetFiltersHandler = () => {
+		setSelectedFilters([]);
+	};
+
 	useEffect(() => {
 		const filterGames = () => {
 			let filteredGames = props.games;
@@ -117,12 +121,30 @@ const AsideFilters = (props) => {
 	};
 
 	return (
-		<aside className={classes.asideFilters}>
-			<div>
-				<span>Filters</span>
-			</div>
+		<aside
+			className={
+				props.filtersMenuOpen
+					? `${classes.asideFilters} ${classes.show}`
+					: `${classes.asideFilters}`
+			}
+		>
+			{selectedFilters.length > 0 ? (
+				<div>
+					<span>Filters ({selectedFilters.length})</span>
+					<button
+						className={classes.resetButton}
+						onClick={resetFiltersHandler}
+					>
+						Reset
+					</button>
+				</div>
+			) : (
+				<div>
+					<span>Filters</span>
+				</div>
+			)}
 			{props.children}
-			<div className={classes.buttonContainer}>
+			<div className={classes.filterTypeContainer}>
 				<OpenListButton
 					onClick={() => {
 						toggleListHandler(event);
@@ -149,7 +171,7 @@ const AsideFilters = (props) => {
 					))}
 				</ul>
 			)}
-			<div className={classes.buttonContainer}>
+			<div className={classes.filterTypeContainer}>
 				<OpenListButton
 					onClick={toggleListHandler}
 					onListOpen={featuresListOpen}
@@ -174,7 +196,7 @@ const AsideFilters = (props) => {
 					))}
 				</ul>
 			)}
-			<div className={classes.buttonContainer}>
+			<div className={classes.filterTypeContainer}>
 				<OpenListButton
 					onClick={toggleListHandler}
 					onListOpen={platformListOpen}
@@ -199,6 +221,18 @@ const AsideFilters = (props) => {
 					))}
 				</ul>
 			)}
+			<div className={classes.buttonsContainer}>
+				<button
+					className={classes.clearButton}
+					onClick={() => {
+						props.onToggleMenuOpen();
+						resetFiltersHandler();
+					}}
+				>
+					Clear
+				</button>
+				<CTAButton onClick={props.onToggleMenuOpen}>Apply</CTAButton>
+			</div>
 		</aside>
 	);
 };

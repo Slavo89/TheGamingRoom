@@ -29,7 +29,9 @@ const RootLayout = () => {
 					onClose={closeBackdrop}
 				/>
 				<Container>
-					{navigation.state === 'loading' ? <h1>Loading...</h1> : <Outlet/>}
+					{navigation.state === 'loading' ? <h1>Loading...</h1> : <Outlet openBackdrop={toggleBackdrop} 
+						closeBackdrop={closeBackdrop}
+					/>}
 					{/* <Outlet /> */}
 				</Container>
 			</main>

@@ -14,10 +14,10 @@ const WishlistPage = () => {
 	const wishlistItems = useSelector((state) => state.wishlist.items);
 	const [sortedWishlistItems, setSortedWishlistItems] = useState(wishlistItems);
 	const [filteredWishlistItems] = useState(sortedWishlistItems);
-	const dispatch = useDispatch();
-
 	const [listOpen, setListOpen] = useState(false);
 	const [activeSort, setActiveSort] = useState('Recently Added');
+	const [filtersMenuOpen, setFiltersMenuOpen] = useState(false)
+	const dispatch = useDispatch();
 	const sortListRef = useRef(null);
 	const is1024Px = useMediaQuery('(width >= 1024px)');
 	const is770Px = useMediaQuery('(width >= 770px)');
@@ -109,6 +109,11 @@ const WishlistPage = () => {
 		setSortedWishlistItems(updatedItems);
 	};
 
+	const toggleFiltersMenu = () => {
+		setFiltersMenuOpen(!filtersMenuOpen)
+		// console.log(filtersOpen);
+	}
+
 	const handleFilterChange = (filteredGames) => {
 		setSortedWishlistItems(filteredGames);
 	};
@@ -199,6 +204,21 @@ const WishlistPage = () => {
 										</li>
 									</ul>
 								)}
+								{!is1024Px && (
+									<button className={classes.filterHeader}
+									onClick={toggleFiltersMenu}>
+										<span>Filter</span>
+										<div className={classes.menuIcon}>
+											<div className={`${classes.line} ${classes.top}`}></div>
+											<div
+												className={`${classes.line} ${classes.middle}`}
+											></div>
+											<div
+												className={`${classes.line} ${classes.bottom}`}
+											></div>
+										</div>
+									</button>
+								)}
 							</div>
 							<div className={classes.gameList}>
 								<ul className={classes.list}>
@@ -220,12 +240,14 @@ const WishlistPage = () => {
 								</ul>
 							</div>
 						</div>
-						{is1024Px && wishlistItems.length > 0 && (
-							<AsideFilters
-								games={filteredWishlistItems}
-								onFilterChange={handleFilterChange}
-							/>
-						)}
+
+						<AsideFilters
+							games={filteredWishlistItems}
+							onFilterChange={handleFilterChange}
+							filtersMenuOpen={filtersMenuOpen}
+							onToggleMenuOpen={toggleFiltersMenu}
+
+						/>
 					</div>
 				) : (
 					<EmptyCartList>

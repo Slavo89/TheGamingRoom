@@ -13,7 +13,6 @@ const HomePage = () => {
 	const gamesCarousel = data.slice(0, 5);
 	const gamesList = data.slice(5, 20);
 
-	// console.log(gamesList);
 	return (
 		<>
 			<section>

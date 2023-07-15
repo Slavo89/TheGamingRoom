@@ -94,8 +94,8 @@
 		}
 	}
 	.mainContent {
-		display: flex;
-		gap: 3rem;
+		// display: flex;
+		// gap: 3rem;
 		.list {
 			flex-grow: 1;
 
@@ -128,7 +128,49 @@
 						}
 					}
 				}
+				.filterHeader {
+					margin-left: auto;
+					margin-right: -2.5rem;
+					padding: 1rem 2rem;
+					background-color: inherit;
+					border: none;
+					color: inherit;
+					font-weight: 700;
+					cursor: pointer;
+					display: flex;
+					align-items: center;
+					gap: 1rem;
+					.menuIcon {
+						width: 30px;
+						height: 15px;
+						display: flex;
+						flex-direction: column;
+						justify-content: space-evenly;
+						cursor: pointer;
+						.line {
+							align-self: center;
+							height: 1.5px;
+							background-color: currentColor;
+						}
+						.top {
+							width: 60%;
+						}
+						.middle {
+							width: 40%;
+						}
+						.bottom {
+							width: 20%;
+						}
+					}
+				}
 			}
 		}
+	}
+}
+
+@media (width >= 1024px) {
+	.mainContent {
+		display: flex;
+		gap: 3rem;
 	}
 }
