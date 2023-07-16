@@ -4,22 +4,25 @@ import { FaRegQuestionCircle, FaMailBulk } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { wishlistActions } from '../store/wishlist-slice';
 import { cartActions } from '../store/cart-slice';
+// import { backdropActions } from '../store/backdrop-slice';
 import classes from './WishilstPage.module.scss';
-import OpenListButton from '../components/Buttons/OpenListButton';
+// import OpenListButton from '../components/Buttons/OpenListButton';
 import CartCard from '../components/Cards/CartCard';
 import EmptyCartList from '../components/Layout/EmptyCartList';
 import AsideFilters from '../components/Layout/AsideFilters';
+import SortList from '../components/Layout/SortList';
 
 const WishlistPage = () => {
 	const wishlistItems = useSelector((state) => state.wishlist.items);
-	const [sortedWishlistItems, setSortedWishlistItems] = useState(wishlistItems);
-	const [filteredWishlistItems] = useState(sortedWishlistItems);
+	// const [sortedWishlistItems, setSortedWishlistItems] = useState(wishlistItems);
+	const [sortedItems, setSortedItems] = useState(wishlistItems);
+	const [filteredItems] = useState(sortedItems);
 	const [listOpen, setListOpen] = useState(false);
-	const [activeSort, setActiveSort] = useState('Recently Added');
-	const [filtersMenuOpen, setFiltersMenuOpen] = useState(false)
+	// const [activeSort, setActiveSort] = useState('Recently Added');
+	const [filtersMenuOpen, setFiltersMenuOpen] = useState(false);
 	const dispatch = useDispatch();
 	const sortListRef = useRef(null);
-	const is1024Px = useMediaQuery('(width >= 1024px)');
+	// const is1024Px = useMediaQuery('(width >= 1024px)');
 	const is770Px = useMediaQuery('(width >= 770px)');
 
 	useEffect(() => {
@@ -44,49 +47,49 @@ const WishlistPage = () => {
 		};
 	}, [listOpen]);
 
-	const sortByRecentlyAddedHandler = () => {
-		setSortedWishlistItems(wishlistItems);
-		setActiveSort('Recently Added');
-	};
+	// const sortByRecentlyAddedHandler = () => {
+	// 	setSortedWishlistItems(wishlistItems);
+	// 	setActiveSort('Recently Added');
+	// };
 
-	const sortByNameHandler = () => {
-		const sortedItems = [...wishlistItems];
-		sortedItems.sort((a, b) => {
-			const nameA = a.name.toLowerCase();
-			const nameB = b.name.toLowerCase();
+	// const sortByNameHandler = () => {
+	// 	const sortedItems = [...wishlistItems];
+	// 	sortedItems.sort((a, b) => {
+	// 		const nameA = a.name.toLowerCase();
+	// 		const nameB = b.name.toLowerCase();
 
-			if (nameA < nameB) {
-				return -1;
-			}
-			if (nameA > nameB) {
-				return 1;
-			}
-			return 0;
-		});
-		setSortedWishlistItems(sortedItems);
-		setActiveSort('Alphabetical');
-	};
+	// 		if (nameA < nameB) {
+	// 			return -1;
+	// 		}
+	// 		if (nameA > nameB) {
+	// 			return 1;
+	// 		}
+	// 		return 0;
+	// 	});
+	// 	setSortedWishlistItems(sortedItems);
+	// 	setActiveSort('Alphabetical');
+	// };
 
-	const sortByPriceHandler = (price) => {
-		const sortedItems = [...wishlistItems];
-		if (price === 'lowToHigh') {
-			sortedItems.sort((a, b) => {
-				return a.price - b.price;
-			});
-			setSortedWishlistItems(sortedItems);
-			setActiveSort('Price: Low to High');
-		} else if (price === 'highToLow') {
-			sortedItems.sort((a, b) => {
-				return b.price - a.price;
-			});
-			setSortedWishlistItems(sortedItems);
-			setActiveSort('Price: High to Low');
-		}
-	};
+	// const sortByPriceHandler = (price) => {
+	// 	const sortedItems = [...wishlistItems];
+	// 	if (price === 'lowToHigh') {
+	// 		sortedItems.sort((a, b) => {
+	// 			return a.price - b.price;
+	// 		});
+	// 		setSortedWishlistItems(sortedItems);
+	// 		setActiveSort('Price: Low to High');
+	// 	} else if (price === 'highToLow') {
+	// 		sortedItems.sort((a, b) => {
+	// 			return b.price - a.price;
+	// 		});
+	// 		setSortedWishlistItems(sortedItems);
+	// 		setActiveSort('Price: High to Low');
+	// 	}
+	// };
 
-	const toggleListHandler = () => {
-		setListOpen(!listOpen);
-	};
+	// const toggleListHandler = () => {
+	// 	setListOpen(!listOpen);
+	// };
 	const addToCartHandler = (game) => {
 		dispatch(
 			cartActions.addItemToCart({
@@ -103,19 +106,26 @@ const WishlistPage = () => {
 
 	const removeFromWishlistHandler = (itemId) => {
 		dispatch(wishlistActions.removeItemFromWishlist(itemId));
-		const updatedItems = sortedWishlistItems.filter(
+		const updatedItems = sortedItems.filter(
 			(game) => game.id !== itemId
 		);
-		setSortedWishlistItems(updatedItems);
+		setSortedItems(updatedItems);
 	};
 
 	const toggleFiltersMenu = () => {
-		setFiltersMenuOpen(!filtersMenuOpen)
-		// console.log(filtersOpen);
-	}
+		setFiltersMenuOpen(!filtersMenuOpen);
+	};
 
 	const handleFilterChange = (filteredGames) => {
-		setSortedWishlistItems(filteredGames);
+		setSortedItems(filteredGames);
+	};
+
+	// const toggleBackdropHandler = () => {
+	// 	dispatch(backdropActions.showBackdrop());
+	// };
+
+	const sortItems = (items) => {
+		setSortedItems(items)
 	};
 
 	return (
@@ -151,7 +161,12 @@ const WishlistPage = () => {
 				{wishlistItems.length > 0 ? (
 					<div className={classes.mainContent}>
 						<div className={classes.list}>
-							<div className={classes.sortList}>
+							<SortList
+								originalItems={wishlistItems}
+								sortItems={sortItems}
+								onToggleFiltersMenu={toggleFiltersMenu}
+							/>
+							{/* <div className={classes.sortList}>
 								<span className={classes.span}>Sort By :</span>
 								<div ref={sortListRef}>
 									<OpenListButton
@@ -163,22 +178,35 @@ const WishlistPage = () => {
 								{listOpen && (
 									<ul>
 										<li
+											tabIndex="0"
 											className={
 												activeSort === 'Recently Added' ? classes.active : ''
 											}
 											onClick={sortByRecentlyAddedHandler}
+											onKeyDown={(event) => {
+												if (event.key === 'Enter') {
+													sortByRecentlyAddedHandler();
+												}
+											}}
 										>
 											Recenty Added
 										</li>
 										<li
+											tabIndex="0"
 											className={
 												activeSort === 'Alphabetical' ? classes.active : ''
 											}
 											onClick={sortByNameHandler}
+											onKeyDown={(event) => {
+												if (event.key === 'Enter') {
+													sortByNameHandler();
+												}
+											}}
 										>
 											Alphabetical
 										</li>
 										<li
+											tabIndex="0"
 											className={
 												activeSort === 'Price: Low to High'
 													? classes.active
@@ -187,10 +215,16 @@ const WishlistPage = () => {
 											onClick={() => {
 												sortByPriceHandler('lowToHigh');
 											}}
+											onKeyDown={(event) => {
+												if (event.key === 'Enter') {
+													sortByPriceHandler('lowToHigh');
+												}
+											}}
 										>
 											Price: Low to High
 										</li>
 										<li
+											tabIndex="0"
 											className={
 												activeSort === 'Price: High to Low'
 													? classes.active
@@ -199,14 +233,24 @@ const WishlistPage = () => {
 											onClick={() => {
 												sortByPriceHandler('highToLow');
 											}}
+											onKeyDown={(event) => {
+												if (event.key === 'Enter') {
+													sortByPriceHandler('highToLow');
+												}
+											}}
 										>
 											Price: High to Low
 										</li>
 									</ul>
 								)}
 								{!is1024Px && (
-									<button className={classes.filterHeader}
-									onClick={toggleFiltersMenu}>
+									<button
+										className={classes.filterHeader}
+										onClick={() => {
+											toggleFiltersMenu();
+											toggleBackdropHandler();
+										}}
+									>
 										<span>Filter</span>
 										<div className={classes.menuIcon}>
 											<div className={`${classes.line} ${classes.top}`}></div>
@@ -219,10 +263,10 @@ const WishlistPage = () => {
 										</div>
 									</button>
 								)}
-							</div>
+							</div> */}
 							<div className={classes.gameList}>
 								<ul className={classes.list}>
-									{sortedWishlistItems.map((game) => (
+									{sortedItems.map((game) => (
 										<CartCard
 											key={game.id}
 											item={{
@@ -242,11 +286,10 @@ const WishlistPage = () => {
 						</div>
 
 						<AsideFilters
-							games={filteredWishlistItems}
+							games={filteredItems}
 							onFilterChange={handleFilterChange}
 							filtersMenuOpen={filtersMenuOpen}
 							onToggleMenuOpen={toggleFiltersMenu}
-
 						/>
 					</div>
 				) : (

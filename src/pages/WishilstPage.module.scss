@@ -123,7 +123,8 @@
 						transition: background-color 0.1s;
 						cursor: pointer;
 						&:hover,
-						&.active {
+						&.active,
+						&:focus {
 							background-color: #ffffff1a;
 						}
 					}

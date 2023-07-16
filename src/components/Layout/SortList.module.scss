@@ -1,0 +1,66 @@
+.sortList {
+				margin-bottom: 2rem;
+				position: relative;
+				display: flex;
+				align-items: center;
+				gap: 1rem;
+				.span {
+					opacity: 0.6;
+				}
+				ul {
+					position: absolute;
+					top: 45px;
+					left: 63px;
+					padding: 1rem 0;
+					list-style: none;
+					border-radius: 5px;
+					background-color: var(--grey-color);
+					z-index: 5;
+					li {
+						padding: 0.5rem 2rem;
+						color: var(--font-white);
+						transition: background-color 0.1s;
+						cursor: pointer;
+						&:hover,
+						&.active,
+						&:focus {
+							background-color: #ffffff1a;
+						}
+					}
+				}
+				.filterHeader {
+					margin-left: auto;
+					margin-right: -2.5rem;
+					padding: 1rem 2rem;
+					background-color: inherit;
+					border: none;
+					color: inherit;
+					font-weight: 700;
+					cursor: pointer;
+					display: flex;
+					align-items: center;
+					gap: 1rem;
+					.menuIcon {
+						width: 30px;
+						height: 15px;
+						display: flex;
+						flex-direction: column;
+						justify-content: space-evenly;
+						cursor: pointer;
+						.line {
+							align-self: center;
+							height: 1.5px;
+							background-color: currentColor;
+						}
+						.top {
+							width: 60%;
+						}
+						.middle {
+							width: 40%;
+						}
+						.bottom {
+							width: 20%;
+						}
+					}
+				}
+			}

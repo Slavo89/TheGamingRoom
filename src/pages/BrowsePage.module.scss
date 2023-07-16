@@ -1,0 +1,8 @@
+.cardsContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 1rem;
+    @media (width >= 770px) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}

@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react';
 import { BsCheck2 } from 'react-icons/bs';
+import { backdropActions } from '../../store/backdrop-slice';
+import { useDispatch } from 'react-redux';
 import OpenListButton from '../Buttons/OpenListButton';
 import classes from './AsideFiltes.module.scss';
 import CTAButton from '../Buttons/CTAButton';
 
 const AsideFilters = (props) => {
-	// const [listOpen, setListOpen] = useState(false);
 	const [genreListOpen, setGenreListOpen] = useState(false);
 	const [featuresListOpen, setFeaturesListOpen] = useState(false);
 	const [platformListOpen, setPlatformListOpen] = useState(false);
 	const [selectedFilters, setSelectedFilters] = useState([]);
+	const dispatch = useDispatch();
 
 	function getFilters(prop) {
 		let filtersArray;
@@ -39,8 +41,11 @@ const AsideFilters = (props) => {
 		return unique;
 	}
 	const genres = getFilters('genres');
-	const features = getFilters('features');
 	const platforms = getFilters('platforms');
+
+	//  Too many pointless features are displayed so I hard-coded an array 
+	// const features = getFilters('features');
+	const features = ['Singleplayer', 'Multiplayer', 'Co-op', 'First-Person', 'Horror', 'FPS', 'RPG', 'Third Person', '3D', 'Open World', 'PvP', 'Difficult', 'Sci-fi', 'Exploration', 'Hack and Slash', 'Emotional', 'MMORPG', 'Survival', 'Tactical', 'War', 'Mature', 'Nudity' ]
 
 	const selectFilterHandler = (item) => {
 		if (selectedFilters.includes(item)) {
@@ -108,7 +113,6 @@ const AsideFilters = (props) => {
 	}, [selectedFilters]);
 
 	const toggleListHandler = (event) => {
-		// setListOpen(!listOpen);
 		if (event.target.innerText === 'Genre') {
 			setGenreListOpen(!genreListOpen);
 		}
@@ -118,6 +122,10 @@ const AsideFilters = (props) => {
 		if (event.target.innerText === 'Platform') {
 			setPlatformListOpen(!platformListOpen);
 		}
+	};
+
+	const hideBackdropHandler = () => {
+		dispatch(backdropActions.hideBackdrop());
 	};
 
 	return (
@@ -164,6 +172,11 @@ const AsideFilters = (props) => {
 							}`}
 							tabIndex="0"
 							onClick={genresFilterHandler}
+							onKeyDown={(event) => {
+								if (event.key === 'Enter') {
+									genresFilterHandler(event);
+								}
+							}}
 						>
 							{genre}
 							<BsCheck2 />
@@ -189,6 +202,11 @@ const AsideFilters = (props) => {
 							}`}
 							tabIndex="0"
 							onClick={featuresFilterHandler}
+							onKeyDown={(event) => {
+								if (event.key === 'Enter') {
+									featuresFilterHandler(event);
+								}
+							}}
 						>
 							{feature}
 							<BsCheck2 />
@@ -214,6 +232,11 @@ const AsideFilters = (props) => {
 							}`}
 							tabIndex="0"
 							onClick={platformsFilterHandler}
+							onKeyDown={(event) => {
+								if (event.key === 'Enter') {
+									platformsFilterHandler(event);
+								}
+							}}
 						>
 							{platform}
 							<BsCheck2 />
@@ -227,11 +250,19 @@ const AsideFilters = (props) => {
 					onClick={() => {
 						props.onToggleMenuOpen();
 						resetFiltersHandler();
+						hideBackdropHandler();
 					}}
 				>
 					Clear
 				</button>
-				<CTAButton onClick={props.onToggleMenuOpen}>Apply</CTAButton>
+				<CTAButton
+					onClick={() => {
+						props.onToggleMenuOpen();
+						hideBackdropHandler();
+					}}
+				>
+					Apply
+				</CTAButton>
 			</div>
 		</aside>
 	);
