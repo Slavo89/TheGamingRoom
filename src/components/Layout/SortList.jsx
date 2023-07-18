@@ -6,9 +6,10 @@ import { backdropActions } from '../../store/backdrop-slice';
 import classes from './SortList.module.scss';
 
 const SortList = (props) => {
+	// console.log(props);
 	const sortListRef = useRef(null);
 	const [listOpen, setListOpen] = useState(false);
-	const [activeSort, setActiveSort] = useState('Recently Added');
+	const [activeSort, setActiveSort] = useState(`${props.firstLabel}`);
 	const is1024Px = useMediaQuery('(width >= 1024px)');
     const dispatch = useDispatch();
     
@@ -106,7 +107,7 @@ const SortList = (props) => {
 							}
 						}}
 					>
-						Recenty Added
+						{props.firstLabel}
 					</li>
 					<li
 						tabIndex="0"

@@ -4,13 +4,17 @@
 	flex-direction: column;
 	width: 100%;
 	min-height: 100vh;
+	// height: fit-content;
 	height: fit-content;
+	max-height: 100vh;
+	overflow: auto;
 	z-index: 100;
 	background-color: var(--black-color);
 	top: 0;
 	right: 0;
 	&.show {
 		display: flex;
+		// overflow: hidden;
 	}
 	& > :first-child {
 		margin: 2rem 3rem;

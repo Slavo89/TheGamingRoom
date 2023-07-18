@@ -1,12 +1,10 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import useMediaQuery from '../hooks/use-MediaQuery';
 import { FaRegQuestionCircle, FaMailBulk } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { wishlistActions } from '../store/wishlist-slice';
 import { cartActions } from '../store/cart-slice';
-// import { backdropActions } from '../store/backdrop-slice';
 import classes from './WishilstPage.module.scss';
-// import OpenListButton from '../components/Buttons/OpenListButton';
 import CartCard from '../components/Cards/CartCard';
 import EmptyCartList from '../components/Layout/EmptyCartList';
 import AsideFilters from '../components/Layout/AsideFilters';
@@ -14,38 +12,157 @@ import SortList from '../components/Layout/SortList';
 
 const WishlistPage = () => {
 	const wishlistItems = useSelector((state) => state.wishlist.items);
-	// const [sortedWishlistItems, setSortedWishlistItems] = useState(wishlistItems);
 	const [sortedItems, setSortedItems] = useState(wishlistItems);
 	const [filteredItems] = useState(sortedItems);
-	const [listOpen, setListOpen] = useState(false);
-	// const [activeSort, setActiveSort] = useState('Recently Added');
 	const [filtersMenuOpen, setFiltersMenuOpen] = useState(false);
 	const dispatch = useDispatch();
-	const sortListRef = useRef(null);
-	// const is1024Px = useMediaQuery('(width >= 1024px)');
 	const is770Px = useMediaQuery('(width >= 770px)');
 
-	useEffect(() => {
-		const closeListHandler = () => {
-			if (listOpen === true) {
-				setListOpen(false);
-			} else {
-				return;
-			}
-		};
+console.log(wishlistItems);
 
-		const handleOutsideClick = (event) => {
-			if (sortListRef.current && !sortListRef.current.contains(event.target)) {
-				closeListHandler();
-			}
-		};
+	const addToCartHandler = (game) => {
+		dispatch(
+			cartActions.addItemToCart({
+				key: game.id,
+				id: game.id,
+				name: game.name,
+				price: game.price,
+				img: game.img,
+				esrb_rating: game.esrb_rating,
+				platforms: game.platforms,
+			})
+		);
+	};
 
-		document.addEventListener('click', handleOutsideClick);
+	const removeFromWishlistHandler = (itemId) => {
+		dispatch(wishlistActions.removeItemFromWishlist(itemId));
+		const updatedItems = sortedItems.filter(
+			(game) => game.id !== itemId
+		);
+		setSortedItems(updatedItems);
+	};
 
-		return () => {
-			document.removeEventListener('click', handleOutsideClick);
-		};
-	}, [listOpen]);
+	const toggleFiltersMenu = () => {
+		setFiltersMenuOpen(!filtersMenuOpen);
+	};
+
+	const handleFilterChange = (filteredGames) => {
+		setSortedItems(filteredGames);
+	};
+
+
+	const sortItems = (items) => {
+		setSortedItems(items)
+	};
+
+	return (
+		<>
+			<h1>Wishlist</h1>
+			<section className={classes.wishlistSection}>
+				<div className={classes.notificationSwitch}>
+					{is770Px ? (
+						<div className={classes.flexContainer}>
+							<FaMailBulk className={classes.icon} />
+							<p className={classes.paragraph}>
+								Receive email notification about my wishlist.
+							</p>
+							<div className={classes.tooltip}>
+								<FaRegQuestionCircle />
+								<span className={classes.tooltipText}>
+									Get notified when your wishlisted games go on sale, or are
+									available for purshase or pre-purshase.
+								</span>
+							</div>
+						</div>
+					) : (
+						<p className={classes.paragraph}>
+							Receive email notification about my wishlist.
+						</p>
+					)}
+					<label className={classes.switch}>
+						<input type="checkbox" />
+						<span className={classes.slider}></span>
+					</label>
+				</div>
+
+				{wishlistItems.length > 0 ? (
+					<div className={classes.mainContent}>
+						<div className={classes.list}>
+							<SortList
+								originalItems={wishlistItems}
+								sortItems={sortItems}
+								onToggleFiltersMenu={toggleFiltersMenu}
+								firstLabel={'Recently Added'}
+							/>
+							
+							<div className={classes.gameList}>
+								<ul className={classes.list}>
+									{sortedItems.map((game) => (
+										<CartCard
+											key={game.id}
+											item={{
+												id: game.id,
+												name: game.name,
+												img: game.img,
+												platforms: game.platforms.join(', '),
+												price: game.price,
+												rating: game.esrb_rating,
+											}}
+											onAdd={() => addToCartHandler(game)}
+											onRemove={() => removeFromWishlistHandler(game.id)}
+										/>
+									))}
+								</ul>
+							</div>
+						</div>
+
+						<AsideFilters
+							games={filteredItems}
+							onFilterChange={handleFilterChange}
+							filtersMenuOpen={filtersMenuOpen}
+							onToggleMenuOpen={toggleFiltersMenu}
+						/>
+					</div>
+				) : (
+					<EmptyCartList>
+						You haven`t added anything to your wishlist yet.
+					</EmptyCartList>
+				)}
+			</section>
+		</>
+	);
+};
+
+export default WishlistPage;
+
+
+	// const [sortedWishlistItems, setSortedWishlistItems] = useState(wishlistItems);
+	// const [listOpen, setListOpen] = useState(false);
+	// const [activeSort, setActiveSort] = useState('Recently Added');
+	// const sortListRef = useRef(null);
+	// const is1024Px = useMediaQuery('(width >= 1024px)');
+
+	// useEffect(() => {
+	// 	const closeListHandler = () => {
+	// 		if (listOpen === true) {
+	// 			setListOpen(false);
+	// 		} else {
+	// 			return;
+	// 		}
+	// 	};
+
+	// 	const handleOutsideClick = (event) => {
+	// 		if (sortListRef.current && !sortListRef.current.contains(event.target)) {
+	// 			closeListHandler();
+	// 		}
+	// 	};
+
+	// 	document.addEventListener('click', handleOutsideClick);
+
+	// 	return () => {
+	// 		document.removeEventListener('click', handleOutsideClick);
+	// 	};
+	// }, [listOpen]);
 
 	// const sortByRecentlyAddedHandler = () => {
 	// 	setSortedWishlistItems(wishlistItems);
@@ -90,83 +207,14 @@ const WishlistPage = () => {
 	// const toggleListHandler = () => {
 	// 	setListOpen(!listOpen);
 	// };
-	const addToCartHandler = (game) => {
-		dispatch(
-			cartActions.addItemToCart({
-				key: game.id,
-				id: game.id,
-				name: game.name,
-				price: game.price,
-				img: game.img,
-				esrb_rating: game.esrb_rating,
-				platforms: game.platforms,
-			})
-		);
-	};
 
-	const removeFromWishlistHandler = (itemId) => {
-		dispatch(wishlistActions.removeItemFromWishlist(itemId));
-		const updatedItems = sortedItems.filter(
-			(game) => game.id !== itemId
-		);
-		setSortedItems(updatedItems);
-	};
-
-	const toggleFiltersMenu = () => {
-		setFiltersMenuOpen(!filtersMenuOpen);
-	};
-
-	const handleFilterChange = (filteredGames) => {
-		setSortedItems(filteredGames);
-	};
-
+	
 	// const toggleBackdropHandler = () => {
 	// 	dispatch(backdropActions.showBackdrop());
 	// };
 
-	const sortItems = (items) => {
-		setSortedItems(items)
-	};
-
-	return (
-		<>
-			<h1>Wishlist</h1>
-			<section className={classes.wishlistSection}>
-				<div className={classes.notificationSwitch}>
-					{is770Px ? (
-						<div className={classes.flexContainer}>
-							<FaMailBulk className={classes.icon} />
-							<p className={classes.paragraph}>
-								Receive email notification about my wishlist.
-							</p>
-							<div className={classes.tooltip}>
-								<FaRegQuestionCircle />
-								<span className={classes.tooltipText}>
-									Get notified when your wishlisted games go on sale, or are
-									available for purshase or pre-purshase.
-								</span>
-							</div>
-						</div>
-					) : (
-						<p className={classes.paragraph}>
-							Receive email notification about my wishlist.
-						</p>
-					)}
-					<label className={classes.switch}>
-						<input type="checkbox" />
-						<span className={classes.slider}></span>
-					</label>
-				</div>
-
-				{wishlistItems.length > 0 ? (
-					<div className={classes.mainContent}>
-						<div className={classes.list}>
-							<SortList
-								originalItems={wishlistItems}
-								sortItems={sortItems}
-								onToggleFiltersMenu={toggleFiltersMenu}
-							/>
-							{/* <div className={classes.sortList}>
+	{
+		/* <div className={classes.sortList}>
 								<span className={classes.span}>Sort By :</span>
 								<div ref={sortListRef}>
 									<OpenListButton
@@ -263,43 +311,5 @@ const WishlistPage = () => {
 										</div>
 									</button>
 								)}
-							</div> */}
-							<div className={classes.gameList}>
-								<ul className={classes.list}>
-									{sortedItems.map((game) => (
-										<CartCard
-											key={game.id}
-											item={{
-												id: game.id,
-												name: game.name,
-												img: game.img,
-												platforms: game.platforms.join(', '),
-												price: game.price,
-												rating: game.esrb_rating,
-											}}
-											onAdd={() => addToCartHandler(game)}
-											onRemove={() => removeFromWishlistHandler(game.id)}
-										/>
-									))}
-								</ul>
-							</div>
-						</div>
-
-						<AsideFilters
-							games={filteredItems}
-							onFilterChange={handleFilterChange}
-							filtersMenuOpen={filtersMenuOpen}
-							onToggleMenuOpen={toggleFiltersMenu}
-						/>
-					</div>
-				) : (
-					<EmptyCartList>
-						You haven`t added anything to your wishlist yet.
-					</EmptyCartList>
-				)}
-			</section>
-		</>
-	);
-};
-
-export default WishlistPage;
+							</div> */
+	}

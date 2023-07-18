@@ -45,7 +45,7 @@ const AsideFilters = (props) => {
 
 	//  Too many pointless features are displayed so I hard-coded an array 
 	// const features = getFilters('features');
-	const features = ['Singleplayer', 'Multiplayer', 'Co-op', 'First-Person', 'Horror', 'FPS', 'RPG', 'Third Person', '3D', 'Open World', 'PvP', 'Difficult', 'Sci-fi', 'Exploration', 'Hack and Slash', 'Emotional', 'MMORPG', 'Survival', 'Tactical', 'War', 'Mature', 'Nudity' ]
+	const features = ['Singleplayer', 'Multiplayer', 'Co-op', 'First-Person', 'Horror', 'Third Person', 'Open World', 'PvP', 'Sci-fi', 'Exploration', 'Hack and Slash', 'MMORPG', 'Survival', 'Tactical', 'Mature',  ]
 
 	const selectFilterHandler = (item) => {
 		if (selectedFilters.includes(item)) {
