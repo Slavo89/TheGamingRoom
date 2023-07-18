@@ -22,10 +22,12 @@ const CarouselItem = (props) => {
 						media="(min-width: 0px)"
 						srcSet={props.background_image}
 						alt="Game picture"
+						loading='lazy'
 					/>
 					<img
 						src={props.background_image}
 						alt="Game picture"
+						loading='lazy'
 					/>
 				</picture>
 

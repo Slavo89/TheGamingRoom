@@ -9,15 +9,16 @@ import CartCard from '../components/Cards/CartCard';
 import EmptyCartList from '../components/Layout/EmptyCartList';
 import AsideFilters from '../components/Layout/AsideFilters';
 import SortList from '../components/Layout/SortList';
+import { useEffect } from 'react';
 
 const WishlistPage = () => {
 	const wishlistItems = useSelector((state) => state.wishlist.items);
 	const [sortedItems, setSortedItems] = useState(wishlistItems);
-	const [filteredItems] = useState(sortedItems);
+	const [filteredItems, setFilteredItems] = useState(wishlistItems);
+	const [displayedItems, setDisplayedItems] = useState(wishlistItems);
 	const [filtersMenuOpen, setFiltersMenuOpen] = useState(false);
 	const dispatch = useDispatch();
 	const is770Px = useMediaQuery('(width >= 770px)');
-
 
 	const addToCartHandler = (game) => {
 		dispatch(
@@ -35,9 +36,7 @@ const WishlistPage = () => {
 
 	const removeFromWishlistHandler = (itemId) => {
 		dispatch(wishlistActions.removeItemFromWishlist(itemId));
-		const updatedItems = sortedItems.filter(
-			(game) => game.id !== itemId
-		);
+		const updatedItems = sortedItems.filter((game) => game.id !== itemId);
 		setSortedItems(updatedItems);
 	};
 
@@ -46,13 +45,22 @@ const WishlistPage = () => {
 	};
 
 	const handleFilterChange = (filteredGames) => {
-		setSortedItems(filteredGames);
+		setFilteredItems(filteredGames);
 	};
-
 
 	const sortItems = (items) => {
-		setSortedItems(items)
+		setSortedItems(items);
 	};
+
+	useEffect(() => {
+		const findMatchedItems = () => {
+			const matched = sortedItems.filter((sortedItem) =>
+				filteredItems.some((filteredItem) => filteredItem.id === sortedItem.id)
+			);
+			setDisplayedItems(matched)
+		};
+		findMatchedItems();
+	}, [filteredItems, sortedItems]);
 
 	return (
 		<>
@@ -93,10 +101,10 @@ const WishlistPage = () => {
 								onToggleFiltersMenu={toggleFiltersMenu}
 								firstLabel={'Recently Added'}
 							/>
-							
+
 							<div className={classes.gameList}>
 								<ul className={classes.list}>
-									{sortedItems.map((game) => (
+									{displayedItems.map((game) => (
 										<CartCard
 											key={game.id}
 											item={{
@@ -116,7 +124,7 @@ const WishlistPage = () => {
 						</div>
 
 						<AsideFilters
-							games={wishlistItems}
+							games={sortedItems}
 							onFilterChange={handleFilterChange}
 							filtersMenuOpen={filtersMenuOpen}
 							onToggleMenuOpen={toggleFiltersMenu}

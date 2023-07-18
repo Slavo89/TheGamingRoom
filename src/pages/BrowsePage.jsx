@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLoaderData, json } from 'react-router-dom';
 import BrowsePageCard from '../components/Cards/BrowsePageCard';
 import SortList from '../components/Layout/SortList';
@@ -23,7 +23,8 @@ const BrowsePage = () => {
 
 
 	const [sortedItems, setSortedItems] = useState(gamesData);
-	const [filteredItems] = useState(sortedItems);
+	const [filteredItems, setFilteredItems] = useState(gamesData);
+	const [displayedItems, setDisplayedItems] = useState(gamesData);
 	const [filtersMenuOpen, setFiltersMenuOpen] = useState(false);
 
 	const toggleFiltersMenu = () => {
@@ -31,12 +32,24 @@ const BrowsePage = () => {
 	};
 
 	const handleFilterChange = (filteredGames) => {
-		setSortedItems(filteredGames);
+		setFilteredItems(filteredGames);
 	};
 
 	const sortItems = (items) => {
 		setSortedItems(items);
 	};
+
+	useEffect(() => {
+		const findMatchedItems = () => {
+			const matched = sortedItems.filter((sortedItem) =>
+				filteredItems.some((filteredItem) => filteredItem.id === sortedItem.id)
+			);
+			setDisplayedItems(matched);
+		};
+		findMatchedItems();
+	}, [filteredItems, sortedItems]);
+
+	
 	return (
 		<>
 			<section>
@@ -54,7 +67,7 @@ const BrowsePage = () => {
 
 						<div className={classes.gameList}>
 							<ul className={classes.cardsContainer}>
-								{sortedItems.map((game) => (
+								{displayedItems.map((game) => (
 									<BrowsePageCard
 										key={game.id}
 										id={game.id}
@@ -73,7 +86,7 @@ const BrowsePage = () => {
 					</div>
 
 					<AsideFilters
-						games={filteredItems}
+						games={sortedItems}
 						onFilterChange={handleFilterChange}
 						filtersMenuOpen={filtersMenuOpen}
 						onToggleMenuOpen={toggleFiltersMenu}
@@ -91,7 +104,7 @@ export default BrowsePage;
 export async function loader() {
 	try {
 		const response = await axios.get(
-			'https://api.rawg.io/api/games?key=8c5f5a03a748417b9752c0b536fa1e98&page=1&page_size=20'
+			'https://api.rawg.io/api/games?key=8c5f5a03a748417b9752c0b536fa1e98&page=1&page_size=40'
 		);
 		// const response = await axios.get(
 		// 	'https://api.rawg.io/api/games?key=8c5f5a03a748417b9752c0b536fa1e98'
