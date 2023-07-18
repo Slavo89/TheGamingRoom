@@ -7,32 +7,32 @@ import AsideFilters from "../components/Layout/AsideFilters"
 import classes from './BrowsePage.module.scss';
 
 const BrowsePage = () => {
-  const data = useLoaderData();
-  // adding price property based on metacritic rating to all game objects
-  const gamesData = data.map(game => {
-    const gamesData = { ...game }
-    gamesData.price = gamesData.metacritic
-    gamesData.genres = [...game.genres.map(genre => genre.name)]
-    gamesData.parent_platforms = [...game.parent_platforms.map(item => item.platform.name)]
-    gamesData.tags = [...game.tags.map(tag => tag.name)]
-    return gamesData
-  })
+	const data = useLoaderData();
 
-  console.log(gamesData);
+	// adding price property based on metacritic rating to all game objects, destructure parent_platforms, genres and tags for easier access
+	const gamesData = data.map((game) => {
+		const gamesData = { ...game };
+		gamesData.price = gamesData.metacritic;
+		gamesData.genres = [...game.genres.map((genre) => genre.name)];
+		gamesData.parent_platforms = [
+			...game.parent_platforms.map((item) => item.platform.name),
+		];
+		gamesData.tags = [...game.tags.map((tag) => tag.name)];
+		return gamesData;
+	});
+
 
 	const [sortedItems, setSortedItems] = useState(gamesData);
-  const [filteredItems] = useState(sortedItems);
-  const [filtersMenuOpen, setFiltersMenuOpen] = useState(false);
-  
-  const toggleFiltersMenu = () => {
+	const [filteredItems] = useState(sortedItems);
+	const [filtersMenuOpen, setFiltersMenuOpen] = useState(false);
+
+	const toggleFiltersMenu = () => {
 		setFiltersMenuOpen(!filtersMenuOpen);
-  };
-  
-  const handleFilterChange = (filteredGames) => {
+	};
+
+	const handleFilterChange = (filteredGames) => {
 		setSortedItems(filteredGames);
-  };
-  
-  
+	};
 
 	const sortItems = (items) => {
 		setSortedItems(items);
@@ -62,7 +62,7 @@ const BrowsePage = () => {
 										background_image={game.background_image}
 										rating={game.rating}
 										genres={game.genres}
-										metacritic={game.metacritic}
+										price={game.price}
 										esrb_rating={game.esrb_rating}
 										parent_platforms={game.parent_platforms}
 										tags={game.tags}

@@ -6,49 +6,6 @@ import { cartActions } from '../store/cart-slice';
 import { useDispatch, useSelector } from 'react-redux';
 import { wishlistActions } from '../store/wishlist-slice';
 
-// const cartItems = [
-// {
-// 	id: 1,
-// 	name: 'Aliens: Dark Descent',
-// 	price: 140,
-// 	img: 'https://cdn1.epicgames.com/offer/87b7ded137594cbbbe7b772826ec3289/EGS_AliensDarkDescent_TindalosInteractive_S2_1200x1600-23e324fbb7783cbb94d923205e2398a3?h=480&quality=medium&resize=1&w=360',
-// 	esrb_rating: {
-// 		slug: 'mature',
-// 	},
-// 	platforms: 'PC, PlayStation, Xbox',
-// },
-// {
-// 	id: 2,
-// 	name: 'Aliens: Dark Descent',
-// 	price: 140,
-// 	img: 'https://cdn1.epicgames.com/offer/87b7ded137594cbbbe7b772826ec3289/EGS_AliensDarkDescent_TindalosInteractive_S2_1200x1600-23e324fbb7783cbb94d923205e2398a3?h=480&quality=medium&resize=1&w=360',
-// 	esrb_rating: {
-// 		slug: 'mature',
-// 	},
-// 	platforms: 'PC, PlayStation, Xbox',
-// },
-// {
-// 	id: 3,
-// 	name: 'Aliens: Dark Descent',
-// 	price: 140,
-// 	img: 'https://cdn1.epicgames.com/offer/87b7ded137594cbbbe7b772826ec3289/EGS_AliensDarkDescent_TindalosInteractive_S2_1200x1600-23e324fbb7783cbb94d923205e2398a3?h=480&quality=medium&resize=1&w=360',
-// 	esrb_rating: {
-// 		slug: 'mature',
-// 	},
-// 	platforms: 'PC, PlayStation, Xbox',
-// },
-// {
-// 	id: 190,
-// 	name: 'Aliens: Dark Descent',
-// 	price: 140,
-// 	img: 'https://cdn1.epicgames.com/offer/87b7ded137594cbbbe7b772826ec3289/EGS_AliensDarkDescent_TindalosInteractive_S2_1200x1600-23e324fbb7783cbb94d923205e2398a3?h=480&quality=medium&resize=1&w=360',
-// 	esrb_rating: {
-// 		slug: 'mature',
-// 	},
-// 	platforms: 'PC, PlayStation, Xbox',
-// },
-// ];
-
 const CartPage = () => {
 	const cartItems = useSelector((state) => state.cart);
 	const dispatch = useDispatch();
@@ -61,9 +18,9 @@ const CartPage = () => {
 					id: item.id,
 					name: item.name,
 					price: item.price,
-					img: item.img,
+					background_image: item.background_image,
 					esrb_rating: item.esrb_rating,
-					platforms: item.platforms,
+					parent_platforms: item.parent_platforms,
 				})
 			);
 			removeFromCartHandler(item.id)
@@ -86,8 +43,8 @@ const CartPage = () => {
 									item={{
 										id: game.id,
 										name: game.name,
-										img: game.img,
-										platforms: game.platforms,
+										background_image: game.background_image,
+										parent_platforms: game.parent_platforms,
 										price: game.price,
 										rating: game.esrb_rating,
 									}}

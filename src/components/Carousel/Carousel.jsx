@@ -5,8 +5,9 @@ import 'swiper/scss';
 import 'swiper/scss/pagination';
 
 const Carousel = (props) => {
-	const GAMES = props.games;
+	const carouselGames = props.games;
 
+	// console.log(carouselGames);
 	return (
 		<Swiper
 			modules={[Pagination]}
@@ -16,21 +17,18 @@ const Carousel = (props) => {
 				clickable: true,
 			}}
 		>
-			{GAMES.map((game) => (
+			{carouselGames.map((game) => (
 				<SwiperSlide key={game.id}>
 					<CarouselItem
 						id={game.id}
 						name={game.name}
 						background_image={game.background_image}
 						rating={game.rating}
-						genres={game.genres.map((genre) => genre.name)}
-						metacritic={game.metacritic}
+						genres={game.genres}
+						price={game.price}
 						esrb_rating={game.esrb_rating}
 						parent_platforms={game.parent_platforms}
 						tags={game.tags}
-						// platforms={game.parent_platforms
-						// 	.map((item) => item.platform.name)
-						// 	.join(', ')}
 					/>
 				</SwiperSlide>
 			))}

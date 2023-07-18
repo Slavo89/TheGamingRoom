@@ -17,6 +17,7 @@
 @media (width >= 1024px) {
 	.mainContent {
 		display: flex;
+		justify-content: space-between;
 		gap: 3rem;
 	}
 }

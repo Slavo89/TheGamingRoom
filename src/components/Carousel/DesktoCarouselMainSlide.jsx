@@ -6,30 +6,30 @@ import useWishlist from '../../hooks/useWishlist';
 import useCart from '../../hooks/useCart';
 
 const DesktoCarouselMainSlide = (props) => {
-	const [inWishlist, wishlistHandler] = useWishlist(props.game);
-	const [inCart, cartHandler] = useCart(props.game);
-
+	const game = props.game;
+	const [inWishlist, wishlistHandler] = useWishlist(game);
+	const [inCart, cartHandler] = useCart(game);
 	return (
-		<Link to={`${props.game.id}`}>
+		<Link to={`${game.id}`}>
 			<div className={classes.leftSection}>
 				<picture className={classes.image}>
 					<source
 						media="(min-width: 0px)"
-						srcSet={props.game.background_image}
+						srcSet={game.background_image}
 						alt="Game picture"
 					/>
 					<img
-						src={props.game.background_image}
+						src={game.background_image}
 						alt="Game picture"
 					/>
 				</picture>
 				<div className={classes.gameDescription}>
-					<p className={classes.title}>{props.game.name}</p>
-					<p className={classes.rating}>Rating: {props.game.rating}</p>
+					<p className={classes.title}>{game.name}</p>
+					<p className={classes.rating}>Rating: {game.rating}</p>
 					<p className={classes.genres}>
-						Genres: {props.game.genres.map((genre) => genre.name).join(', ')}
+						Genres: {game.genres.join(', ')}
 					</p>
-					<p className={classes.price}>Starting at $ {props.game.metacritic}</p>
+					<p className={classes.price}>Starting at $ {game.price}</p>
 
 					<div className={classes.buttons}>
 						<div

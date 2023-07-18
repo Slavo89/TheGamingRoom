@@ -18,7 +18,7 @@ const DesktopCarouselItem = (props) => {
 		>
 			<div className={classes.itemContaier}>
 				<img
-					src={props.img}
+					src={props.background_image}
 					alt="Game cover"
 					className={classes.image}
 				></img>

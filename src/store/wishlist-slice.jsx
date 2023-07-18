@@ -15,13 +15,12 @@ const wishlistSlice = createSlice({
 					id: newItem.id,
 					name: newItem.name,
 					price: newItem.price,
-					img: newItem.img,
-					platforms: newItem.platforms,
+					background_image: newItem.background_image,
+					parent_platforms: newItem.parent_platforms,
 					esrb_rating: newItem.esrb_rating,
 					tags: newItem.tags,
 					genres: newItem.genres,
 				});
-				
 			} else {
 				return;
 			}
@@ -45,16 +44,11 @@ export const addToWishlist = (gameData) => {
 		key: gameData.id,
 		id: gameData.id,
 		name: gameData.name,
-		price: gameData.metacritic,
-		img: gameData.background_image,
+		price: gameData.price,
+		background_image: gameData.background_image,
 		esrb_rating: gameData.esrb_rating,
-		platforms: gameData.parent_platforms
-			.map((item) => item.platform.name),
-		// 	.join(', '),
-		// platforms: gameData.parent_platforms
-		// 	.map((item) => item.platform.name)
-		// 	.join(', '),
-		genres: gameData.genres.map((item) => item.name),
-		tags: gameData.tags.map((item => item.name))
+		parent_platforms: gameData.parent_platforms,
+		genres: gameData.genres,
+		tags: gameData.tags,
 	};
 };

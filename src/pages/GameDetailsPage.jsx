@@ -8,18 +8,26 @@ import CTAButton from '../components/Buttons/CTAButton';
 import useCart from '../hooks/useCart';
 
 const GameDetailsPage = () => {
-	const gameDetails = useLoaderData();
+	const data = useLoaderData();
+
+	// adding price property based on metacritic rating to all game objects, destructure parent_platforms, genres and tags for easier access
+	const gameDetails = {
+		...data,
+		price: data.metacritic,
+		genres: data.genres.map((genre) => genre.name),
+		parent_platforms: data.parent_platforms.map((item) => item.platform.name),
+		tags: data.tags.map((tag) => tag.name),
+	};
+
+	console.log(gameDetails);
+
 	const ratingStyle = {
 		'--rating': gameDetails.rating,
 	};
 
-	const [inWishlist, wishlistHandler] = useWishlist(
-		gameDetails
-	);
+	const [inWishlist, wishlistHandler] = useWishlist(gameDetails);
 
-	const [inCart, cartHandler] = useCart(
-		gameDetails
-	);
+	const [inCart, cartHandler] = useCart(gameDetails);
 	return (
 		<section className={classes.gameDetails}>
 			<h1 className={classes.title}>{gameDetails.name}</h1>
@@ -57,10 +65,15 @@ const GameDetailsPage = () => {
 					</div>
 					<div className={classes.buttons}>
 						<div className={classes.buttonContainer}>
-							<CTAButton onClick={cartHandler}>{!inCart ? "Add to Cart" : 'View in Cart'}</CTAButton>
+							<CTAButton onClick={cartHandler}>
+								{!inCart ? 'Add to Cart' : 'View in Cart'}
+							</CTAButton>
 						</div>
 						<div className={`${classes.buttonContainer} ${classes.wishlist}`}>
-							<WishlistButton onClick={wishlistHandler} inWishlist={inWishlist}>
+							<WishlistButton
+								onClick={wishlistHandler}
+								inWishlist={inWishlist}
+							>
 								<p>{!inWishlist ? 'Add to Wishlist' : 'In Wishlist'}</p>
 							</WishlistButton>
 						</div>
@@ -83,11 +96,7 @@ const GameDetailsPage = () => {
 					</div>
 					<div className={classes.row}>
 						<span>Platforms</span>
-						<span>
-							{gameDetails.parent_platforms
-								.map((item) => item.platform.name)
-								.join(', ')}
-						</span>
+						<span>{gameDetails.parent_platforms.join(', ')}</span>
 					</div>
 					<div className={classes.row}>
 						<a
@@ -106,19 +115,12 @@ const GameDetailsPage = () => {
 				<div className={classes.gameTypes}>
 					<div className={classes.gameTypesContainer}>
 						<span>Genres</span>
-						<span>
-							{gameDetails.genres.map((genre) => genre.name).join(', ')}
-						</span>
+						<span>{gameDetails.genres.join(', ')}</span>
 					</div>
 					<hr />
 					<div className={classes.gameTypesContainer}>
 						<span>Features</span>
-						<span>
-							{gameDetails.tags
-								.slice(0, 5)
-								.map((tag) => tag.name)
-								.join(', ')}
-						</span>
+						<span>{gameDetails.tags.slice(0, 5).join(', ')}</span>
 					</div>
 				</div>
 			</div>

@@ -10,9 +10,20 @@ import GamesList from '../components/GamesList/GamesList';
 const HomePage = () => {
 	const is768Px = useMediaQuery('(width >= 768px)');
 	const data = useLoaderData();
-	const gamesCarousel = data.slice(0, 5);
-	const gamesList = data.slice(5, 20);
 
+	// adding price property based on metacritic rating to all game objects, destructure parent_platforms, genres and tags for easier access
+	const gamesData = data.map((game) => {
+		const gamesData = { ...game };
+		gamesData.price = gamesData.metacritic;
+		gamesData.genres = [...game.genres.map((genre) => genre.name)];
+		gamesData.parent_platforms = [
+			...game.parent_platforms.map((item) => item.platform.name),
+		];
+		gamesData.tags = [...game.tags.map((tag) => tag.name)];
+		return gamesData;
+	});
+	const gamesCarousel = gamesData.slice(0, 5);
+	const gamesList = gamesData.slice(5, 20);
 	return (
 		<>
 			<section>
@@ -45,35 +56,3 @@ export async function loader() {
 		);
 	}
 }
-
-// const [gamesList, setGamesList] = useState([]);
-// const [isLoading, setIsLoading] = useState(true);
-// const [isError, setIsError] = useState(false);
-
-// useEffect(() => {
-// 	const fetchData = async () => {
-// 		try {
-// 			const response = await axios.get(
-// 				'https://api.rawg.io/api/games?key=8c5f5a03a748417b9752c0b536fa1e98&page_size=5'
-// 			);
-// 			const data = response.data;
-// 			const games = data.results;
-// 			setGamesList(games);
-// 			setIsLoading(false);
-// 		} catch (error) {
-// 			setIsError(true);
-// 			setIsLoading(false);
-// 			console.error('Error loading data!', error);
-// 		}
-// 	};
-
-// 	fetchData();
-// }, []);
-
-//   if (isLoading) {
-// 		return <h1>Loading...</h1>;
-// 	}
-
-// 	if (isError) {
-// 		return <h1>Error loading data!</h1>;
-// 	}

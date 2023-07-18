@@ -6,7 +6,6 @@ import { backdropActions } from '../../store/backdrop-slice';
 import classes from './SortList.module.scss';
 
 const SortList = (props) => {
-	// console.log(props);
 	const sortListRef = useRef(null);
 	const [listOpen, setListOpen] = useState(false);
 	const [activeSort, setActiveSort] = useState(`${props.firstLabel}`);

@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-
 const cartSlice = createSlice({
 	name: 'cart',
 	initialState: {
@@ -10,7 +9,7 @@ const cartSlice = createSlice({
 	reducers: {
 		addItemToCart(state, action) {
 			const newItem = action.payload;
-			
+
 			const existingItem = state.items.find((item) => item.id === newItem.id);
 			if (!existingItem) {
 				state.items.unshift({
@@ -18,13 +17,15 @@ const cartSlice = createSlice({
 					id: newItem.id,
 					name: newItem.name,
 					price: newItem.price,
-					img: newItem.img,
+					background_image: newItem.background_image,
+					// img: newItem.img,
 					esrb_rating: newItem.esrb_rating,
-					platforms: newItem.platforms,
+					parent_platforms: newItem.parent_platforms,
+					// platforms: newItem.platforms,
 				});
-				state.totalAmount = state.totalAmount + newItem.price
+				state.totalAmount = state.totalAmount + newItem.price;
 			} else {
-				return
+				return;
 			}
 		},
 		removeItemFromCart(state, action) {
@@ -47,11 +48,13 @@ export const addToCart = (gameData) => {
 		key: gameData.id,
 		id: gameData.id,
 		name: gameData.name,
-		price: gameData.metacritic,
-		img: gameData.background_image,
+		price: gameData.price,
+		background_image: gameData.background_image,
+		// img: gameData.background_image,
 		esrb_rating: gameData.esrb_rating,
-		platforms: gameData.parent_platforms
-			.map((item) => item.platform.name)
-			.join(', '),
+		parent_platforms: gameData.parent_platforms,
+		// platforms: gameData.parent_platforms
+		// 	.map((item) => item.platform.name)
+		// 	.join(', '),
 	};
 };

@@ -4,7 +4,7 @@ import classes from './DestkopCarousel.module.scss';
 import DesktoCarouselMainSlide from './DesktoCarouselMainSlide';
 
 const DesktopCarousel = (props) => {
-	const GAMES = props.games;
+	const carouselGames = props.games;
 	const [activeIndex, setActiveIndex] = useState(0);
 	const [animate, setAnimate] = useState(false);
 	const timeoutRef = useRef(null);
@@ -14,7 +14,7 @@ const DesktopCarousel = (props) => {
 	useEffect(() => {
 		clearTimeout(timeoutRef.current);
 		const timer = setTimeout(() => {
-			setActiveIndex((prevIndex) => (prevIndex + 1) % GAMES.length);
+			setActiveIndex((prevIndex) => (prevIndex + 1) % carouselGames.length);
 			setAnimate(true);
 		}, 7000);
 
@@ -33,7 +33,7 @@ const DesktopCarousel = (props) => {
 			clearTimeout(timer);
 			setKey(Date.now());
 		};
-	}, [GAMES.length, animate]);
+	}, [carouselGames.length, animate]);
 
 	const setToActiveHandler = (index) => {
 		setActiveIndex(index);
@@ -45,17 +45,17 @@ const DesktopCarousel = (props) => {
 			<div className={classes.container}>
 				<DesktoCarouselMainSlide
 					key={key}
-					game={GAMES[activeIndex]}
+					game={carouselGames[activeIndex]}
 				/>
 			</div>
 			<div className={classes.rightSection}>
 				<ul className={classes.desktopCarouselList}>
-					{GAMES.map((game, index) => (
+					{carouselGames.map((game, index) => (
 						<DesktopCarouselItem
 							key={game.id}
 							id={game.id}
 							name={game.name}
-							img={game.background_image}
+							background_image={game.background_image}
 							isActive={index === activeIndex}
 							onClick={() => {
 								setToActiveHandler(index);

@@ -29,7 +29,7 @@ const AsideFilters = (props) => {
 
 				break;
 			case 'platforms':
-				filtersArray = props.games.map((game) => game.platforms).flat();
+				filtersArray = props.games.map((game) => game.parent_platforms).flat();
 				break;
 			default:
 				filtersArray = [];
@@ -76,8 +76,8 @@ const AsideFilters = (props) => {
 	};
 
 	const platformsFilterHandler = (event) => {
-		const filterGamesByPlatforms = (games, features) => {
-			return games.filter((game) => game.platforms.includes(features));
+		const filterGamesByPlatforms = (games, platforms) => {
+			return games.filter((game) => game.parent_platforms.includes(platforms));
 		};
 		const selectedPlatform = event.target.innerText;
 		const filteredGames = filterGamesByPlatforms(props.games, selectedPlatform);
@@ -100,7 +100,7 @@ const AsideFilters = (props) => {
 						return (
 							game.genres.includes(filter) ||
 							game.tags.includes(filter) ||
-							game.platforms.includes(filter)
+							game.parent_platforms.includes(filter)
 						);
 					});
 				});

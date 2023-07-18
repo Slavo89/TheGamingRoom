@@ -33,7 +33,7 @@ const GamesListItem = (props) => {
 
 					<div className={classes.info}>
 						<p className={classes.title}>{props.name}</p>
-						<span className={classes.price}>$ {props.metacritic}</span>
+						<span className={classes.price}>$ {props.price}</span>
 					</div>
 				</div>
 			</Link>

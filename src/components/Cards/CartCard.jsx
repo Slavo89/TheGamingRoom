@@ -1,27 +1,27 @@
 import { Link } from 'react-router-dom';
-import WishlistButton from '../Buttons/WishlistButton'
+import WishlistButton from '../Buttons/WishlistButton';
 import classes from './CartCard.module.scss';
 import CTAButton from '../Buttons/CTAButton';
 
-
 const ratings = {
 	everyone: 'https://www.esrb.org/wp-content/uploads/2019/05/E.svg',
-	'everyone-10-plus': 'https://www.esrb.org/wp-content/uploads/2019/05/E10plus.svg',
+	'everyone-10-plus':
+		'https://www.esrb.org/wp-content/uploads/2019/05/E10plus.svg',
 	teen: 'https://www.esrb.org/wp-content/uploads/2019/05/T.svg',
 	mature: 'https://www.esrb.org/wp-content/uploads/2019/05/M.svg',
 	adult: 'https://www.esrb.org/wp-content/uploads/2019/05/AO.svg',
 };
 
 const CartCard = (props) => {
+	const { id, background_image, parent_platforms, name, price, rating } =
+		props.item;
+	const ratingsSrc = ratings[rating.slug];
 
-	const {id, img, platforms, name, price, rating } = props.item
-	const src = ratings[rating.slug]
-
-	const {onRemove, onAdd} = props
+	const { onRemove, onAdd } = props;
 
 	const handleClick = () => {
-		onRemove(id)
-	}
+		onRemove(id);
+	};
 
 	return (
 		<li className={classes.card}>
@@ -33,17 +33,15 @@ const CartCard = (props) => {
 					<picture className={classes.image}>
 						<source
 							media="(min-width: 0px)"
-							srcSet={img}
-							// srcSet="https://cdn1.epicgames.com/offer/236c74b4cd2e4e3099cbe2ebdc9686fd/EGS_DeadIsland2_DeepSilverDambusterStudios_S2_1200x1600-efc5201842cf642eb45f73227cd0789b?h=480&quality=medium&resize=1&w=360"
+							srcSet={background_image}
 							alt="Game picture"
 						/>
 						<img
-							src={img}
-							// src="https://cdn1.epicgames.com/offer/236c74b4cd2e4e3099cbe2ebdc9686fd/EGS_DeadIsland2_DeepSilverDambusterStudios_S2_1200x1600-efc5201842cf642eb45f73227cd0789b?h=480&quality=medium&resize=1&w=360"
+							src={background_image}
 							alt="Game picture"
 						/>
 					</picture>
-					<div className={classes.platform}>{platforms}</div>
+					<div className={classes.platform}>{parent_platforms.join(', ')}</div>
 				</div>
 
 				<div className={classes.titleSection}>
@@ -53,20 +51,34 @@ const CartCard = (props) => {
 				<picture className={classes.contentRatingSection}>
 					<source
 						media="(min-width: 0px)"
-						srcSet={src}
+						srcSet={ratingsSrc}
 						alt="ESRB Content Rating Category"
 					/>
-					<img
-						src={src}
+					<background_image
+						src={ratingsSrc}
 						alt="ESRB Content Rating Category"
 					/>
 				</picture>
-				<div className={classes.buttonsSection}
+				<div
+					className={classes.buttonsSection}
 					onClick={(event) => {
-					event.preventDefault()
-				}}>
-					<button className={classes.removeButton} onClick={handleClick}>Remove</button>
-					{props.inCart ? <WishlistButton onClick={props.onAdd}> Move to Wishlist </WishlistButton> : <CTAButton onClick={onAdd}>Add to Cart</CTAButton>}
+						event.preventDefault();
+					}}
+				>
+					<button
+						className={classes.removeButton}
+						onClick={handleClick}
+					>
+						Remove
+					</button>
+					{props.inCart ? (
+						<WishlistButton onClick={props.onAdd}>
+							{' '}
+							Move to Wishlist{' '}
+						</WishlistButton>
+					) : (
+						<CTAButton onClick={onAdd}>Add to Cart</CTAButton>
+					)}
 				</div>
 			</Link>
 		</li>
