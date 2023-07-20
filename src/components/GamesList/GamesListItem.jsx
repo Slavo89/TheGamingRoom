@@ -3,6 +3,7 @@ import classes from './GamesListItem.module.scss';
 import useWishlist from '../../hooks/useWishlist';
 import { Link } from 'react-router-dom';
 
+
 const GamesListItem = (props) => {
 	const [inWishlist, wishlistHandler] = useWishlist(props);
 

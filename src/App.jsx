@@ -11,8 +11,14 @@ import BrowsePage, { loader as browseGameListLoader } from './pages/BrowsePage';
 import NewsPage from './pages/NewsPage';
 import WishlistPage from './pages/WishlistPage';
 import CartPage from './pages/CartPage';
+import { useState } from 'react';
 
 function App() {
+	const [activeBrowsePage, setActiveBrowsePage] = useState(1);
+	const changePageHandler = (page) => {
+		setActiveBrowsePage(page);
+	};
+
 	const router = createBrowserRouter([
 		{
 			path: '/',
@@ -26,7 +32,11 @@ function App() {
 				},
 				{ path: 'distribution', element: <DistributionPage /> },
 				{ path: 'support', element: <SupportPage /> },
-				{ path: 'browse', element: <BrowsePage />, loader: browseGameListLoader },
+				{
+					path: 'browse',
+					element: <BrowsePage onPageChange={changePageHandler} page={activeBrowsePage} />,
+					loader: () => browseGameListLoader(activeBrowsePage),
+				},
 				{ path: 'news', element: <NewsPage /> },
 				{ path: 'wishlist', element: <WishlistPage /> },
 				{ path: 'cart', element: <CartPage /> },

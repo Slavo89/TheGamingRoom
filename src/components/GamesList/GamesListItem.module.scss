@@ -2,6 +2,7 @@
 	padding: 1.5rem;
 	list-style: none;
 	transition: background-color 0.3s;
+
 	a {
 		text-decoration: none;
 		color: inherit;
@@ -26,12 +27,15 @@
 			}
 			.buttonContainer {
 				display: none;
-				height: 45px;
-				width: 45px;
+				height: 35px;
+				width: 40px;
 				position: absolute;
-				top: -10px;
-				right: -5px;
+				top: 2px;
+				right: 2px;
 				opacity: 0;
+				&:focus-within {
+					opacity: 1;
+				}
 			}
 		}
 		.info {
@@ -51,7 +55,7 @@
 			}
 		}
 	}
-	&:hover {
+	&:hover, &:focus-within {
 		background-color: rgba(255, 255, 255, 0.1);
 		border-radius: 5px;
 		.container {
@@ -60,9 +64,12 @@
 			}
 		}
 	}
-	// MEDIA QUERIES
+	&:focus-within {
+		outline: 2px solid var(--hover-color);
+	}
 }
 
+// MEDIA QUERIES
 @media (width >= 768px) {
 	.gamesListItem {
 		.container {

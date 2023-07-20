@@ -22,15 +22,16 @@ const WishlistButton = (props) => {
 			}}
 			onMouseEnter={props.onMouseEnter}
 			onMouseLeave={props.onMouseLeave}
+			tabIndex='0'
 		>
 			<div
 				className={classes.container}
 			>
-				<div className={props.inWishlist ? `${classes.rotate}` : `${classes.rotateBack}`}>
+				<div className={props.inWishlist ? `${classes.spinner} ${classes.rotate}` : `${classes.spinner} ${classes.rotateBack}`}>
 					<span>
 						<BsPlus />
 					</span>
-					<span className={props.inWishlist ? ` ${classes.visible}` : `${classes.check}`}>
+					<span className={props.inWishlist ? `${classes.spinner} ${classes.visible}` : `${classes.spinner} ${classes.check}`}>
 						<BsCheck2 />
 					</span>
 				</div>

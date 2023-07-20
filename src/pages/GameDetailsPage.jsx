@@ -19,8 +19,6 @@ const GameDetailsPage = () => {
 		tags: data.tags.map((tag) => tag.name),
 	};
 
-	console.log(gameDetails);
-
 	const ratingStyle = {
 		'--rating': gameDetails.rating,
 	};
