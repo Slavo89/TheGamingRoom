@@ -151,6 +151,7 @@ const BrowsePage = (props) => {
 						{generatePageNumbers(activePage, totalPages).map((page) => (
 							<li
 								key={page}
+								value={page}
 								className={page === activePage ? classes.active : ''}
 								onClick={
 									typeof page === 'number'

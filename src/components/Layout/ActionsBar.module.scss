@@ -8,15 +8,6 @@
 	align-items: center;
 	background-color: var(--black-color);
 	z-index: 100;
-	// button {
-	// 	padding: 1rem;
-	// 	font-size: 1.4rem;
-	// 	font-weight: 700;
-	// 	background-color: inherit;
-	// 	color: inherit;
-	// 	border: none;
-	// 	cursor: pointer;
-	// }
 
 	svg {
 		font-size: 1.6rem;
@@ -34,7 +25,6 @@
 		cursor: pointer;
 		&:focus {
 			color: var(--hover-color);
-			// outline: none;
 		}
 	}
 
@@ -62,17 +52,45 @@
 	}
 
 	.searchBarLarge {
+		position: relative;
 		height: 40px;
 		width: 100%;
 		background-color: var(--grey-color);
 		border-radius: 24px;
 		flex-basis: 20%;
+		display: flex;
+		flex-direction: column;
 		.searchBarContainer {
 			height: 100%;
 			display: flex;
 			align-items: center;
 			svg {
 				font-size: 1rem;
+			}
+		}
+		.searchList {
+			position: absolute;
+			padding: 1rem 2rem;
+			top: 45px;
+			left: 0;
+			width: 250%;
+			background-color: inherit;
+			list-style: none;
+			.searchItem {
+				background-color: inherit;
+				height: 56px;
+				gap: 2rem;
+				font-weight: 700;
+				.link {
+					text-decoration: none;
+					color: currentColor;
+					display: flex;
+					align-items: center;
+					gap: 2rem;
+				}
+				.image {
+					object-fit: cover;
+				}
 			}
 		}
 	}
@@ -88,28 +106,10 @@
 	}
 
 	.mainBar {
-		// text-align: center;
-		// width: 100px;
-		// margin: 0auto;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		flex-basis: 60%;
-		// .listButton {
-		// 	display: flex;
-		// 	gap: 0.5rem;
-		// svg {
-		// 	font-size: 1.2rem;
-		// }
-		// .transformOpen {
-		// 	transform: rotate(-180deg);
-		// 	transition: transform 0.2s;
-		// }
-		// .transformClose {
-		// 	transform: rotate(0deg);
-		// 	transition: transform 0.2s;
-		// }
-		// }
 	}
 	.rightBar {
 		flex-basis: 20%;
@@ -131,9 +131,7 @@
 				color: var(--hover-color);
 			}
 			.badge {
-				// display: none;
 				width: 30px;
-				// width: 0%;
 				height: 20px;
 				display: flex;
 				justify-content: center;
@@ -144,9 +142,6 @@
 				background-color: #fff;
 				border-radius: 20px;
 				overflow: hidden;
-				// span {
-				// 	color: orangered;
-				// }
 			}
 			.show {
 				animation: show 0.3s forwards;
@@ -253,15 +248,12 @@
 	}
 }
 
-
 @keyframes show {
 	0% {
-		// display: none;
 		width: 0px;
 	}
 
 	100% {
-		// display: block;
 		width: 30px;
 	}
 }
@@ -286,7 +278,6 @@
 		opacity: 0;
 	}
 
-	
 	40% {
 		opacity: 0;
 	}

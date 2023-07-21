@@ -50,7 +50,6 @@ const GameDetailsPage = () => {
 						width="100%"
 						radius="10px"
 						slideBackgroundColor="transparent"
-						// slideImageFit="cover"
 						thumbnails={true}
 						thumbnailWidth="100px"
 						thumbnailHeight="50px"

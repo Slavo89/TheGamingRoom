@@ -1,15 +1,18 @@
 .browseCard {
 	list-style: none;
 	&:focus-within {
-		outline: 2px solid white;
+		outline: 2px solid var(--hover-color);
 		border-radius: 5px;
 	}
 
 	.link {
 		text-decoration: none;
 		color: currentColor;
+		// transition: filter .2s;
 		&:hover {
-			filter: brightness(1.1);
+			.imageSection {
+				filter: brightness(1.1);
+			}
 			.buttonContainer {
 				opacity: 1;
 			}
