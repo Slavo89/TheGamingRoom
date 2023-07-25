@@ -1,0 +1,12 @@
+.searchInput {
+		border: none;
+		background-color: inherit;
+		outline: none;
+		color: var(--font-color);
+		font-size: 1.4rem;
+		line-height: 2rem;
+		flex-basis: 80%;
+        &:focus {
+            outline: none;
+        }
+	}

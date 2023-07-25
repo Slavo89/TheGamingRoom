@@ -1,26 +1,27 @@
 import { useEffect, useState } from 'react';
 import useMediaQuery from './../../hooks/use-MediaQuery.js';
 import { useSelector } from 'react-redux';
-import { NavLink, Link } from 'react-router-dom';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import axios from 'axios';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { BsSearch, BsCheckCircle, BsCart2, BsXLg } from 'react-icons/bs';
 import OpenListButton from '../Buttons/OpenListButton.jsx';
 import classes from './ActionsBar.module.scss';
+import SearchInput from './SearchInput.jsx';
 
 const ActionsBar = (props) => {
-	const [searchValue, setSeatchValue] = useState('');
-	const [searchData, setSearchData] = useState(null);
+	const navigate = useNavigate();
+
 	const [searchPanelOpen, setSearchPanelOpen] = useState(false);
 	const [listOpen, setListOpen] = useState(false);
 	const cartItems = useSelector((state) => state.cart.items.length);
-
+	const is1024Px = useMediaQuery('(width >= 1024px)');
+	const is1280Px = useMediaQuery('(width >= 1280px)');
 	const [pageName, setPageName] = useState('Discover'); // ADD RESET AT CHANGING SITES
 
 	// badge animation
 	const [key, setKey] = useState(0);
 	const [prevCartItems, setPrevCartItems] = useState(0);
 	const [badgeClass, setBadgeClass] = useState(`${classes.badge}`);
+
 	useEffect(() => {
 		setKey(cartItems);
 		if (cartItems > 0) {
@@ -62,67 +63,49 @@ const ActionsBar = (props) => {
 		setListOpen(!listOpen);
 	};
 
-	const searchGameHandler = async () => {
-		// const inputValue = event.target.value;
-		// setTimeout(
-		// async () => {
-		try {
-			const response = await axios.get(
-				`https://api.rawg.io/api/games?search=${searchValue}&key=8c5f5a03a748417b9752c0b536fa1e98`
-			);
-			const data = response.data;
-			// return data;
-			setSearchData(data.results.slice(0, 5));
-		} catch (error) {
-			console.error('Could not find games', error);
-		}
-		// },
+	// const handleNavigate = (id) => {
+	// 	navigate(`/${id}`);
+	// };
 
-		// 1000
-		// );
-	};
-	console.log(searchData);
+	
 
-	const handleInputChange = (event) => {
-		setSeatchValue(event.target.value);
-		setTimeout(() => {
-			searchGameHandler();
-		}, 1500);
-	};
-
-	const renderResults = () => {
-		if (searchData === null) {
-			return;
-		}
-
-		return (
-			<ul className={classes.searchList}>
-				{searchData.map((game) => (
-					<li
-						className={classes.searchItem}
-						key={game.id}
-					>
-						<Link
-							to={`/${props.id}`}
-							className={classes.link}
+	const renderResults = (searchData, searchValueRef, isInputFocused, resetInputValue) => {
+		if (searchData === null || searchValueRef === '' || !isInputFocused) {
+			return null;
+		} else {
+			return (
+				<ul className={classes.searchList}>
+					{searchData.map((game) => (
+						<li
+							className={classes.searchItem}
+							key={game.id}
 						>
-							<LazyLoadImage
-								src={game.background_image}
-								alt="Game cover"
-								height="46"
-								width="32"
-								className={classes.image}
-							/>
-							{game.name}
-						</Link>
-					</li>
-				))}
-			</ul>
-		);
+							<div
+								className={classes.link}
+								id={game.id}
+								onClick={() => {
+									resetInputValue();
+									navigate(`/${game.id}`);
+									if (searchPanelOpen) {
+										toggleSearchPanelHandler()
+									}
+								}}
+							>
+								<img
+									src={game.background_image}
+									alt="Game cover"
+									height="46"
+									width="32"
+									className={classes.image}
+								/>
+								<p>{game.name}</p>
+							</div>
+						</li>
+					))}
+				</ul>
+			);
+		}
 	};
-
-	const is1024Px = useMediaQuery('(width >= 1024px)');
-	const is1280Px = useMediaQuery('(width >= 1280px)');
 
 	const linkClass = ({ isActive }) => (isActive ? classes.active : '');
 	const searchButton = (
@@ -133,15 +116,6 @@ const ActionsBar = (props) => {
 			<BsSearch />
 		</button>
 	);
-
-	const searchInput = (
-		<input
-			className={classes.searchInput}
-			placeholder="Search store"
-			onChange={handleInputChange}
-		></input>
-	);
-	// console.log(searchData.map((game) => game.name));
 
 	const mainBarList = (
 		<div className={classes.actionNav}>
@@ -190,30 +164,32 @@ const ActionsBar = (props) => {
 						<BsSearch />
 					</button>
 					{searchPanelOpen && (
-						<div className={classes.searchPanel}>
-							{searchButton}
-							{searchInput}
-							<button
-								type="button"
-								onClick={toggleSearchPanelHandler}
-								className={classes.closeButton}
-							>
-								<BsXLg />
-							</button>
-						</div>
+						<>
+							<div className={classes.searchPanel}>
+								{searchButton}
+								<SearchInput
+									onRenderResults={renderResults}
+								/>
+								<button
+									type="button"
+									onClick={toggleSearchPanelHandler}
+									className={classes.closeButton}
+								>
+									<BsXLg />
+								</button>
+								{renderResults()}
+							</div>
+						</>
 					)}
 				</div>
 			) : (
 				<div className={classes.searchBarLarge}>
 					<div className={classes.searchBarContainer}>
 						{searchButton}
-						{searchInput}
+						<SearchInput
+							onRenderResults={renderResults}
+						/>
 					</div>
-					{/* <ul className={classes.searchList}>
-						{searchData.map((game) => {
-							<li className={classes.searchItem}>{game.name}</li>;
-						})}
-					</ul> */}
 					{renderResults()}
 				</div>
 			)}

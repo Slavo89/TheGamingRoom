@@ -2,15 +2,12 @@ import classes from './BrowsePageCard.module.scss';
 import { Link } from 'react-router-dom';
 import WishlistButton from '../Buttons/WishlistButton';
 import useWishlist from '../../hooks/useWishlist';
-// import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const BrowsePageCard = (props) => {
 	const [inWishlist, wishlistHandler] = useWishlist(props);
 
 	return (
-		<li
-			className={classes.browseCard}
-		>
+		<li className={classes.browseCard}>
 			<Link
 				to={`/${props.id}`}
 				className={classes.link}
@@ -29,20 +26,21 @@ const BrowsePageCard = (props) => {
 							loading="lazy"
 						/>
 					</picture>
+					
 					<div
 						className={classes.buttonContainer}
 						onClick={(e) => e.preventDefault()}
-						>
+					>
 						<WishlistButton
 							onClick={wishlistHandler}
 							inWishlist={inWishlist}
 						/>
 					</div>
 				</div>
-			<div className={classes.info}>
-				<div>{props.name}</div>
-				<div>$ {props.price}</div>
-			</div>
+				<div className={classes.info}>
+					<div>{props.name}</div>
+					<div>$ {props.price}</div>
+				</div>
 			</Link>
 		</li>
 	);

@@ -38,15 +38,19 @@
 			height: 100%;
 			width: 100%;
 			display: flex;
-			justify-content: space-between;
+			// justify-content: flex-start;
 			align-items: center;
-			background-color: #202020;
+			background-color: var(--grey-color);
 			z-index: 100;
 			button {
 				text-align: center;
 				color: var(--hover-color);
 				flex-basis: 10%;
 				font-size: 1.4rem;
+				flex: 0 0 auto;
+			}
+			.closeButton {
+				margin-left: auto;
 			}
 		}
 	}
@@ -68,41 +72,6 @@
 				font-size: 1rem;
 			}
 		}
-		.searchList {
-			position: absolute;
-			padding: 1rem 2rem;
-			top: 45px;
-			left: 0;
-			width: 250%;
-			background-color: inherit;
-			list-style: none;
-			.searchItem {
-				background-color: inherit;
-				height: 56px;
-				gap: 2rem;
-				font-weight: 700;
-				.link {
-					text-decoration: none;
-					color: currentColor;
-					display: flex;
-					align-items: center;
-					gap: 2rem;
-				}
-				.image {
-					object-fit: cover;
-				}
-			}
-		}
-	}
-
-	.searchInput {
-		border: none;
-		background-color: inherit;
-		outline: none;
-		color: var(--font-color);
-		font-size: 1.4rem;
-		line-height: 2rem;
-		flex-basis: 80%;
 	}
 
 	.mainBar {
@@ -296,5 +265,49 @@
 
 	100% {
 		transform: translate(0%, 0%);
+	}
+}
+
+.searchList {
+	position: absolute;
+	top: 100px;
+	left: 0;
+	padding: 1rem 2rem;
+	width: 100%;
+	background-color: var(--grey-color);
+	list-style: none;
+	
+	.searchItem {
+		background-color: inherit;
+		font-weight: 700;
+		height: 56px;
+		gap: 2rem;
+		cursor: pointer;
+		
+		&:hover {
+			p {
+				text-decoration: underline;
+			}
+		}
+		.link {
+			text-decoration: none;
+			color: currentColor;
+			display: flex;
+			align-items: center;
+			gap: 2rem;
+			.image {
+				object-fit: cover;
+				border-radius: 3px;
+			}
+		}
+	}
+	@media (width >= 1024px) {
+		position: absolute;
+
+		top: 45px;
+		left: 0;
+		width: 250%;
+		border-radius: 5px;
+
 	}
 }

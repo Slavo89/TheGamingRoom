@@ -1,10 +1,12 @@
 import axios from 'axios';
+import Swiper from 'swiper';
 import { useState, useEffect } from 'react';
 import { useLoaderData, json } from 'react-router-dom';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 import BrowsePageCard from '../components/Cards/BrowsePageCard';
 import SortList from '../components/Layout/SortList';
 import AsideFilters from '../components/Layout/AsideFilters';
+import GenreCard from '../components/Cards/GenreCard';
 import classes from './BrowsePage.module.scss';
 
 const totalPages = 25;
@@ -50,10 +52,10 @@ const generatePageNumbers = (activePage, totalPages) => {
 
 const BrowsePage = (props) => {
 	const [activePage, setActivePage] = useState(props.page);
-	const data = useLoaderData();
+	const { games, genres } = useLoaderData();
 
 	// adding price property based on metacritic rating to all game objects, destructure parent_platforms, genres and tags for easier access
-	const gamesData = data.map((game) => {
+	const gamesData = games.map((game) => {
 		const gamesData = { ...game };
 		gamesData.price = gamesData.metacritic;
 		gamesData.genres = [...game.genres.map((genre) => genre.name)];
@@ -99,6 +101,24 @@ const BrowsePage = (props) => {
 		<>
 			<section>
 				<h2>Popular Genres</h2>
+				<ul className={classes.genreList}>
+					<Swiper
+						modules={[Pagination]}
+						spaceBetween={15}
+						slidesPerView={1.3}
+						pagination={{
+							clickable: true,
+						}}
+					>
+						{genres.map((genre) => (
+							<GenreCard
+								name={genre.name}
+								key={genre.id}
+								image={genre.image_background}
+							/>
+						))}
+					</Swiper>
+				</ul>
 			</section>
 			<section>
 				<div className={classes.mainContent}>
@@ -181,15 +201,19 @@ export default BrowsePage;
 
 export async function loader(page) {
 	try {
-		const response1 = await axios.get(
+		const gamesResponse = await axios.get(
 			`https://api.rawg.io/api/games?key=8c5f5a03a748417b9752c0b536fa1e98&page=${page}&page_size=40`
 		);
-		// const response2 = await axios.get(
-		// 	`https://api.rawg.io/api/games?key=8c5f5a03a748417b9752c0b536fa1e98&page=2&page_size=40`
-		// );
-		const data = response1.data;
+		const genresResponse = await axios.get(
+			`https://api.rawg.io/api/genres?key=8c5f5a03a748417b9752c0b536fa1e98`
+		);
+		const gamesData = gamesResponse.data;
+		const genresData = genresResponse.data;
 
-		return data.results;
+		return {
+			games: gamesData.results,
+			genres: genresData.results,
+		};
 	} catch (error) {
 		return json(
 			{ message: 'Could not fetch games.' },

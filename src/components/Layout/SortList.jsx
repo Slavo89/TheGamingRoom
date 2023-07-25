@@ -37,7 +37,7 @@ const SortList = (props) => {
 
 	const sortByRecentlyAddedHandler = () => {
 		props.sortItems(props.originalItems);
-		setActiveSort('Recently Added');
+		setActiveSort(props.firstLabel);
 	};
 
 	const sortByNameHandler = () => {

@@ -1,3 +1,10 @@
+.genreList {
+	list-style: none;
+	display: flex;
+	gap: min(5%, 2rem);
+	overflow: hidden;
+}
+
 .mainContent {
 	.list {
 		flex-grow: 1;
