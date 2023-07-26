@@ -1,66 +1,81 @@
-.genreList {
+.titleContainer {
+	top: 0;
+	left: 0;
+	height: 30px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 2rem;
+	
+	.arrowNagination {
+		height: 30px;
+		width: 70px;
+		display: flex;
+		justify-content: space-between;
+		cursor: pointer;
+		.arrow {
+			height: 30px;
+			width: 30px;
+			background-color: var(--grey-color);
+			color: var(--font-white);
+			border-radius: 50%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			transition: all .3s;
+			&:hover {
+				filter: brightness(1.5);
+			}
+			&.active {
+				border: 1px solid var(--hover-color);
+			}
+		}
+	}
+}
+
+.genreCards {
+	margin-top: 100px;
 	list-style: none;
 	display: flex;
 	gap: min(5%, 2rem);
 	overflow: hidden;
 }
 
-.mainContent {
-	.list {
-		flex-grow: 1;
-	}
-}
-.cardsContainer {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	grid-column-gap: 1.5rem;
-	grid-row-gap: 2rem;
-}
+// .mainContent {
+// 	.list {
+// 		flex-grow: 1;
+// 	}
+// }
+// .cardsContainer {
+// 	display: grid;
+// 	grid-template-columns: repeat(2, 1fr);
+// 	grid-column-gap: 1.5rem;
+// 	grid-row-gap: 2rem;
+// }
 
-.pagination {
-	margin-top: 3rem;
-	.pagesList {
-		display: flex;
-		gap: 1rem;
-		justify-content: center;
-		align-items: center;
-		list-style: none;
-		li {
-			padding: 0rem 0.5rem;
-			cursor: pointer;
-			&:hover {
-				color: var(--font-white);
-			}
-			
-		}
-		.arrow {
-			display: flex;
-			align-items: center;
-			font-size: 1.4rem;
-		}
+// .pagination {
+// 	margin-top: 3rem;
+// 	.pagesList {
+// 		display: flex;
+// 		gap: 1rem;
+// 		justify-content: center;
+// 		align-items: center;
+// 		list-style: none;
+// 		li {
+// 			padding: 0rem 0.5rem;
+// 			cursor: pointer;
+// 			&:hover {
+// 				color: var(--font-white);
+// 			}
+// 		}
+// 		.arrow {
+// 			display: flex;
+// 			align-items: center;
+// 			font-size: 1.4rem;
+// 		}
 
-		.active {
-			color: var(--font-white);
-		}
-	}
-}
-
-@media (width >= 770px) {
-	.cardsContainer {
-		grid-template-columns: repeat(4, 1fr);
-	}
-}
-
-@media (width >= 1024px) {
-	.mainContent {
-		display: flex;
-		justify-content: space-between;
-		gap: 3rem;
-	}
-}
-
-@media (width >= 1600px) {
-	.cardsContainer {
-		grid-template-columns: repeat(5, 1fr);
-	}
-}
+// 		.active {
+// 			color: var(--font-white);
+// 		}
+// 	}
+// }

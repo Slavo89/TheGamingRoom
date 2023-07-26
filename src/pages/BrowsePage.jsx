@@ -1,57 +1,60 @@
 import axios from 'axios';
-import Swiper from 'swiper';
-import { useState, useEffect } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation } from 'swiper';
+import { useState, useRef } from 'react';
 import { useLoaderData, json } from 'react-router-dom';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
-import BrowsePageCard from '../components/Cards/BrowsePageCard';
-import SortList from '../components/Layout/SortList';
-import AsideFilters from '../components/Layout/AsideFilters';
+// import BrowsePageCard from '../components/Cards/BrowsePageCard';
+// import SortList from '../components/Layout/SortList';
+// import AsideFilters from '../components/Layout/AsideFilters';
 import GenreCard from '../components/Cards/GenreCard';
 import classes from './BrowsePage.module.scss';
+import GamesLibrary from '../components/Layout/GamesLibrary';
 
-const totalPages = 25;
-const pages = [];
-for (let i = 1; i <= totalPages; i++) {
-	pages.push(i);
-}
+// const totalPages = 25;
+// const pages = [];
+// for (let i = 1; i <= totalPages; i++) {
+// 	pages.push(i);
+// }
 
-const generatePageNumbers = (activePage, totalPages) => {
-	const visiblePages = 5;
-	const halfVisiblePages = Math.floor(visiblePages / 2);
+// const generatePageNumbers = (activePage, totalPages) => {
+// 	const visiblePages = 5;
+// 	const halfVisiblePages = Math.floor(visiblePages / 2);
 
-	let startPage = activePage - halfVisiblePages;
-	let endPage = activePage + halfVisiblePages;
+// 	let startPage = activePage - halfVisiblePages;
+// 	let endPage = activePage + halfVisiblePages;
 
-	if (startPage <= 0) {
-		startPage = 1;
-		endPage = visiblePages;
-	}
+// 	if (startPage <= 0) {
+// 		startPage = 1;
+// 		endPage = visiblePages;
+// 	}
 
-	if (endPage > totalPages) {
-		endPage = totalPages;
-		startPage = Math.max(1, totalPages - visiblePages + 1);
-	}
+// 	if (endPage > totalPages) {
+// 		endPage = totalPages;
+// 		startPage = Math.max(1, totalPages - visiblePages + 1);
+// 	}
 
-	const pages = [];
-	for (let i = startPage; i <= endPage; i++) {
-		pages.push(i);
-	}
+// 	const pages = [];
+// 	for (let i = startPage; i <= endPage; i++) {
+// 		pages.push(i);
+// 	}
 
-	if (startPage > 1) {
-		pages.unshift('...');
-		pages.unshift(1);
-	}
+// 	if (startPage > 1) {
+// 		pages.unshift('...');
+// 		pages.unshift(1);
+// 	}
 
-	if (endPage < totalPages) {
-		pages.push('...');
-		pages.push(totalPages);
-	}
+// 	if (endPage < totalPages) {
+// 		pages.push('...');
+// 		pages.push(totalPages);
+// 	}
 
-	return pages;
-};
+// 	return pages;
+// };
 
 const BrowsePage = (props) => {
-	const [activePage, setActivePage] = useState(props.page);
+	// const [activePage, setActivePage] = useState(props.page);
+	
 	const { games, genres } = useLoaderData();
 
 	// adding price property based on metacritic rating to all game objects, destructure parent_platforms, genres and tags for easier access
@@ -66,61 +69,116 @@ const BrowsePage = (props) => {
 		return gamesData;
 	});
 
-	const [sortedItems, setSortedItems] = useState(gamesData);
-	const [filteredItems, setFilteredItems] = useState(gamesData);
-	const [displayedItems, setDisplayedItems] = useState(gamesData);
-	const [filtersMenuOpen, setFiltersMenuOpen] = useState(false);
+	// const [sortedItems, setSortedItems] = useState(gamesData);
+	// const [filteredItems, setFilteredItems] = useState(gamesData);
+	// const [displayedItems, setDisplayedItems] = useState(gamesData);
+	// const [filtersMenuOpen, setFiltersMenuOpen] = useState(false);
+	const [activeArrow, setActiveArrow] = useState(null);
+	const prevRef = useRef(null);
+	const nextRef = useRef(null);
 
-	const toggleFiltersMenu = () => {
-		setFiltersMenuOpen(!filtersMenuOpen);
-	};
+	// const toggleFiltersMenu = () => {
+	// 	setFiltersMenuOpen(!filtersMenuOpen);
+	// };
 
-	const handleFilterChange = (filteredGames) => {
-		setFilteredItems(filteredGames);
-	};
+	// const handleFilterChange = (filteredGames) => {
+	// 	setFilteredItems(filteredGames);
+	// };
 
-	const sortItems = (items) => {
-		setSortedItems(items);
-	};
+	// const sortItems = (items) => {
+	// 	setSortedItems(items);
+	// };
 
-	useEffect(() => {
-		const findMatchedItems = () => {
-			const matched = sortedItems.filter((sortedItem) =>
-				filteredItems.some((filteredItem) => filteredItem.id === sortedItem.id)
-			);
-			setDisplayedItems(matched);
-		};
-		findMatchedItems();
-	}, [filteredItems, sortedItems]);
+	// useEffect(() => {
+	// 	const findMatchedItems = () => {
+	// 		const matched = sortedItems.filter((sortedItem) =>
+	// 			filteredItems.some((filteredItem) => filteredItem.id === sortedItem.id)
+	// 		);
+	// 		setDisplayedItems(matched);
+	// 	};
+	// 	findMatchedItems();
+	// }, [filteredItems, sortedItems]);
 
-	useEffect(() => {
-		props.onPageChange(activePage);
-	}, [activePage]);
+	// useEffect(() => {
+	// 	props.onPageChange(activePage);
+	// }, [activePage]);
 
 	return (
 		<>
 			<section>
-				<h2>Popular Genres</h2>
-				<ul className={classes.genreList}>
-					<Swiper
-						modules={[Pagination]}
-						spaceBetween={15}
-						slidesPerView={1.3}
-						pagination={{
-							clickable: true,
-						}}
-					>
+				<div className={classes.titleContainer}>
+					<h3>Popular Genres</h3>
+					<div className={classes.arrowNagination}>
+						<span
+							className={`${classes.arrow} ${classes.prevEl} ${
+								activeArrow === 'prev' ? `${classes.active}` : ''
+							}`}
+							ref={prevRef}
+							onClick={() => {
+								setActiveArrow('prev');
+							}}
+						>
+							<BsChevronLeft />
+						</span>
+						<span
+							className={`${classes.arrow} ${classes.nextEl} ${
+								activeArrow === 'next' ? `${classes.active}` : ''
+							}`}
+							ref={nextRef}
+							onClick={() => {
+								setActiveArrow('next');
+							}}
+						>
+							<BsChevronRight />
+						</span>
+					</div>
+				</div>
+				<Swiper
+					modules={[Navigation]}
+					onResize={(swiper) => {
+						swiper.params.navigation.prevEl = prevRef.current;
+						swiper.params.navigation.nextEl = nextRef.current;
+						swiper.navigation.init();
+					}}
+					breakpoints={{
+						320: {
+							slidesPerView: 2,
+							slidesPerGroup: 2,
+							spaceBetween: 20,
+						},
+						768: {
+							slidesPerView: 4,
+							slidesPerGroup: 4,
+							spaceBetween: 15,
+						},
+						1600: {
+							slidesPerView: 5,
+							slidesPerGroup: 5,
+							spaceBetween: 15,
+						},
+					}}
+					loop={true}
+					navigation={{
+						enabled: true,
+						clickable: true,
+					}}
+				>
+					<ul className={classes.genreCards}>
 						{genres.map((genre) => (
-							<GenreCard
-								name={genre.name}
-								key={genre.id}
-								image={genre.image_background}
-							/>
+							<SwiperSlide key={genre.id}>
+								<GenreCard
+									name={genre.name}
+									image={genre.image_background}
+								/>
+							</SwiperSlide>
 						))}
-					</Swiper>
-				</ul>
+					</ul>
+				</Swiper>
 			</section>
-			<section>
+
+			<GamesLibrary games={gamesData} onPageChange={props.onPageChange} page={props.page} />
+
+			{/* <section>
 				<div className={classes.mainContent}>
 					<div className={classes.list}>
 						<SortList
@@ -192,7 +250,7 @@ const BrowsePage = (props) => {
 						)}
 					</ul>
 				</div>
-			</section>
+			</section> */}
 		</>
 	);
 };
@@ -203,6 +261,7 @@ export async function loader(page) {
 	try {
 		const gamesResponse = await axios.get(
 			`https://api.rawg.io/api/games?key=8c5f5a03a748417b9752c0b536fa1e98&page=${page}&page_size=40`
+			// `https://api.rawg.io/api/games?key=8c5f5a03a748417b9752c0b536fa1e98&page=${page}&page_size=40&genres=indie,puzzle`
 		);
 		const genresResponse = await axios.get(
 			`https://api.rawg.io/api/genres?key=8c5f5a03a748417b9752c0b536fa1e98`

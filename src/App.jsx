@@ -12,6 +12,7 @@ import NewsPage from './pages/NewsPage';
 import WishlistPage from './pages/WishlistPage';
 import CartPage from './pages/CartPage';
 import { useState } from 'react';
+import GamesByGenresPage, { loader as gamesByGenresLoader} from './pages/GamesByGenresPage';
 
 function App() {
 	const [activeBrowsePage, setActiveBrowsePage] = useState(1);
@@ -36,6 +37,14 @@ function App() {
 					path: 'browse',
 					element: <BrowsePage onPageChange={changePageHandler} page={activeBrowsePage} />,
 					loader: () => browseGameListLoader(activeBrowsePage),
+					children: [
+						{
+							index: true,
+							path: 'action',
+							element: <GamesByGenresPage />,
+							loader: () => gamesByGenresLoader(activeBrowsePage, 'action')
+						}
+					]
 				},
 				{ path: 'news', element: <NewsPage /> },
 				{ path: 'wishlist', element: <WishlistPage /> },

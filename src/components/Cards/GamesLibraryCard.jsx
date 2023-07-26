@@ -1,9 +1,10 @@
-import classes from './BrowsePageCard.module.scss';
+import classes from './GamesLibraryCard.module.scss';
 import { Link } from 'react-router-dom';
 import WishlistButton from '../Buttons/WishlistButton';
 import useWishlist from '../../hooks/useWishlist';
+// import GameLibrary from '../Layout/GameLibrary';
 
-const BrowsePageCard = (props) => {
+const GamesLibraryCard = (props) => {
 	const [inWishlist, wishlistHandler] = useWishlist(props);
 
 	return (
@@ -46,4 +47,4 @@ const BrowsePageCard = (props) => {
 	);
 };
 
-export default BrowsePageCard;
+export default GamesLibraryCard;

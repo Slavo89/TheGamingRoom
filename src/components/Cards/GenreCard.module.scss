@@ -1,24 +1,45 @@
 .genreListItem {
-    padding: 1.5rem;
-    background-color: var(--grey-color);
-    border-radius: 5px;
-    width: 45vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+	padding: 1.5rem;
+	background-color: var(--grey-color);
+	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+    cursor: pointer;
+    transition: background-color .2s;
+    &:hover {
+        background-color: rgba(255,255,255, .1);
+    }
+	.link {
+		text-decoration: none;
+		color: currentColor;
+	}
+}
+.imageSection {
+	text-align: center;
+	.image {
+		source,
+		img {
+			height: 30vw;
+			width: 100%;
+			object-fit: cover;
+		}
+	}
+}
+.title {
+	font-size: 1.6rem;
+	font-weight: 700;
+	text-align: center;
+}
+
+@media (width >= 768px) {
 	.imageSection {
-		.image {
-			source,
+        .image {
+            source,
 			img {
-				height: 70px;
-				width: 100px;
-				object-fit: cover;
+                max-height: 165px;
+				height: 10vw;
 			}
 		}
 	}
-    .title {
-        font-size: 1.6rem;
-        font-weight: 700;
-        text-align: center;
-    }
 }

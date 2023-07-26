@@ -1,0 +1,38 @@
+.mainContent {
+	.list {
+		flex-grow: 1;
+	}
+}
+.cardsContainer {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-column-gap: 1.5rem;
+	grid-row-gap: 2rem;
+}
+
+.pagination {
+	margin-top: 3rem;
+	.pagesList {
+		display: flex;
+		gap: 1rem;
+		justify-content: center;
+		align-items: center;
+		list-style: none;
+		li {
+			padding: 0rem 0.5rem;
+			cursor: pointer;
+			&:hover {
+				color: var(--font-white);
+			}
+		}
+		.arrow {
+			display: flex;
+			align-items: center;
+			font-size: 1.4rem;
+		}
+
+		.active {
+			color: var(--font-white);
+		}
+	}
+}
