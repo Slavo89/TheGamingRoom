@@ -8,8 +8,6 @@ import GenreCard from '../components/Cards/GenreCard';
 import classes from './BrowsePage.module.scss';
 import GamesLibrary from '../components/Layout/GamesLibrary';
 
-
-
 const BrowsePage = (props) => {
 	const { games, genres } = useLoaderData();
 
@@ -36,24 +34,26 @@ const BrowsePage = (props) => {
 					<h3>Popular Genres</h3>
 					<div className={classes.arrowNagination}>
 						<span
-							className={`${classes.arrow} ${classes.prevEl} ${
+							className={`${classes.arrow} ${
 								activeArrow === 'prev' ? `${classes.active}` : ''
 							}`}
 							ref={prevRef}
 							onClick={() => {
 								setActiveArrow('prev');
 							}}
+							tabIndex="0"
 						>
 							<BsChevronLeft />
 						</span>
 						<span
-							className={`${classes.arrow} ${classes.nextEl} ${
+							className={`${classes.arrow} ${
 								activeArrow === 'next' ? `${classes.active}` : ''
 							}`}
 							ref={nextRef}
 							onClick={() => {
 								setActiveArrow('next');
 							}}
+							tabIndex="0"
 						>
 							<BsChevronRight />
 						</span>
@@ -61,6 +61,11 @@ const BrowsePage = (props) => {
 				</div>
 				<Swiper
 					modules={[Navigation]}
+					onInit={(swiper) => {
+						swiper.params.navigation.prevEl = prevRef.current;
+						swiper.params.navigation.nextEl = nextRef.current;
+						swiper.navigation.init();
+					}}
 					onResize={(swiper) => {
 						swiper.params.navigation.prevEl = prevRef.current;
 						swiper.params.navigation.nextEl = nextRef.current;
@@ -89,16 +94,18 @@ const BrowsePage = (props) => {
 						clickable: true,
 					}}
 				>
-					<ul className={classes.genreCards}>
-						{genres.map((genre) => (
-							<SwiperSlide key={genre.id}>
-								<GenreCard
-									name={genre.name}
-									image={genre.image_background}
-								/>
-							</SwiperSlide>
-						))}
-					</ul>
+					<div className={classes.swiper}>
+						<ul className={classes.genreCards}>
+							{genres.map((genre) => (
+								<SwiperSlide key={genre.id}>
+									<GenreCard
+										name={genre.name}
+										image={genre.image_background}
+									/>
+								</SwiperSlide>
+							))}
+						</ul>
+					</div>
 				</Swiper>
 			</section>
 

@@ -57,7 +57,7 @@ export async function loader(genrePage, genre) {
 		const gamesData = gamesResponse.data;
 		const genreInfoData = genreInfoResponse.data;
 
-		console.log(gamesData);
+		// console.log(gamesData);
 		return {
 			games: gamesData.results,
 			info: genreInfoData.description,
