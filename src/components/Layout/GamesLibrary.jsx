@@ -48,7 +48,6 @@ const generatePageNumbers = (activePage, totalPages) => {
 	return pages;
 };
 const GamesLibrary = (props) => {
-
 	const [activePage, setActivePage] = useState(props.page);
 	const [sortedItems, setSortedItems] = useState(props.games);
 	const [filteredItems, setFilteredItems] = useState(props.games);

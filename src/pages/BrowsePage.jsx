@@ -1,17 +1,75 @@
 import axios from 'axios';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
-import { useState, useRef } from 'react';
-import { useLoaderData, json } from 'react-router-dom';
+import { useState, useRef, useEffect } from 'react';
+import { json } from 'react-router-dom';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 import GenreCard from '../components/Cards/GenreCard';
 import classes from './BrowsePage.module.scss';
 import GamesLibrary from '../components/Layout/GamesLibrary';
+import { useDispatch, useSelector } from 'react-redux';
+import { pageActions } from '../store/page-slice';
 
-const BrowsePage = (props) => {
-	const { games, genres } = useLoaderData();
+const BrowsePage = () => {
+	const [activeArrow, setActiveArrow] = useState(null);
+	const prevRef = useRef(null);
+	const nextRef = useRef(null);
+	const [games, setGames] = useState([]);
+	const [genres, setGenres] = useState([]);
+	const [dataLoaded, setDataLoaded] = useState(false);
+	const dispatch = useDispatch();
 
-	// adding price property based on metacritic rating to all game objects, destructure parent_platforms, genres and tags for easier access
+	const activePage = useSelector((state) => state.pages.activePage);
+
+	const changeActivePageHandler = (page) => {
+		dispatch(pageActions.setActivePage(page));
+	};
+	useEffect(() => {
+		const fetchGenresData = async () => {
+			try {
+				const genresResponse = await axios.get(
+					`https://api.rawg.io/api/genres?key=8c5f5a03a748417b9752c0b536fa1e98`
+				);
+				const genresData = genresResponse.data.results;
+				setGenres(genresData);
+			} catch (error) {
+				return json(
+					{ message: 'Could not fetch games.' },
+					{
+						status: 500,
+					}
+				);
+			}
+		};
+		fetchGenresData();
+	}, []);
+
+	useEffect(() => {
+		const fetchGamesData = async () => {
+			setDataLoaded(false);
+			try {
+				const gamesResponse = await axios.get(
+					// `https://api.rawg.io/api/games?key=8c5f5a03a748417b9752c0b536fa1e98&page=1&page_size=40`
+					`https://api.rawg.io/api/games?key=8c5f5a03a748417b9752c0b536fa1e98&page=${activePage}&page_size=40`
+				);
+				const gamesData = gamesResponse.data.results;
+
+				setGames(gamesData);
+				setDataLoaded(true);
+			} catch (error) {
+				return json(
+					{ message: 'Could not fetch games.' },
+					{
+						status: 500,
+					}
+				);
+			}
+		};
+		fetchGamesData();
+	}, [activePage]);
+
+
+	// Adding price property based on metacritic rating to all game objects, destructure parent_platforms, genres and tags for easier access
 	const gamesData = games.map((game) => {
 		const gamesData = { ...game };
 		gamesData.price = gamesData.metacritic;
@@ -23,9 +81,12 @@ const BrowsePage = (props) => {
 		return gamesData;
 	});
 
-	const [activeArrow, setActiveArrow] = useState(null);
-	const prevRef = useRef(null);
-	const nextRef = useRef(null);
+	// Reseting active page on changing route
+	useEffect(() => {
+		return () => {
+			dispatch(pageActions.resetActivePage());
+		};
+	}, [dispatch]);
 
 	return (
 		<>
@@ -109,188 +170,15 @@ const BrowsePage = (props) => {
 				</Swiper>
 			</section>
 
-			<GamesLibrary
-				games={gamesData}
-				onPageChange={props.onPageChange}
-				page={props.page}
-			/>
+			{dataLoaded && (
+				<GamesLibrary
+					games={gamesData}
+					onPageChange={changeActivePageHandler}
+					page={activePage}
+				/>
+			)}
 		</>
 	);
 };
 
 export default BrowsePage;
-
-export async function loader(page) {
-	try {
-		const gamesResponse = await axios.get(
-			`https://api.rawg.io/api/games?key=8c5f5a03a748417b9752c0b536fa1e98&page=${page}&page_size=40`
-			// `https://api.rawg.io/api/games?key=8c5f5a03a748417b9752c0b536fa1e98&page=${page}&page_size=40&genres=${genre}`
-		);
-		const genresResponse = await axios.get(
-			`https://api.rawg.io/api/genres?key=8c5f5a03a748417b9752c0b536fa1e98`
-		);
-		const gamesData = gamesResponse.data;
-		const genresData = genresResponse.data;
-
-		return {
-			games: gamesData.results,
-			genres: genresData.results,
-		};
-	} catch (error) {
-		return json(
-			{ message: 'Could not fetch games.' },
-			{
-				status: 500,
-			}
-		);
-	}
-}
-
-// const totalPages = 25;
-// const pages = [];
-// for (let i = 1; i <= totalPages; i++) {
-// 	pages.push(i);
-// }
-
-// const generatePageNumbers = (activePage, totalPages) => {
-// 	const visiblePages = 5;
-// 	const halfVisiblePages = Math.floor(visiblePages / 2);
-
-// 	let startPage = activePage - halfVisiblePages;
-// 	let endPage = activePage + halfVisiblePages;
-
-// 	if (startPage <= 0) {
-// 		startPage = 1;
-// 		endPage = visiblePages;
-// 	}
-
-// 	if (endPage > totalPages) {
-// 		endPage = totalPages;
-// 		startPage = Math.max(1, totalPages - visiblePages + 1);
-// 	}
-
-// 	const pages = [];
-// 	for (let i = startPage; i <= endPage; i++) {
-// 		pages.push(i);
-// 	}
-
-// 	if (startPage > 1) {
-// 		pages.unshift('...');
-// 		pages.unshift(1);
-// 	}
-
-// 	if (endPage < totalPages) {
-// 		pages.push('...');
-// 		pages.push(totalPages);
-// 	}
-
-// 	return pages;
-// };
-
-// const [activePage, setActivePage] = useState(props.page);
-// const [sortedItems, setSortedItems] = useState(gamesData);
-// const [filteredItems, setFilteredItems] = useState(gamesData);
-// const [displayedItems, setDisplayedItems] = useState(gamesData);
-// const [filtersMenuOpen, setFiltersMenuOpen] = useState(false);
-
-// const toggleFiltersMenu = () => {
-// 	setFiltersMenuOpen(!filtersMenuOpen);
-// };
-
-// const handleFilterChange = (filteredGames) => {
-// 	setFilteredItems(filteredGames);
-// };
-
-// const sortItems = (items) => {
-// 	setSortedItems(items);
-// };
-
-// useEffect(() => {
-// 	const findMatchedItems = () => {
-// 		const matched = sortedItems.filter((sortedItem) =>
-// 			filteredItems.some((filteredItem) => filteredItem.id === sortedItem.id)
-// 		);
-// 		setDisplayedItems(matched);
-// 	};
-// 	findMatchedItems();
-// }, [filteredItems, sortedItems]);
-
-// useEffect(() => {
-// 	props.onPageChange(activePage);
-// }, [activePage]);
-
-{
-	/* <section>
-				<div className={classes.mainContent}>
-					<div className={classes.list}>
-						<SortList
-							originalItems={gamesData}
-							sortItems={sortItems}
-							onToggleFiltersMenu={toggleFiltersMenu}
-							firstLabel={'All'}
-						/>
-
-						<div className={classes.gameList}>
-							<ul className={classes.cardsContainer}>
-								{displayedItems.map((game) => (
-									<BrowsePageCard
-										key={game.id}
-										id={game.id}
-										name={game.name}
-										background_image={game.background_image}
-										rating={game.rating}
-										genres={game.genres}
-										price={game.price}
-										esrb_rating={game.esrb_rating}
-										parent_platforms={game.parent_platforms}
-										tags={game.tags}
-									/>
-								))}
-							</ul>
-						</div>
-					</div>
-
-					<AsideFilters
-						games={sortedItems}
-						onFilterChange={handleFilterChange}
-						filtersMenuOpen={filtersMenuOpen}
-						onToggleMenuOpen={toggleFiltersMenu}
-					/>
-				</div>
-
-				<div className={classes.pagination}>
-					<ul className={classes.pagesList}>
-						{activePage > 1 && (
-							<li
-								className={classes.arrow}
-								onClick={() => setActivePage(activePage - 1)}
-							>
-								<BsChevronLeft></BsChevronLeft>
-							</li>
-						)}
-						{generatePageNumbers(activePage, totalPages).map((page) => (
-							<li
-								key={page}
-								value={page}
-								className={page === activePage ? classes.active : ''}
-								onClick={
-									typeof page === 'number'
-										? () => setActivePage(page)
-										: () => {}
-								}
-							>
-								{page}
-							</li>
-						))}
-						{activePage < totalPages && (
-							<li
-								className={classes.arrow}
-								onClick={() => setActivePage(activePage + 1)}
-							>
-								<BsChevronRight></BsChevronRight>
-							</li>
-						)}
-					</ul>
-				</div>
-			</section> */
-}

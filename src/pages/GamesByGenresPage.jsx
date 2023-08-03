@@ -1,11 +1,67 @@
 import axios from 'axios';
-import { useLoaderData, json, useParams } from 'react-router-dom';
+import { json, useParams } from 'react-router-dom';
 import GamesLibrary from '../components/Layout/GamesLibrary';
 import classes from './GamesByGenresPage.module.scss';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { pageActions } from '../store/page-slice';
 
-const GamesByGenresPage = (props) => {
-	const { games, info } = useLoaderData();
+const GamesByGenresPage = () => {
 	const params = useParams();
+	const [games, setGames] = useState([]);
+	const [genre, setGenre] = useState(params.genre.toLowerCase());
+	const [genreReady, setGenreReady] = useState(false);
+	const [info, setInfo] = useState('');
+	const [dataLoaded, setDataLoaded] = useState(false);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		if (genre === 'rpg') {
+			setGenre('role-playing-games-rpg');
+		} else if (genre === 'massively multiplayer') {
+			setGenre('massively-multiplayer');
+		}
+		setGenreReady(true);
+	}, [genre]);
+
+	const activePage = useSelector((state) => state.pages.activePage);
+
+	const changeActivePageHandler = (page) => {
+		dispatch(pageActions.setActivePage(page));
+	};
+
+	useEffect(() => {
+		setDataLoaded(false);
+		const fetchGamesData = async () => {
+			try {
+				if (genreReady) {
+					const gamesResponse = await axios.get(
+						// `https://api.rawg.io/api/games?key=8c5f5a03a748417b9752c0b536fa1e98&page=1&page_size=40`
+						`https://api.rawg.io/api/games?key=8c5f5a03a748417b9752c0b536fa1e98&page=${activePage}&page_size=40&genres=${genre}`
+					);
+
+					const genreInfoResponse = await axios.get(
+						`https://api.rawg.io/api/genres/${genre}?key=8c5f5a03a748417b9752c0b536fa1e98`
+					);
+					const gamesData = gamesResponse.data.results;
+					const genreInfoData = genreInfoResponse.data.description;
+
+					setGames(gamesData);
+					setInfo(genreInfoData);
+					setDataLoaded(true);
+				}
+			} catch (error) {
+				return json(
+					{ message: 'Could not fetch games.' },
+					{
+						status: 500,
+					}
+				);
+			}
+		};
+		fetchGamesData();
+	}, [activePage, genreReady]);
+
 	// adding price property based on metacritic rating to all game objects, destructure parent_platforms, genres and tags for easier access
 	const gamesData = games.map((game) => {
 		const gamesData = { ...game };
@@ -18,9 +74,12 @@ const GamesByGenresPage = (props) => {
 		return gamesData;
 	});
 
-	// console.log(params);
-	console.log(info);
-	// console.log(gamesData);
+	// Reseting active page on changing route
+	useEffect(() => {
+		return () => {
+			dispatch(pageActions.resetActivePage());
+		};
+	}, [dispatch]);
 
 	return (
 		<>
@@ -28,46 +87,15 @@ const GamesByGenresPage = (props) => {
 				<h1>{params.genre} Games</h1>
 				{info}
 			</div>
-			<GamesLibrary
-				games={gamesData}
-				onPageChange={props.onPageChange}
-				page={props.page}
-			/>
+			{dataLoaded && (
+				<GamesLibrary
+					games={gamesData}
+					onPageChange={changeActivePageHandler}
+					page={activePage}
+				/>
+			)}
 		</>
 	);
 };
 
 export default GamesByGenresPage;
-
-export async function loader(genrePage, genre) {
-	if (genre === 'rpg') {
-		genre = 'role-playing-games-rpg';
-	}
-	if (genre === 'massively multiplayer') {
-		genre = 'massively-multiplayer';
-	}
-	try {
-		const gamesResponse = await axios.get(
-			// `https://api.rawg.io/api/games?key=8c5f5a03a748417b9752c0b536fa1e98&page=${genrePage}&page_size=40&genres=massively-multiplayer`
-			`https://api.rawg.io/api/games?key=8c5f5a03a748417b9752c0b536fa1e98&page=${genrePage}&page_size=40&genres=${genre}`
-		);
-		const genreInfoResponse = await axios.get(
-			`https://api.rawg.io/api/genres/${genre}?key=8c5f5a03a748417b9752c0b536fa1e98`
-		);
-		const gamesData = gamesResponse.data;
-		const genreInfoData = genreInfoResponse.data;
-
-		// console.log(gamesData);
-		return {
-			games: gamesData.results,
-			info: genreInfoData.description,
-		};
-	} catch (error) {
-		return json(
-			{ message: 'Could not fetch games.' },
-			{
-				status: 500,
-			}
-		);
-	}
-}

@@ -18,10 +18,8 @@ const cartSlice = createSlice({
 					name: newItem.name,
 					price: newItem.price,
 					background_image: newItem.background_image,
-					// img: newItem.img,
 					esrb_rating: newItem.esrb_rating,
 					parent_platforms: newItem.parent_platforms,
-					// platforms: newItem.platforms,
 				});
 				state.totalAmount = state.totalAmount + newItem.price;
 			} else {
@@ -50,11 +48,7 @@ export const addToCart = (gameData) => {
 		name: gameData.name,
 		price: gameData.price,
 		background_image: gameData.background_image,
-		// img: gameData.background_image,
 		esrb_rating: gameData.esrb_rating,
 		parent_platforms: gameData.parent_platforms,
-		// platforms: gameData.parent_platforms
-		// 	.map((item) => item.platform.name)
-		// 	.join(', '),
 	};
 };

@@ -56,7 +56,7 @@ const CartCard = (props) => {
 						srcSet={ratingsSrc}
 						alt="ESRB Content Rating Category"
 					/>
-					<background_image
+					<img
 						src={ratingsSrc}
 						alt="ESRB Content Rating Category"
 					/>

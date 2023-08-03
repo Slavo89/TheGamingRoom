@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useMediaQuery from '../hooks/use-MediaQuery';
 import { FaRegQuestionCircle, FaMailBulk } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,7 +9,7 @@ import CartCard from '../components/Cards/CartCard';
 import EmptyCartList from '../components/Layout/EmptyCartList';
 import AsideFilters from '../components/Layout/AsideFilters';
 import SortList from '../components/Layout/SortList';
-import { useEffect } from 'react';
+
 
 const WishlistPage = () => {
 	const wishlistItems = useSelector((state) => state.wishlist.items);
