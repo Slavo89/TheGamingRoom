@@ -3,15 +3,23 @@ import { createSlice } from '@reduxjs/toolkit';
 const pageSlice = createSlice({
 	name: 'pages',
 	initialState: {
-		activePage: 1,
+		activeBrowsePage: 1,
+		activeGenrePage: 1,
 	},
 	reducers: {
-		setActivePage(state, action) {
-			state.activePage = action.payload;
+		setActiveBrowsePage(state, action) {
+			state.activeBrowsePage = action.payload;
 		},
 
-		resetActivePage(state) {
-			state.activePage = 1;
+		resetActiveBrowsePage(state) {
+			state.activeBrowsePage = 1;
+		},
+		setActiveGenrePage(state, action) {
+			state.activeGenrePage = action.payload;
+		},
+
+		resetActiveGenrePage(state) {
+			state.activeGenrePage = 1;
 		},
 	},
 });

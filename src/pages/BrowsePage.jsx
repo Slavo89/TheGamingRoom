@@ -19,10 +19,10 @@ const BrowsePage = () => {
 	const [dataLoaded, setDataLoaded] = useState(false);
 	const dispatch = useDispatch();
 
-	const activePage = useSelector((state) => state.pages.activePage);
+	const activeBrowsePage = useSelector((state) => state.pages.activeBrowsePage);
 
-	const changeActivePageHandler = (page) => {
-		dispatch(pageActions.setActivePage(page));
+	const changeActiveBrowsePageHandler = (page) => {
+		dispatch(pageActions.setActiveBrowsePage(page));
 	};
 	useEffect(() => {
 		const fetchGenresData = async () => {
@@ -50,7 +50,7 @@ const BrowsePage = () => {
 			try {
 				const gamesResponse = await axios.get(
 					// `https://api.rawg.io/api/games?key=8c5f5a03a748417b9752c0b536fa1e98&page=1&page_size=40`
-					`https://api.rawg.io/api/games?key=8c5f5a03a748417b9752c0b536fa1e98&page=${activePage}&page_size=40`
+					`https://api.rawg.io/api/games?key=8c5f5a03a748417b9752c0b536fa1e98&page=${activeBrowsePage}&page_size=40`
 				);
 				const gamesData = gamesResponse.data.results;
 
@@ -66,7 +66,7 @@ const BrowsePage = () => {
 			}
 		};
 		fetchGamesData();
-	}, [activePage]);
+	}, [activeBrowsePage]);
 
 
 	// Adding price property based on metacritic rating to all game objects, destructure parent_platforms, genres and tags for easier access
@@ -84,7 +84,7 @@ const BrowsePage = () => {
 	// Reseting active page on changing route
 	useEffect(() => {
 		return () => {
-			dispatch(pageActions.resetActivePage());
+			dispatch(pageActions.resetActiveBrowsePage());
 		};
 	}, [dispatch]);
 
@@ -173,8 +173,8 @@ const BrowsePage = () => {
 			{dataLoaded && (
 				<GamesLibrary
 					games={gamesData}
-					onPageChange={changeActivePageHandler}
-					page={activePage}
+					onPageChange={changeActiveBrowsePageHandler}
+					page={activeBrowsePage}
 				/>
 			)}
 		</>

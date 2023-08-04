@@ -27,7 +27,7 @@ const HomePage = () => {
 	return (
 		<>
 			<section>
-				<h2>Bestsellers</h2>
+				<h3>Bestsellers</h3>
 				{!is768Px && <Carousel games={gamesCarousel} />}
 				{is768Px && <DesktopCarousel games={gamesCarousel} />}
 			</section>

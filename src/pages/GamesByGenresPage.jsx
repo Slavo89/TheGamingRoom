@@ -24,10 +24,10 @@ const GamesByGenresPage = () => {
 		setGenreReady(true);
 	}, [genre]);
 
-	const activePage = useSelector((state) => state.pages.activePage);
+	const activeGenrePage = useSelector((state) => state.pages.activeGenrePage);
 
-	const changeActivePageHandler = (page) => {
-		dispatch(pageActions.setActivePage(page));
+	const changeActiveGenrePageHandler = (page) => {
+		dispatch(pageActions.setActiveGenrePage(page));
 	};
 
 	useEffect(() => {
@@ -37,7 +37,7 @@ const GamesByGenresPage = () => {
 				if (genreReady) {
 					const gamesResponse = await axios.get(
 						// `https://api.rawg.io/api/games?key=8c5f5a03a748417b9752c0b536fa1e98&page=1&page_size=40`
-						`https://api.rawg.io/api/games?key=8c5f5a03a748417b9752c0b536fa1e98&page=${activePage}&page_size=40&genres=${genre}`
+						`https://api.rawg.io/api/games?key=8c5f5a03a748417b9752c0b536fa1e98&page=${activeGenrePage}&page_size=40&genres=${genre}`
 					);
 
 					const genreInfoResponse = await axios.get(
@@ -60,7 +60,7 @@ const GamesByGenresPage = () => {
 			}
 		};
 		fetchGamesData();
-	}, [activePage, genreReady]);
+	}, [activeGenrePage, genreReady]);
 
 	// adding price property based on metacritic rating to all game objects, destructure parent_platforms, genres and tags for easier access
 	const gamesData = games.map((game) => {
@@ -77,21 +77,27 @@ const GamesByGenresPage = () => {
 	// Reseting active page on changing route
 	useEffect(() => {
 		return () => {
-			dispatch(pageActions.resetActivePage());
+			dispatch(pageActions.resetActiveGenrePage());
 		};
 	}, [dispatch]);
+
+
+	// decoding fetched genre info data
+	const infoContainer = document.createElement('div');
+	infoContainer.innerHTML = info;
+	const infoText = infoContainer.textContent;
 
 	return (
 		<>
 			<div className={classes.description}>
 				<h1>{params.genre} Games</h1>
-				{info}
+				<p>{infoText}</p>
 			</div>
 			{dataLoaded && (
 				<GamesLibrary
 					games={gamesData}
-					onPageChange={changeActivePageHandler}
-					page={activePage}
+					onPageChange={changeActiveGenrePageHandler}
+					page={activeGenrePage}
 				/>
 			)}
 		</>
