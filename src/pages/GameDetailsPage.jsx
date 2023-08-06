@@ -6,9 +6,10 @@ import classes from './GameDetailsPage.module.scss';
 import WishlistButton from '../components/Buttons/WishlistButton';
 import CTAButton from '../components/Buttons/CTAButton';
 import useCart from '../hooks/useCart';
+import { platforms } from '../data/iconsSRC';
 
 const GameDetailsPage = () => {
-	const data = useLoaderData();
+	const { data, screenshots } = useLoaderData();
 
 	// adding price property based on metacritic rating to all game objects, destructure parent_platforms, genres and tags for easier access
 	const gameDetails = {
@@ -26,6 +27,13 @@ const GameDetailsPage = () => {
 	const [inWishlist, wishlistHandler] = useWishlist(gameDetails);
 
 	const [inCart, cartHandler] = useCart(gameDetails);
+
+	const carouselData = [
+		{ image: gameDetails.background_image },
+		{ image: gameDetails.background_image_additional },
+		...screenshots,
+	];
+
 	return (
 		<section className={classes.gameDetails}>
 			<h1 className={classes.title}>{gameDetails.name}</h1>
@@ -39,14 +47,7 @@ const GameDetailsPage = () => {
 			<div className={classes.detailsContainer}>
 				<div className={classes.carousel}>
 					<Carousel
-						data={[
-							{
-								image: gameDetails.background_image,
-							},
-							{
-								image: gameDetails.background_image_additional,
-							},
-						]}
+						data={carouselData}
 						width="100%"
 						radius="10px"
 						slideBackgroundColor="transparent"
@@ -93,7 +94,16 @@ const GameDetailsPage = () => {
 					</div>
 					<div className={classes.row}>
 						<span>Platforms</span>
-						<span>{gameDetails.parent_platforms.join(', ')}</span>
+						<div className={classes.platforms}>
+							{gameDetails.parent_platforms.map((platform) => (
+								<img
+									key={platform}
+									src={platforms[platform]}
+									height={16}
+									className={classes.icon}
+								></img>
+							))}
+						</div>
 					</div>
 					<div className={classes.row}>
 						<a
@@ -131,11 +141,16 @@ export default GameDetailsPage;
 export async function loader({ params }) {
 	const id = params.gameId;
 	try {
-		const response = await axios.get(
+		const detailResponse = await axios.get(
 			`https://api.rawg.io/api/games/${id}?key=8c5f5a03a748417b9752c0b536fa1e98`
 		);
-		const data = response.data;
-		return data;
+		const screenshotsResponse = await axios.get(
+			`https://api.rawg.io/api/games/${id}/screenshots?key=8c5f5a03a748417b9752c0b536fa1e98`
+		);
+
+		const data = detailResponse.data;
+		const screenshots = screenshotsResponse.data.results;
+		return { data, screenshots };
 	} catch (error) {
 		return json(
 			{ message: 'Could not fetch game details.' },

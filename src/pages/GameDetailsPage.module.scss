@@ -97,6 +97,13 @@
 				display: flex;
 				justify-content: space-between;
 				gap: 0.5rem;
+				.platforms {
+				display: flex;
+				align-items: center;
+				.icon{
+					margin-left: 0.75rem;
+				}
+			}
 				span {
 					text-align: right;
 				}

@@ -95,7 +95,7 @@ const GamesLibrary = (props) => {
 						<ul className={classes.cardsContainer}>
 							{displayedItems.map((game) => (
 								<GamesLibraryCard
-									key={game.id}
+									key={game.id + game.name}
 									id={game.id}
 									name={game.name}
 									background_image={game.background_image}
@@ -131,7 +131,7 @@ const GamesLibrary = (props) => {
 					)}
 					{generatePageNumbers(activePage, totalPages).map((page) => (
 						<li
-							key={page}
+							key={page + Math.random()} //  Encountered two children with the same key so i used Math.random()
 							value={page}
 							className={page === activePage ? classes.active : ''}
 							onClick={

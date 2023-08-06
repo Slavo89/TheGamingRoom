@@ -36,6 +36,14 @@
 					object-fit: cover;
 				}
 			}
+
+			.platforms {
+				display: flex;
+				align-items: center;
+				.icon{
+					margin-right: 0.75rem;
+				}
+			}
 		}
 
 		.titleSection {

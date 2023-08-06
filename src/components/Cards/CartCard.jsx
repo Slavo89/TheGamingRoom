@@ -2,17 +2,10 @@ import { Link } from 'react-router-dom';
 import WishlistButton from '../Buttons/WishlistButton';
 import classes from './CartCard.module.scss';
 import CTAButton from '../Buttons/CTAButton';
-
-const ratings = {
-	everyone: 'https://www.esrb.org/wp-content/uploads/2019/05/E.svg',
-	'everyone-10-plus':
-		'https://www.esrb.org/wp-content/uploads/2019/05/E10plus.svg',
-	teen: 'https://www.esrb.org/wp-content/uploads/2019/05/T.svg',
-	mature: 'https://www.esrb.org/wp-content/uploads/2019/05/M.svg',
-	adult: 'https://www.esrb.org/wp-content/uploads/2019/05/AO.svg',
-};
+import { platforms, ratings } from './../../data/iconsSRC';
 
 const CartCard = (props) => {
+
 	const { id, background_image, parent_platforms, name, price, rating } =
 		props.item;
 	const ratingsSrc = ratings[rating.slug];
@@ -35,15 +28,25 @@ const CartCard = (props) => {
 							media="(min-width: 0px)"
 							srcSet={background_image}
 							alt="Game picture"
-							loading='lazy'
+							loading="lazy"
 						/>
 						<img
 							src={background_image}
 							alt="Game picture"
-							loading='lazy'
+							loading="lazy"
 						/>
 					</picture>
-					<div className={classes.platform}>{parent_platforms.join(', ')}</div>
+
+					<div className={classes.platforms}>
+						{parent_platforms.map((platform) => (
+							<img
+								key={platform}
+								src={platforms[platform]}
+								height={16}
+								className={classes.icon}
+							></img>
+						))}
+					</div>
 				</div>
 
 				<div className={classes.titleSection}>
