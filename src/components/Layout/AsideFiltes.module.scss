@@ -3,9 +3,6 @@
 	display: none;
 	flex-direction: column;
 	width: 100%;
-	min-height: 100vh;
-	// height: fit-content;
-	height: fit-content;
 	max-height: 100vh;
 	overflow: auto;
 	z-index: 100;
@@ -14,7 +11,6 @@
 	right: 0;
 	&.show {
 		display: flex;
-		// overflow: hidden;
 	}
 	& > :first-child {
 		margin: 2rem 3rem;
@@ -91,6 +87,8 @@
 		display: flex;
 		position: relative;
 		width: 245px;
+		max-height: none;
+		// overflow: none;
 		flex-shrink: 0;
 		z-index: 1;
 		& > :first-child {

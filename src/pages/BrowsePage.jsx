@@ -9,6 +9,7 @@ import classes from './BrowsePage.module.scss';
 import GamesLibrary from '../components/Layout/GamesLibrary';
 import { useDispatch, useSelector } from 'react-redux';
 import { pageActions } from '../store/page-slice';
+import LoadingSpinner from '../components/UI/LoadingSpinner';
 
 const BrowsePage = () => {
 	const [activeArrow, setActiveArrow] = useState(null);
@@ -170,13 +171,13 @@ const BrowsePage = () => {
 				</Swiper>
 			</section>
 
-			{dataLoaded && (
+			{dataLoaded ? (
 				<GamesLibrary
 					games={gamesData}
 					onPageChange={changeActiveBrowsePageHandler}
 					page={activeBrowsePage}
 				/>
-			)}
+			) : <LoadingSpinner/>}
 		</>
 	);
 };

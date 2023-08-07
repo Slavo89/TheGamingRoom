@@ -29,16 +29,20 @@ html {
 	font-family: 'Nunito', sans-serif;
 	font-size: 62.5%; // 10px/16px = 62.5% -> 1rem = 10px
 	scroll-behavior: smooth;
+	// overflow-y: hidden;
 }
 
 body {
-	// height: 100%;
 	background-color: var(--black-color);
 	color: var(--font-color);
 	font-size: 1.4rem;
 	font-weight: 400;
 	line-height: 1.5;
 	overflow-x: hidden;
+	
+	&.unscrollable {
+		overflow-y: hidden;
+	}
 }
 
 main {
@@ -50,10 +54,6 @@ h1 {
 	font-size: 3rem;
 }
 
-// h2 {
-// 	font-weight: 400;
-// 	font-size: 2.4rem;
-// }
 
 h3 {
 	font-weight: 700;

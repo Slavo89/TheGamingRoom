@@ -18,7 +18,7 @@ const Header = (props) => {
 
 	return (
 		<header className={classes.header}>
-			<NavLink
+			{/* <NavLink
 				className={classes.logo}
 				to="/"
 				end={true}
@@ -27,7 +27,7 @@ const Header = (props) => {
 					src="/src/assets/logo.png"
 					alt="logo"
 				/>
-			</NavLink>
+			</NavLink> */}
 			<nav
 				className={
 					navExpanded
@@ -41,6 +41,7 @@ const Header = (props) => {
 							to="/"
 							className={linkClass}
 							onClick={closeAndNavigate}
+							tabIndex='0'
 						>
 							Store
 						</NavLink>
@@ -50,6 +51,7 @@ const Header = (props) => {
 							to="/distribution"
 							className={linkClass}
 							onClick={closeAndNavigate}
+							tabIndex='0'
 						>
 							Distribution
 						</NavLink>
@@ -59,6 +61,7 @@ const Header = (props) => {
 							to="https://www.epicgames.com/help/"
 							target="_blank"
 							onClick={closeAndNavigate}
+							tabIndex='0'
 						>
 							Support
 						</a>
@@ -68,6 +71,7 @@ const Header = (props) => {
 							to="https://www.unrealengine.com/"
 							target="_blank"
 							onClick={closeAndNavigate}
+							tabIndex='0'
 						>
 							Unreal Engine
 						</a>
@@ -75,14 +79,14 @@ const Header = (props) => {
 				</ul>
 				<ul className={classes.rightNav}>
 					<li className={`${classes.listItem} ${classes.profile}`}>
-						<a>
+						<a	tabIndex='0'>
 							{' '}
 							<BsFillPersonFill className={classes.icon} />
 							Profile{' '}
 						</a>
 					</li>
 					<li className={`${classes.listItem} ${classes.downloadButton}`}>
-						<a>Download</a>
+						<a	tabIndex='0'>Download</a>
 					</li>
 				</ul>
 			</nav>

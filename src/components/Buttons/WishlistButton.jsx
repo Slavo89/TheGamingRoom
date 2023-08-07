@@ -1,14 +1,7 @@
 import classes from './WishlistButton.module.scss';
 import { BsPlus, BsCheck2 } from 'react-icons/bs';
-// import { useState } from 'react';
 
 const WishlistButton = (props) => {
-	// const [rotate, setRotate] = useState(false);
-	// const [showTooltip, setShowTooltip] = useState(false);
-	// const [tooltipText, setTooltipText] = useState('Add to Wishlist');
-	// const showTooltipHandler = () => {
-	// setShowTooltip(!showTooltip);
-	// };
 
 	const onClickHandler = () => {
 		// setRotate(!rotate);

@@ -1,6 +1,5 @@
 .wishlistButton {
 	width: 100%;
-	// height: 50px;
 	height: 100%;
 	background: transparent;
 	border: none;
@@ -12,10 +11,10 @@
 	text-transform: uppercase;
 	font-size: 1rem;
 
-	// &:focus {
-	// 	outline: 1px solid white;
-	// 	background-color: var(--grey-color);
-	// }
+	&:focus {
+		outline: 1px solid white;
+		background-color:  rgba(255, 255, 255, 0.16);
+	}
 
 	.container {
 		width: 100%;

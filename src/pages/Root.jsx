@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Outlet, useNavigation } from 'react-router-dom';
 import Header from './../components/Layout/Header';
 import ActionsBar from '../components/Layout/ActionsBar';
@@ -6,6 +7,7 @@ import Container from '../components/Layout/Container';
 import Footer from '../components/Layout/Footer';
 import { backdropActions } from '../store/backdrop-slice';
 import { useDispatch, useSelector } from 'react-redux';
+import LoadingSpinner from '../components/UI/LoadingSpinner';
 
 const RootLayout = () => {
 	const navigation = useNavigation();
@@ -22,6 +24,14 @@ const RootLayout = () => {
 		dispatch(backdropActions.hideBackdrop());
 	};
 
+	useEffect(() => {
+		if (backdropState) {
+			document.body.classList.add('unscrollable');
+		} else {
+			document.body.classList.remove('unscrollable');
+		}
+	}, [backdropState]);
+
 	return (
 		<>
 			<Header
@@ -34,8 +44,7 @@ const RootLayout = () => {
 					onClose={closeBackdropHandler}
 				/>
 				<Container>
-					{navigation.state === 'loading' ? <h1>Loading...</h1> : <Outlet />}
-					{/* <Outlet /> */}
+					{navigation.state === 'loading' ? <LoadingSpinner /> : <Outlet />}
 				</Container>
 			</main>
 			<Footer />

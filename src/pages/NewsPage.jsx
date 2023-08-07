@@ -1,7 +1,12 @@
-const NewsPage = () => {
-  return (
-    <h1>NewsPage</h1>
-  )
-}
+import LoadingSpinner from '../components/UI/LoadingSpinner';
 
-export default NewsPage
+const NewsPage = () => {
+	return (
+		<>
+			{/* <h1>NewsPage</h1> */}
+			<LoadingSpinner />
+		</>
+	);
+};
+
+export default NewsPage;
