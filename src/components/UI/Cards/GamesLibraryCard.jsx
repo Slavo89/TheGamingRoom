@@ -1,7 +1,7 @@
 import classes from './GamesLibraryCard.module.scss';
 import { Link } from 'react-router-dom';
 import WishlistButton from '../Buttons/WishlistButton';
-import useWishlist from '../../hooks/useWishlist';
+import useWishlist from '../../../hooks/useWishlist';
 
 const GamesLibraryCard = (props) => {
 	const [inWishlist, wishlistHandler] = useWishlist(props);

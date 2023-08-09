@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { BsCheck2 } from 'react-icons/bs';
 import { backdropActions } from '../../store/backdrop-slice';
 import { useDispatch } from 'react-redux';
-import OpenListButton from '../Buttons/OpenListButton';
+import OpenListButton from '../UI/Buttons/OpenListButton';
 import classes from './AsideFiltes.module.scss';
-import CTAButton from '../Buttons/CTAButton';
+import CTAButton from '../UI/Buttons/CTAButton';
 
 const AsideFilters = (props) => {
 	const [genreListOpen, setGenreListOpen] = useState(false);

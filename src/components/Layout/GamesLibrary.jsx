@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react';
-
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 import SortList from './SortList';
 import AsideFilters from './AsideFilters';
-import GamesLibraryCard from '../Cards/GamesLibraryCard';
-
+import GamesLibraryCard from '../UI/Cards/GamesLibraryCard';
 import classes from './GamesLibrary.module.scss';
 
 const totalPages = 25;

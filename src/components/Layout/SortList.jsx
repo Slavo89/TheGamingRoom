@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
-import useMediaQuery from '../../hooks/use-MediaQuery';
-import OpenListButton from '../Buttons/OpenListButton';
 import { useDispatch } from 'react-redux';
 import { backdropActions } from '../../store/backdrop-slice';
+import useMediaQuery from '../../hooks/use-MediaQuery';
+import OpenListButton from '../UI/Buttons/OpenListButton';
 import classes from './SortList.module.scss';
 
 const SortList = (props) => {

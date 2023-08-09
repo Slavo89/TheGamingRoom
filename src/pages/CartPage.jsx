@@ -1,6 +1,6 @@
 import classes from './CartPage.module.scss';
-import CartCard from '../components/Cards/CartCard';
-import CTAButton from '../components/Buttons/CTAButton';
+import CartCard from '../components/UI/Cards/CartCard';
+import CTAButton from '../components/UI/Buttons/CTAButton';
 import EmptyCartList from '../components/Layout/EmptyCartList';
 import { cartActions } from '../store/cart-slice';
 import { useDispatch, useSelector } from 'react-redux';

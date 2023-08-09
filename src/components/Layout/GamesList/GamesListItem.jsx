@@ -1,6 +1,6 @@
-import WishlistButton from '../Buttons/WishlistButton';
+import WishlistButton from '../../UI/Buttons/WishlistButton';
 import classes from './GamesListItem.module.scss';
-import useWishlist from '../../hooks/useWishlist';
+import useWishlist from '../../../hooks/useWishlist';
 import { Link } from 'react-router-dom';
 
 

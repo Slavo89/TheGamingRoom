@@ -3,7 +3,7 @@ import useMediaQuery from './../../hooks/use-MediaQuery.js';
 import { useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { BsSearch, BsCheckCircle, BsCart2, BsXLg } from 'react-icons/bs';
-import OpenListButton from '../Buttons/OpenListButton.jsx';
+import OpenListButton from '../UI/Buttons/OpenListButton.jsx';
 import classes from './ActionsBar.module.scss';
 import SearchInput from './SearchInput.jsx';
 

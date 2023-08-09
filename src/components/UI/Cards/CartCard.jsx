@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import WishlistButton from '../Buttons/WishlistButton';
 import classes from './CartCard.module.scss';
 import CTAButton from '../Buttons/CTAButton';
-import { platforms, ratings } from './../../data/iconsSRC';
+import { platforms, ratings } from './../../../data/iconsSRC';
 
 const CartCard = (props) => {
 

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { wishlistActions } from '../store/wishlist-slice';
 import { cartActions } from '../store/cart-slice';
 import classes from './WishilstPage.module.scss';
-import CartCard from '../components/Cards/CartCard';
+import CartCard from '../components/UI/Cards/CartCard';
 import EmptyCartList from '../components/Layout/EmptyCartList';
 import AsideFilters from '../components/Layout/AsideFilters';
 import SortList from '../components/Layout/SortList';
@@ -17,6 +17,8 @@ const WishlistPage = () => {
 	const [filteredItems, setFilteredItems] = useState(wishlistItems);
 	const [displayedItems, setDisplayedItems] = useState(wishlistItems);
 	const [filtersMenuOpen, setFiltersMenuOpen] = useState(false);
+	const [checked, setChecked] = useState(false)
+
 	const dispatch = useDispatch();
 	const is770Px = useMediaQuery('(width >= 770px)');
 
@@ -62,32 +64,50 @@ const WishlistPage = () => {
 		findMatchedItems();
 	}, [filteredItems, sortedItems]);
 
+	const handleCheckboxChange = () => {
+		setChecked(!checked)
+	}
+
+	let notification
+	if (!checked) {
+		notification = 'Receive email notification about my wishlist.'
+	} 
+	if (checked) {
+		notification = 'You are subscribed to wishlist email notification'
+	}
+
 	return (
 		<>
 			<h1>Wishlist</h1>
 			<section className={classes.wishlistSection}>
 				<div className={classes.notificationSwitch}>
-					{is770Px ? (
+					{!is770Px ? (
+						<p className={classes.paragraph}>{notification}</p>
+					) : (
 						<div className={classes.flexContainer}>
 							<FaMailBulk className={classes.icon} />
-							<p className={classes.paragraph}>
-								Receive email notification about my wishlist.
-							</p>
-							<div className={classes.tooltip}>
-								<FaRegQuestionCircle />
-								<span className={classes.tooltipText}>
-									Get notified when your wishlisted games go on sale, or are
-									available for purshase or pre-purshase.
-								</span>
-							</div>
+							{!checked ? (
+								<>
+									<p className={classes.paragraph}>{notification}</p>
+									<div className={classes.tooltip}>
+										<FaRegQuestionCircle />
+										<span className={classes.tooltipText}>
+											Get notified when your wishlisted games go on sale, or are
+											available for purshase or pre-purshase.
+										</span>
+									</div>
+								</>
+							) : (
+								<p className={classes.paragraph}>{notification}</p>
+							)}
 						</div>
-					) : (
-						<p className={classes.paragraph}>
-							Receive email notification about my wishlist.
-						</p>
 					)}
 					<label className={classes.switch}>
-						<input type="checkbox" />
+						<input
+							type="checkbox"
+							checked={checked}
+							onChange={handleCheckboxChange}
+						/>
 						<span className={classes.slider}></span>
 					</label>
 				</div>

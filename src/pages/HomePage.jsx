@@ -1,11 +1,11 @@
 import useMediaQuery from '../hooks/use-MediaQuery';
 import axios from 'axios';
-import Carousel from '../components/Carousel/Carousel';
-import DesktopCarousel from '../components/Carousel/DesktopCarousel';
+import Carousel from '../components/Layout/Carousel/Carousel';
+import DesktopCarousel from '../components/Layout/Carousel/DesktopCarousel';
 
 import { useLoaderData, json } from 'react-router-dom';
-import DesktopGamesList from '../components/GamesList/DesktopGamesList';
-import GamesList from '../components/GamesList/GamesList';
+import DesktopGamesList from '../components/Layout/GamesList/DesktopGamesList';
+import GamesList from '../components/Layout/GamesList/GamesList';
 
 const HomePage = () => {
 	const is768Px = useMediaQuery('(width >= 768px)');

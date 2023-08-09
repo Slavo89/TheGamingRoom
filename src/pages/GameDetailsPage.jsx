@@ -3,8 +3,8 @@ import { useLoaderData, json } from 'react-router-dom';
 import { Carousel } from 'react-carousel-minimal';
 import useWishlist from '../hooks/useWishlist';
 import classes from './GameDetailsPage.module.scss';
-import WishlistButton from '../components/Buttons/WishlistButton';
-import CTAButton from '../components/Buttons/CTAButton';
+import WishlistButton from '../components/UI/Buttons/WishlistButton';
+import CTAButton from '../components/UI/Buttons/CTAButton';
 import useCart from '../hooks/useCart';
 import { platforms } from '../data/iconsSRC';
 

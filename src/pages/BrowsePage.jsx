@@ -4,11 +4,11 @@ import { Navigation } from 'swiper';
 import { useState, useRef, useEffect } from 'react';
 import { json } from 'react-router-dom';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
-import GenreCard from '../components/Cards/GenreCard';
-import classes from './BrowsePage.module.scss';
-import GamesLibrary from '../components/Layout/GamesLibrary';
 import { useDispatch, useSelector } from 'react-redux';
 import { pageActions } from '../store/page-slice';
+import GenreCard from '../components/UI/Cards/GenreCard';
+import classes from './BrowsePage.module.scss';
+import GamesLibrary from '../components/Layout/GamesLibrary';
 import LoadingSpinner from '../components/UI/LoadingSpinner';
 
 const BrowsePage = () => {

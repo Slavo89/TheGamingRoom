@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import classes from './DesktopCarouselMainSlide.module.scss';
-import CTAButton from '../Buttons/CTAButton';
-import WishlistButton from '../Buttons/WishlistButton';
-import useWishlist from '../../hooks/useWishlist';
-import useCart from '../../hooks/useCart';
+import CTAButton from '../../UI/Buttons/CTAButton';
+import WishlistButton from '../../UI/Buttons/WishlistButton';
+import useWishlist from '../../../hooks/useWishlist';
+import useCart from '../../../hooks/useCart';
 
 const DesktoCarouselMainSlide = (props) => {
 	const game = props.game;

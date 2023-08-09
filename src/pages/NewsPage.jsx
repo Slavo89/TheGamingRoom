@@ -1,11 +1,11 @@
-import LoadingSpinner from '../components/UI/LoadingSpinner';
+import CheckoutModal from '../components/UI/CheckoutModal';
+// import Backdrop from '../components/UI/Backdrop';
 
 const NewsPage = () => {
 	return (
-		<>
-			{/* <h1>NewsPage</h1> */}
-			<LoadingSpinner />
-		</>
+		// <Backdrop>
+			<CheckoutModal/>
+		// </Backdrop>
 	);
 };
 

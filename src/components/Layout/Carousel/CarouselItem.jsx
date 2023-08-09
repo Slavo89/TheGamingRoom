@@ -1,7 +1,7 @@
-import WishlistButton from '../Buttons/WishlistButton';
+import WishlistButton from '../../UI/Buttons/WishlistButton';
 import classes from './CarouselItem.module.scss';
 import { useState } from 'react';
-import useWishlist from '../../hooks/useWishlist';
+import useWishlist from '../../../hooks/useWishlist';
 import { Link } from 'react-router-dom';
 
 

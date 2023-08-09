@@ -1,0 +1,137 @@
+.modal {
+	position: absolute;
+	top: -5rem;
+	left: 0;
+	height: 100vh;
+	width: 100%;
+	color: var(--black-color);
+	background-color: white;
+	z-index: 10000;
+	display: flex;
+	flex-direction: column;
+	&> * {
+		padding: 0 1rem;
+	}
+	.label {
+		padding-top: 4rem;
+		display: flex;
+		justify-content: space-between;
+		border-bottom: 2px solid #f2f2f2;
+		.labelTitle {
+			padding-bottom: 1.5rem;
+			width: 50%;
+			text-transform: uppercase;
+			font-weight: 700;
+			border-bottom: 3px solid var(--blue-color);
+		}
+		.profile {
+			height: 2rem;
+			display: flex;
+			align-items: end;
+			gap: 1rem;
+			color: var(--blue-color);
+			text-transform: uppercase;
+			font-size: 1rem;
+			.icon {
+				font-size: 1.6rem;
+				margin-bottom: 2px;
+			}
+			.closeBtn {
+				margin-top: auto;
+				padding: 0.5rem;
+				font-size: 1.4rem;
+				color: var(--black-color);
+				border: none;
+				background-color: inherit;
+				cursor: pointer;
+			}
+		}
+	}
+	.mainContent {
+		flex-grow: 2;
+		height: auto;
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+
+		overflow: auto;
+		.title {
+			padding: 1.5rem 0rem;
+			text-transform: uppercase;
+			font-weight: 700;
+		}
+
+		.cartList,
+		.paymentList {
+			display: flex;
+			flex-direction: column;
+			gap: 1rem;
+
+			.image {
+				height: 70px;
+				width: 50px;
+				border-radius: 5px;
+				object-fit: cover;
+			}
+			.gameTitle {
+				font-size: 1.6rem;
+				font-weight: 700;
+			}
+
+			.summary {
+				display: flex;
+				flex-direction: column;
+				& > * {
+					width: 100%;
+					display: flex;
+					justify-content: space-between;
+				}
+				.totalPrice {
+					padding-top: 1rem;
+					border-top: 1px solid #000;
+				}
+			}
+		}
+		.paymentMethods,
+		.summary {
+			margin: 2rem 0;
+			display: flex;
+			flex-direction: column;
+		}
+	}
+	.paymentAction {
+		height: auto;
+		padding: 2rem;
+		
+		border-top: 4px solid #f2f2f2;
+		flex-grow: 0;
+		flex-shrink: 0;
+		flex-basis: 0;
+		background-color: #fff;
+		.eula {
+			padding-bottom: 1rem;
+			color: var(--black-color);
+			font-size: 1.2rem;
+			line-height: 1.4rem;
+		}
+	}
+}
+
+.listItem {
+	padding: 1rem 2.5rem;
+	display: flex;
+	align-items: center;
+	gap: 1.5rem;
+	background-color: #f2f2f2;
+	border-radius: 5px;
+}
+
+.radio {
+	display: flex;
+}
+
+input {
+	height: 20px;
+	width: 20px;
+	cursor: pointer;
+}
