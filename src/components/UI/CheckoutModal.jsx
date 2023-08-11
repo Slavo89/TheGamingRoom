@@ -11,23 +11,36 @@ import classes from './CheckoutModal.module.scss';
 
 const CheckoutModal = (props) => {
 	const cartItems = useSelector((state) => state.cart);
+	
+	// document.body.classList.add('unscrollable');
 
-	const taxAmount = 0.05; // props.taxAmount
+	const taxAmount = props.tax; // props.taxAmount
 	return (
-		<div className={classes.modal}>
-			<div className={classes.label}>
-				<span className={classes.labelTitle}>Order</span>
-				<div className={classes.profile}>
-					<BsFillPersonFill className={classes.icon} />
-					<span>Profile</span>
-					<button className={classes.closeBtn}>
+		<div className={classes.backdrop}>
+			<div className={classes.modal}>
+				<div className={classes.label}>
+					<span className={classes.labelTitle}>Order</span>
+					<div className={classes.profile}>
+						<BsFillPersonFill className={classes.icon} />
+						<span>Profile</span>
+						<button
+							className={classes.closeBtn}
+							onClick={props.onHide}
+						>
+							<BsXLg />
+						</button>
+					</div>
+				</div>
+				<div className={classes.summaryLabel}>
+					<span className={classes.title}>Summary</span>{' '}
+					<button
+						className={classes.closeBtn}
+						onClick={props.onHide}
+					>
 						<BsXLg />
 					</button>
 				</div>
-			</div>
-			<div className={classes.mainContent}>
-				<div className={classes.summary}>
-					<span className={classes.title}>Summary</span>
+				<div className={classes.mainContent}>
 					<ul className={classes.cartList}>
 						{cartItems.items.map((game) => (
 							<li
@@ -71,7 +84,7 @@ const CheckoutModal = (props) => {
 							<div className={classes.radio}>
 								<input
 									type="radio"
-									name="paymentMethod"	
+									name="paymentMethod"
 								></input>
 							</div>
 							<BsFillCreditCardFill />
@@ -81,7 +94,7 @@ const CheckoutModal = (props) => {
 							<div className={classes.radio}>
 								<input
 									type="radio"
-									name="paymentMethod"	
+									name="paymentMethod"
 								></input>
 							</div>
 							<BsPaypal /> PayPal
@@ -97,14 +110,16 @@ const CheckoutModal = (props) => {
 						</li>
 					</ul>
 				</div>
-			</div>
-			<div className={classes.paymentAction}>
-				<p className={classes.eula}>
-					By clicking 'Place Order', I certify that I am 18 years of age or
-					older and am an authorized user of this payment method, and agree to
-					the terms of the End User License Agreement.
-				</p>
-				<CTAButton>Place Order</CTAButton>
+				<div className={classes.paymentAction}>
+					<p className={classes.eula}>
+						By clicking `Place Order`, I certify that I am 18 years of age or
+						older and am an authorized user of this payment method, and agree to
+						the terms of the End User License Agreement.
+					</p>
+					<div className={classes.buttonContainer}>
+						<CTAButton>Place Order</CTAButton>
+					</div>
+				</div>
 			</div>
 		</div>
 	);

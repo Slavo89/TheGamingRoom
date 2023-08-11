@@ -8,6 +8,7 @@ import Footer from '../components/Layout/Footer';
 import { backdropActions } from '../store/backdrop-slice';
 import { useDispatch, useSelector } from 'react-redux';
 import LoadingSpinner from '../components/UI/LoadingSpinner';
+import CheckoutModal from '../components/UI/CheckoutModal';
 
 const RootLayout = () => {
 	const navigation = useNavigation();
@@ -34,6 +35,7 @@ const RootLayout = () => {
 
 	return (
 		<>
+			{/* <CheckoutModal /> */}
 			<Header
 				onClick={toggleBackdropHandler}
 				onClose={closeBackdropHandler}
