@@ -3,6 +3,7 @@ import useMediaQuery from './../../hooks/use-MediaQuery.js';
 import { useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { BsSearch, BsCheckCircle, BsCart2, BsXLg } from 'react-icons/bs';
+import FocusTrap from 'focus-trap-react';
 import OpenListButton from '../UI/Buttons/OpenListButton.jsx';
 import classes from './ActionsBar.module.scss';
 import SearchInput from './SearchInput.jsx';
@@ -63,13 +64,12 @@ const ActionsBar = (props) => {
 		setListOpen(!listOpen);
 	};
 
-	// const handleNavigate = (id) => {
-	// 	navigate(`/${id}`);
-	// };
-
-	
-
-	const renderResults = (searchData, searchValueRef, isInputFocused, resetInputValue) => {
+	const renderResults = (
+		searchData,
+		searchValueRef,
+		isInputFocused,
+		resetInputValue
+	) => {
 		if (searchData === null || searchValueRef === '' || !isInputFocused) {
 			return null;
 		} else {
@@ -87,9 +87,10 @@ const ActionsBar = (props) => {
 									resetInputValue();
 									navigate(`/${game.id}`);
 									if (searchPanelOpen) {
-										toggleSearchPanelHandler()
+										toggleSearchPanelHandler();
 									}
 								}}
+								tabIndex={0}
 							>
 								<img
 									src={game.background_image}
@@ -118,38 +119,40 @@ const ActionsBar = (props) => {
 	);
 
 	const mainBarList = (
-		<div className={classes.actionNav}>
-			<ul className={classes.actionList}>
-				<li>
-					<NavLink
-						className={linkClass}
-						to="/"
-						onClick={changePageName}
-						end={true}
-					>
-						Discover
-					</NavLink>
-				</li>
-				<li>
-					<NavLink
-						className={linkClass}
-						to="/browse"
-						onClick={changePageName}
-					>
-						Browse
-					</NavLink>
-				</li>
-				<li>
-					<NavLink
-						className={linkClass}
-						to="/news"
-						onClick={changePageName}
-					>
-						News
-					</NavLink>
-				</li>
-			</ul>
-		</div>
+		<FocusTrap active={listOpen}>
+			<div className={classes.actionNav}>
+				<ul className={classes.actionList}>
+					<li>
+						<NavLink
+							className={linkClass}
+							to="/"
+							onClick={changePageName}
+							end={true}
+						>
+							Discover
+						</NavLink>
+					</li>
+					<li>
+						<NavLink
+							className={linkClass}
+							to="/browse"
+							onClick={changePageName}
+						>
+							Browse
+						</NavLink>
+					</li>
+					<li>
+						<NavLink
+							className={linkClass}
+							to="/news"
+							onClick={changePageName}
+						>
+							News
+						</NavLink>
+					</li>
+				</ul>
+			</div>
+		</FocusTrap>
 	);
 
 	return (
@@ -164,12 +167,10 @@ const ActionsBar = (props) => {
 						<BsSearch />
 					</button>
 					{searchPanelOpen && (
-						<>
+						<FocusTrap>
 							<div className={classes.searchPanel}>
 								{searchButton}
-								<SearchInput
-									onRenderResults={renderResults}
-								/>
+								<SearchInput onRenderResults={renderResults} />
 								<button
 									type="button"
 									onClick={toggleSearchPanelHandler}
@@ -179,16 +180,14 @@ const ActionsBar = (props) => {
 								</button>
 								{renderResults()}
 							</div>
-						</>
+						</FocusTrap>
 					)}
 				</div>
 			) : (
 				<div className={classes.searchBarLarge}>
 					<div className={classes.searchBarContainer}>
 						{searchButton}
-						<SearchInput
-							onRenderResults={renderResults}
-						/>
+						<SearchInput onRenderResults={renderResults} />
 					</div>
 					{renderResults()}
 				</div>

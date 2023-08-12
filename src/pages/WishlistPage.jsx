@@ -3,13 +3,12 @@ import useMediaQuery from '../hooks/use-MediaQuery';
 import { FaRegQuestionCircle, FaMailBulk } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { wishlistActions } from '../store/wishlist-slice';
-import { cartActions } from '../store/cart-slice';
+// import { cartActions } from '../store/cart-slice';
 import classes from './WishilstPage.module.scss';
 import CartCard from '../components/UI/Cards/CartCard';
 import EmptyCartList from '../components/Layout/EmptyCartList';
 import AsideFilters from '../components/Layout/AsideFilters';
 import SortList from '../components/Layout/SortList';
-
 
 const WishlistPage = () => {
 	const wishlistItems = useSelector((state) => state.wishlist.items);
@@ -17,24 +16,24 @@ const WishlistPage = () => {
 	const [filteredItems, setFilteredItems] = useState(wishlistItems);
 	const [displayedItems, setDisplayedItems] = useState(wishlistItems);
 	const [filtersMenuOpen, setFiltersMenuOpen] = useState(false);
-	const [checked, setChecked] = useState(false)
+	const [checked, setChecked] = useState(false);
 
 	const dispatch = useDispatch();
 	const is770Px = useMediaQuery('(width >= 770px)');
 
-	const addToCartHandler = (game) => {
-		dispatch(
-			cartActions.addItemToCart({
-				key: game.id,
-				id: game.id,
-				name: game.name,
-				price: game.price,
-				background_image: game.background_image,
-				esrb_rating: game.esrb_rating,
-				parent_platforms: game.parent_platforms,
-			})
-		);
-	};
+	// const addToCartHandler = (game) => {
+	// 	dispatch(
+	// 		cartActions.addItemToCart({
+	// 			key: game.id,
+	// 			id: game.id,
+	// 			name: game.name,
+	// 			price: game.price,
+	// 			background_image: game.background_image,
+	// 			esrb_rating: game.esrb_rating,
+	// 			parent_platforms: game.parent_platforms,
+	// 		})
+	// 	);
+	// };
 
 	const removeFromWishlistHandler = (itemId) => {
 		dispatch(wishlistActions.removeItemFromWishlist(itemId));
@@ -59,21 +58,21 @@ const WishlistPage = () => {
 			const matched = sortedItems.filter((sortedItem) =>
 				filteredItems.some((filteredItem) => filteredItem.id === sortedItem.id)
 			);
-			setDisplayedItems(matched)
+			setDisplayedItems(matched);
 		};
 		findMatchedItems();
 	}, [filteredItems, sortedItems]);
 
 	const handleCheckboxChange = () => {
-		setChecked(!checked)
-	}
+		setChecked(!checked);
+	};
 
-	let notification
+	let notification;
 	if (!checked) {
-		notification = 'Receive email notification about my wishlist.'
-	} 
+		notification = 'Receive email notification about my wishlist.';
+	}
 	if (checked) {
-		notification = 'You are subscribed to wishlist email notification'
+		notification = 'You are subscribed to wishlist email notification';
 	}
 
 	return (
@@ -133,9 +132,9 @@ const WishlistPage = () => {
 												background_image: game.background_image,
 												parent_platforms: game.parent_platforms,
 												price: game.price,
-												rating: game.esrb_rating,
+												esrb_rating: game.esrb_rating,
 											}}
-											onAdd={() => addToCartHandler(game)}
+											// onAdd={() => addToCartHandler(game)}
 											onRemove={() => removeFromWishlistHandler(game.id)}
 										/>
 									))}

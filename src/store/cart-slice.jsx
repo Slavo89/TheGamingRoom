@@ -20,7 +20,7 @@ const cartSlice = createSlice({
 					background_image: newItem.background_image,
 					esrb_rating: newItem.esrb_rating,
 					parent_platforms: newItem.parent_platforms,
-				});
+					});
 				state.totalAmount = state.totalAmount + newItem.price;
 			} else {
 				return;
@@ -34,6 +34,11 @@ const cartSlice = createSlice({
 			}
 			state.totalAmount = state.totalAmount - existingItem.price;
 		},
+
+		resetCart(state) {
+			state.items = [];
+			state.totalAmount = 0;
+		}
 	},
 });
 

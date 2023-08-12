@@ -45,54 +45,59 @@ const CartPage = () => {
 
 	return (
 		<>
-			{showCheckout && <CheckoutModal tax={taxAmount} onHide={ toggleCheckoutHandler } />}
-				<h1>My Cart</h1>
-				<section className={classes.cartSection}>
-					{cartItems.items.length > 0 ? (
-						<div className={classes.gameList}>
-							<ul className={classes.list}>
-								{cartItems.items.map((game) => (
-									<CartCard
-										key={game.id}
-										item={{
-											id: game.id,
-											name: game.name,
-											background_image: game.background_image,
-											parent_platforms: game.parent_platforms,
-											price: game.price,
-											rating: game.esrb_rating,
-										}}
-										inCart={true}
-										onAdd={() => {
-											addToWishlistHandler(game);
-										}}
-										onRemove={() => removeFromCartHandler(game.id)}
-									/>
-								))}
-							</ul>
-							<div className={classes.summary}>
-								<h2>Games Summary</h2>
-								<div>
-									<span>Price</span>
-									<span>{cartItems.totalAmount}</span>
-								</div>
-								<div>
-									<span>Taxes</span>
-									<span>5%</span>
-								</div>
-								<div>
-									<span>Total Price</span>
-									<span>
-										{cartItems.totalAmount + cartItems.totalAmount * taxAmount}
-									</span>
-								</div>
-								<CTAButton onClick={toggleCheckoutHandler}>Check Out</CTAButton>
+			{showCheckout && (
+				<CheckoutModal
+					taxAmount={taxAmount}
+					onHide={toggleCheckoutHandler}
+				/>
+			)}
+			<h1>My Cart</h1>
+			<section className={classes.cartSection}>
+				{cartItems.items.length > 0 ? (
+					<div className={classes.gameList}>
+						<ul className={classes.list}>
+							{cartItems.items.map((game) => (
+								<CartCard
+									key={game.id}
+									item={{
+										id: game.id,
+										name: game.name,
+										background_image: game.background_image,
+										parent_platforms: game.parent_platforms,
+										price: game.price,
+										esrb_rating: game.esrb_rating,
+									}}
+									inCart={true}
+									onAdd={() => {
+										addToWishlistHandler(game);
+									}}
+									onRemove={() => removeFromCartHandler(game.id)}
+								/>
+							))}
+						</ul>
+						<div className={classes.summary}>
+							<h2>Games Summary</h2>
+							<div>
+								<span>Price</span>
+								<span>{cartItems.totalAmount}</span>
 							</div>
+							<div>
+								<span>Taxes</span>
+								<span>5%</span>
+							</div>
+							<div>
+								<span>Total Price</span>
+								<span>
+									{cartItems.totalAmount + cartItems.totalAmount * taxAmount}
+								</span>
+							</div>
+							<CTAButton onClick={toggleCheckoutHandler}>Check Out</CTAButton>
 						</div>
-					) : (
-						<EmptyCartList>Your cart is empty.</EmptyCartList>
-					)}
-				</section>
+					</div>
+				) : (
+					<EmptyCartList>Your cart is empty.</EmptyCartList>
+				)}
+			</section>
 		</>
 	);
 };

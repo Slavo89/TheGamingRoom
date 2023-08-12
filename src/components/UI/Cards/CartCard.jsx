@@ -1,19 +1,19 @@
 import { Link } from 'react-router-dom';
+import useCart from '../../../hooks/useCart'
 import WishlistButton from '../Buttons/WishlistButton';
 import classes from './CartCard.module.scss';
 import CTAButton from '../Buttons/CTAButton';
 import { platforms, ratings } from './../../../data/iconsSRC';
 
 const CartCard = (props) => {
-
-	const { id, background_image, parent_platforms, name, price, rating } =
+	const [inCart, cartHandler] = useCart(props.item);
+	const { id, background_image, parent_platforms, name, price, esrb_rating } =
 		props.item;
-	const ratingsSrc = ratings[rating.slug];
-
-	const { onRemove, onAdd } = props;
+	const ratingsSrc = ratings[esrb_rating.slug];
+	// const { onRemove } = props;
 
 	const handleClick = () => {
-		onRemove(id);
+		props.onRemove(id);
 	};
 
 	return (
@@ -82,7 +82,8 @@ const CartCard = (props) => {
 							Move to Wishlist{' '}
 						</WishlistButton>
 					) : (
-						<CTAButton onClick={onAdd}>Add to Cart</CTAButton>
+						<CTAButton onClick={cartHandler}>{!inCart ? 'Add to Cart' : 'View in Cart'}</CTAButton>
+						
 					)}
 				</div>
 			</Link>
@@ -91,3 +92,7 @@ const CartCard = (props) => {
 };
 
 export default CartCard;
+
+{
+	/* <CTAButton onClick={onAdd}>Add to Cart</CTAButton> */
+}
