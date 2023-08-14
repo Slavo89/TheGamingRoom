@@ -70,6 +70,7 @@ const CheckoutModal = (props) => {
 								>
 									<img
 										src={game.background_image}
+										alt="game image"
 										height={120}
 										width={80}
 										className={classes.image}
@@ -184,8 +185,8 @@ const CheckoutModal = (props) => {
 								className={classes.dialog}
 								open={order}
 							>
-								<div>Thanks, for your order. Enjoy playing!</div>
-								<CTAButton onClick={onOrderHandler}>Download</CTAButton>
+								<p>Thanks, for your order. Enjoy playing!</p>
+								<CTAButton onClick={onOrderHandler}>Go back to home page</CTAButton>
 							</dialog>
 						</div>
 					)}

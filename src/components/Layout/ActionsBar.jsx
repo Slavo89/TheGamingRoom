@@ -144,10 +144,10 @@ const ActionsBar = (props) => {
 					<li>
 						<NavLink
 							className={linkClass}
-							to="/news"
+							to="/readme	"
 							onClick={changePageName}
 						>
-							News
+							ReadMe
 						</NavLink>
 					</li>
 				</ul>

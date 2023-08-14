@@ -9,7 +9,7 @@ import GameDetailsPage, {
 import DistributionPage from './pages/DistributionPage';
 import SupportPage from './pages/SupportPage';
 import BrowsePage from './pages/BrowsePage';
-import NewsPage from './pages/NewsPage';
+import ReadmePage from './pages/ReadmePage';
 import WishlistPage from './pages/WishlistPage';
 import CartPage from './pages/CartPage';
 import GamesByGenresPage from './pages/GamesByGenresPage';
@@ -43,7 +43,7 @@ function App() {
 						/>
 					),
 				},
-				{ path: 'news', element: <NewsPage /> },
+				{ path: 'readme', element: <ReadmePage /> },
 				{ path: 'wishlist', element: <WishlistPage /> },
 				{ path: 'cart', element: <CartPage /> },
 				{

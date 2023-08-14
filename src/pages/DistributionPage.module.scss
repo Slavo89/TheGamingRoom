@@ -1,0 +1,151 @@
+.signUpCard {
+	display: flex;
+	justify-content: center;
+    border-radius: 16px;
+	background: linear-gradient(
+			315deg,
+			rgb(32, 14, 67),
+			rgb(3, 5, 86),
+			rgb(4, 4, 24)
+		)
+		rgb(3, 5, 86);
+	.animation {
+		width: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		.image {
+			height: 90%;
+		}
+	}
+	.content {
+		padding: 4rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 4rem;
+		.logo {
+			height: 65px;
+			width: 40px;
+		}
+		@media (width >= 1024px) {
+			margin: auto;
+			height: 33vw;
+			width: 50%;
+			.logo {
+				height: 105px;
+				width: 65px;
+			}
+		}
+		.header {
+			margin-top: 0;
+			font-size: 3rem;
+			font-weight: 700;
+			line-height: 35px;
+			text-align: center;
+			@media (width >= 1440px) {
+				font-size: 4rem;
+				line-height: 45px;
+			}
+			@media (width >= 1600px) {
+				font-size: 5rem;
+				line-height: 55px;
+			}
+		}
+		.signUpBtn {
+			height: 50px;
+			width: 200px;
+			font-size: 1.2rem;
+			border: none;
+			border-radius: 5px;
+			font-weight: 700;
+			text-transform: uppercase;
+			a {
+				padding: 1.5rem 5rem;
+				text-decoration: none;
+				color: currentColor;
+				cursor: pointer;
+				&:focus {
+					outline: none;
+					border: 2px solid black;
+				}
+			}
+		}
+		.paragraph {
+			font-size: 1.4rem;
+			line-height: 20px;
+			font-weight: 500;
+			text-align: center;
+			@media (width >= 1600px) {
+				font-size: 1.6rem;
+			}
+		}
+	}
+}
+
+.features {
+	.featuresCards {
+        display: grid;
+        grid-row-gap: 1.5rem;
+		.featuresCard {
+			padding: 4rem;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 4rem;
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			border-radius: 16px;
+			.desc {
+				display: flex;
+				flex-direction: column;
+				gap: 2rem;
+				.cardTitle {
+					text-align: center;
+					font-size: 2.6rem;
+                    @media(width >= 1440px) {
+                        font-size: 3rem;
+                    }
+                    @media(width >= 1600px) {
+                        font-size: 3.6rem;
+                    }
+				}
+				.text {
+					text-align: center;
+					font-size: 1.8rem;
+					opacity: 0.6;
+                    @media(width >= 1440px) {
+                        font-size: 2.2rem;
+                    }
+				}
+			}
+		}
+	}
+	@media (width >= 768px) {
+		.featuresCards {
+			.featuresCard {
+				flex-direction: row;
+				.desc {
+					.cardTitle,.text {
+                        text-align: left;
+                    }
+				}
+			}
+		}
+	}
+	@media (width >= 1024px) {
+		.featuresCards {
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            grid-column-gap: 1.5rem;
+			.featuresCard {
+				flex-direction: column;
+				.desc {
+					.cardTitle,.text {
+                        text-align: center;
+                    }
+				}
+			}
+		}
+	}
+}

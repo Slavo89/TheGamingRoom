@@ -16,7 +16,7 @@ const Footer = () => {
 	};
 
 	return (
-		<div className={classes.footer}>
+		<footer className={classes.footer}>
 			<div className={classes.social}>
 				<ul className={classes.socialLinks}>
 					<li>
@@ -243,7 +243,7 @@ const Footer = () => {
 					</li>
 				</ul>
 			</div>
-		</div>
+		</footer>
 	);
 };
 

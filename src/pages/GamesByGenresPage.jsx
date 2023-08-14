@@ -89,10 +89,10 @@ const GamesByGenresPage = () => {
 
 	return (
 		<>
-			<div className={classes.description}>
+			<section className={classes.description}>
 				<h1>{params.genre} Games</h1>
 				<p>{infoText}</p>
-			</div>
+			</section>
 			{dataLoaded && (
 				<GamesLibrary
 					games={gamesData}
