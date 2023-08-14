@@ -1,7 +1,78 @@
+.text {
+	text-align: center;
+	font-size: 1.8rem;
+	opacity: 0.6;
+	@media (width >= 1440px) {
+		font-size: 2.2rem;
+	}
+}
+
+.card {
+	padding: 4rem;
+	display: flex;
+	align-items: center;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: 16px;
+}
+
+.link {
+	margin-top: 2rem;
+	color: currentColor;
+	opacity: 0.6;
+	transition: opacity 0.3s;
+	&:hover {
+		opacity: 1;
+	}
+	@media (width >= 1600px) {
+		font-size: 1.6rem;
+	}
+}
+
+.cardLogo {
+	width: 100%;
+}
+
+.cardContent {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.backgroundFirst {
+	background: linear-gradient(
+			to right bottom,
+			rgb(22, 39, 49) 31%,
+			rgba(22, 39, 49, 0.8) 46%,
+			rgba(22, 39, 49, 0.1) 63%,
+			rgba(22, 39, 49, 0.1) 82%
+		)
+		rgba(22, 39, 49, 0);
+}
+.backgroundSecond {
+	background: linear-gradient(
+			to right,
+			rgb(26, 12, 71) 31%,
+			rgba(26, 12, 71, 0.8) 46%,
+			rgba(26, 12, 71, 0.1) 63%,
+			rgba(26, 12, 71, 0.1) 82%
+		)
+		rgba(26, 12, 71, 0);
+}
+.backgroundThird {
+	background: linear-gradient(
+			to right,
+			rgb(14, 17, 40) 31%,
+			rgba(14, 17, 40, 0.8) 46%,
+			rgba(14, 17, 40, 0.1) 63%,
+			rgba(14, 17, 40, 0.1) 82%
+		)
+		rgba(14, 17, 40, 0);
+}
+
 .signUpCard {
 	display: flex;
 	justify-content: center;
-    border-radius: 16px;
+	border-radius: 16px;
 	background: linear-gradient(
 			315deg,
 			rgb(32, 14, 67),
@@ -85,17 +156,14 @@
 }
 
 .features {
+	display: grid;
+	grid-row-gap: 2rem;
 	.featuresCards {
-        display: grid;
-        grid-row-gap: 1.5rem;
+		display: grid;
+		grid-row-gap: 1.5rem;
 		.featuresCard {
-			padding: 4rem;
-			display: flex;
 			flex-direction: column;
-			align-items: center;
 			gap: 4rem;
-			border: 1px solid rgba(255, 255, 255, 0.1);
-			border-radius: 16px;
 			.desc {
 				display: flex;
 				flex-direction: column;
@@ -103,49 +171,73 @@
 				.cardTitle {
 					text-align: center;
 					font-size: 2.6rem;
-                    @media(width >= 1440px) {
-                        font-size: 3rem;
-                    }
-                    @media(width >= 1600px) {
-                        font-size: 3.6rem;
-                    }
-				}
-				.text {
-					text-align: center;
-					font-size: 1.8rem;
-					opacity: 0.6;
-                    @media(width >= 1440px) {
-                        font-size: 2.2rem;
-                    }
+					@media (width >= 1440px) {
+						font-size: 3rem;
+					}
+					@media (width >= 1600px) {
+						font-size: 3.6rem;
+					}
 				}
 			}
 		}
 	}
-	@media (width >= 768px) {
+
+	.communityCard {
+		flex-direction: column-reverse;
+		justify-content: center;
+	}
+
+	.servicesCards {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+	}
+}
+
+.faq {
+    .title {
+        // text-align: center;
+        font-size: 2.6rem;
+    }
+}
+
+@media (width >=768px) {
+	.features {
 		.featuresCards {
 			.featuresCard {
 				flex-direction: row;
 				.desc {
-					.cardTitle,.text {
-                        text-align: left;
-                    }
+					.cardTitle,
+					.text {
+						text-align: left;
+					}
 				}
 			}
 		}
+		.communityCard {
+			flex-direction: row;
+		}
 	}
-	@media (width >= 1024px) {
+}
+
+@media (width >= 1024px) {
+	.features {
 		.featuresCards {
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(2, 1fr);
-            grid-column-gap: 1.5rem;
+			grid-template-columns: repeat(3, 1fr);
+			grid-template-rows: repeat(2, 1fr);
+			grid-column-gap: 1.5rem;
 			.featuresCard {
 				flex-direction: column;
 				.desc {
-					.cardTitle,.text {
-                        text-align: center;
-                    }
+					.cardTitle,
+					.text {
+						text-align: center;
+					}
 				}
 			}
 		}
+        .servicesCards {
+            flex-direction: row;
+        }
 	}
 }
