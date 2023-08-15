@@ -61,9 +61,10 @@ const Header = (props) => {
 						</li>
 						<li className={classes.listItem}>
 							<a
-								to="https://www.epicgames.com/help/"
+								href="https://www.epicgames.com/help/"
 								target="_blank"
-								onClick={closeAndNavigate}
+								rel="noreferrer"
+								// onClick={closeAndNavigate}
 								tabIndex="0"
 							>
 								Support
@@ -71,9 +72,10 @@ const Header = (props) => {
 						</li>
 						<li className={classes.listItem}>
 							<a
-								to="https://www.unrealengine.com/"
+								href="https://www.unrealengine.com/"
 								target="_blank"
-								onClick={closeAndNavigate}
+								rel="noreferrer"
+								// onClick={closeAndNavigate}
 								tabIndex="0"
 							>
 								Unreal Engine
