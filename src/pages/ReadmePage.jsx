@@ -1,5 +1,10 @@
-const ReadMe = () => {
-	return <>ReadMe</>;
-};
 
-export default ReadMe;
+import LoginPage from './LoginPage'
+
+const ReadmePage = () => {
+  return (
+	<LoginPage/>
+  )
+}
+
+export default ReadmePage

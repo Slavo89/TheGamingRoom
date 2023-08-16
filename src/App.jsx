@@ -30,18 +30,12 @@ function App() {
 				{ path: 'support', element: <SupportPage /> },
 				{
 					path: 'browse',
-					element: (
-						<BrowsePage
-						/>
-					),
+					element: <BrowsePage />,
 				},
 				{
 					index: true,
 					path: 'browse/:genre',
-					element: (
-						<GamesByGenresPage
-						/>
-					),
+					element: <GamesByGenresPage />,
 				},
 				{ path: 'readme', element: <ReadmePage /> },
 				{ path: 'wishlist', element: <WishlistPage /> },

@@ -90,6 +90,13 @@ const ActionsBar = (props) => {
 										toggleSearchPanelHandler();
 									}
 								}}
+								onKeyPress={() => {
+									resetInputValue();
+									navigate(`/${game.id}`);
+									if (searchPanelOpen) {
+										toggleSearchPanelHandler();
+									}
+								}}
 								tabIndex={0}
 							>
 								<img
@@ -119,118 +126,118 @@ const ActionsBar = (props) => {
 	);
 
 	const mainBarList = (
-		<FocusTrap active={listOpen}>
-			<div className={classes.actionNav}>
-				<ul className={classes.actionList}>
-					<li>
-						<NavLink
-							className={linkClass}
-							to="/"
-							onClick={changePageName}
-							end={true}
-						>
-							Discover
-						</NavLink>
-					</li>
-					<li>
-						<NavLink
-							className={linkClass}
-							to="/browse"
-							onClick={changePageName}
-						>
-							Browse
-						</NavLink>
-					</li>
-					<li>
-						<NavLink
-							className={linkClass}
-							to="/readme	"
-							onClick={changePageName}
-						>
-							ReadMe
-						</NavLink>
-					</li>
-				</ul>
-			</div>
-		</FocusTrap>
+		<div className={classes.actionNav}>
+			<ul className={classes.actionList}>
+				<li>
+					<NavLink
+						className={linkClass}
+						to="/"
+						onClick={changePageName}
+						end={true}
+					>
+						Discover
+					</NavLink>
+				</li>
+				<li>
+					<NavLink
+						className={linkClass}
+						to="/browse"
+						onClick={changePageName}
+					>
+						Browse
+					</NavLink>
+				</li>
+				<li>
+					<NavLink
+						className={linkClass}
+						to="/readme	"
+						onClick={changePageName}
+					>
+						ReadMe
+					</NavLink>
+				</li>
+			</ul>
+		</div>
 	);
 
 	return (
-		<div className={classes.actionsBar}>
-			{!is1024Px ? (
-				<div className={classes.searchBarSmall}>
-					<button
-						type="button"
-						className={classes.searchButton}
-						onClick={toggleSearchPanelHandler}
-					>
-						<BsSearch />
-					</button>
-					{searchPanelOpen && (
-						<FocusTrap>
-							<div className={classes.searchPanel}>
-								{searchButton}
-								<SearchInput onRenderResults={renderResults} />
-								<button
-									type="button"
-									onClick={toggleSearchPanelHandler}
-									className={classes.closeButton}
-								>
-									<BsXLg />
-								</button>
-								{renderResults()}
-							</div>
-						</FocusTrap>
-					)}
-				</div>
-			) : (
-				<div className={classes.searchBarLarge}>
-					<div className={classes.searchBarContainer}>
-						{searchButton}
-						<SearchInput onRenderResults={renderResults} />
-					</div>
-					{renderResults()}
-				</div>
-			)}
-			<div className={classes.mainBar}>
-				{!is1280Px ? (
-					<div>
-						<OpenListButton
-							onClick={toggleListHandler}
-							onChangeText={pageName}
-							onListOpen={listOpen}
-						/>
+		<FocusTrap active={listOpen}>
+			<div className={classes.actionsBar}>
+				{!is1024Px ? (
+					<div className={classes.searchBarSmall}>
+						<button
+							type="button"
+							className={classes.searchButton}
+							onClick={toggleSearchPanelHandler}
+						>
+							<BsSearch />
+						</button>
+						{searchPanelOpen && (
+							<FocusTrap>
+								<div className={classes.searchPanel}>
+									{searchButton}
+									<SearchInput onRenderResults={renderResults} />
+									<button
+										type="button"
+										onClick={toggleSearchPanelHandler}
+										className={classes.closeButton}
+									>
+										<BsXLg />
+									</button>
+									{renderResults()}
+								</div>
+							</FocusTrap>
+						)}
 					</div>
 				) : (
-					mainBarList
-				)}
-			</div>
-
-			<div className={classes.rightBar}>
-				<NavLink
-					to="/wishlist"
-					className={({ isActive }) =>
-						isActive ? `${classes.active} ${classes.link}` : classes.link
-					}
-				>
-					{!is1024Px ? <BsCheckCircle /> : <span>Wishlist</span>}
-				</NavLink>
-				<NavLink
-					to="/cart"
-					className={({ isActive }) =>
-						isActive ? `${classes.active} ${classes.link}` : classes.link
-					}
-				>
-					{!is1024Px ? <BsCart2 /> : <span>Cart</span>}
-
-					<div className={badgeClass}>
-						<span key={key}>{prevCartItems}</span>
+					<div className={classes.searchBarLarge}>
+						<div className={classes.searchBarContainer}>
+							{searchButton}
+							<SearchInput onRenderResults={renderResults} />
+						</div>
+						{renderResults()}
 					</div>
-				</NavLink>
-			</div>
+				)}
+				<div className={classes.mainBar}>
+					{!is1280Px ? (
+						<div>
+							<OpenListButton
+								onClick={toggleListHandler}
+								onChangeText={pageName}
+								onListOpen={listOpen}
+							/>
+						</div>
+					) : (
+						mainBarList
+					)}
+				</div>
 
-			{listOpen && mainBarList}
-		</div>
+				<div className={classes.rightBar}>
+					<NavLink
+						to="/wishlist"
+						className={({ isActive }) =>
+							isActive ? `${classes.active} ${classes.link}` : classes.link
+						}
+					>
+						{!is1024Px ? <BsCheckCircle /> : <span>Wishlist</span>}
+					</NavLink>
+					<NavLink
+						to="/cart"
+						className={({ isActive }) =>
+							isActive ? `${classes.active} ${classes.link}` : classes.link
+						}
+					>
+						{!is1024Px ? <BsCart2 /> : <span>Cart</span>}
+
+						<div className={badgeClass}>
+							<span key={key}>{prevCartItems}</span>
+						</div>
+					</NavLink>
+				</div>
+
+				{listOpen && mainBarList}
+			</div>
+		</FocusTrap>
 	);
 };
 

@@ -206,7 +206,7 @@
 			opacity: 1;
 		}
 		&::after {
-			content: '\2197';
+			content: '\2197'; /* Unicode character for "arrow" sign */
 			margin-left: 3px;
 			font-size: 1.2rem;
 			
