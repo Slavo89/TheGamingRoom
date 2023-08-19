@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 
 const CheckoutModal = (props) => {
 	const cartItems = useSelector((state) => state.cart);
+	const username = useSelector(state => state.auth.username)
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [checkedInput, setCheckedInput] = useState('');
@@ -43,7 +44,7 @@ const CheckoutModal = (props) => {
 						<span className={classes.labelTitle}>Order</span>
 						<div className={classes.profile}>
 							<BsFillPersonFill className={classes.icon} />
-							<span>Profile</span>
+							<span>{username}</span>
 							<button
 								className={classes.closeBtn}
 								onClick={props.onHide}

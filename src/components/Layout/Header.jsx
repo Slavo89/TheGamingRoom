@@ -1,10 +1,12 @@
 import { BsFillPersonFill } from 'react-icons/bs';
 import { useState } from 'react';
-import classes from './Header.module.scss';
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import classes from './Header.module.scss';
 import FocusTrap from 'focus-trap-react';
 
 const Header = (props) => {
+	const username = useSelector(state => state.auth.username)
 	const [navExpanded, setNavExpanded] = useState(false);
 	const toggleNavbarHandler = () => {
 		setNavExpanded(!navExpanded);
@@ -87,7 +89,8 @@ const Header = (props) => {
 							<a tabIndex="0">
 								{' '}
 								<BsFillPersonFill className={classes.icon} />
-								Profile{' '}
+								
+								{username ? username : 'Log In'}{' '}
 							</a>
 						</li>
 						<li className={`${classes.listItem} ${classes.downloadButton}`}>
