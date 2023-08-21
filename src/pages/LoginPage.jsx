@@ -1,12 +1,39 @@
 import classes from './LoginPage.module.scss';
 import CTAButton from './../components/UI/Buttons/CTAButton';
-import { AiOutlineInfoCircle, AiFillEye } from 'react-icons/ai';
+import {
+	AiOutlineInfoCircle,
+	AiFillEyeInvisible,
+	AiFillEye,
+	AiOutlineArrowLeft,
+} from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
 import { authActions } from '../store/auth-slice';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
+	const [displayedNameTooltipVisible, setDisplayedNameTooltipVisible] =
+		useState(false);
+	const [passwordTooltipVisible, setpasswordTooltipVisible] = useState(false);
+	const [passwordVisible, setPasswordVisible] = useState(false);
+	const [termsAccepted, setTermsAccepted] = useState(false);
+	const [termsEdited, setTermsEdited] = useState(false);
 	const [valid, setValid] = useState(false);
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
+	const displayNameTooltipHandler = () => {
+		setDisplayedNameTooltipVisible(true);
+	};
+	const hideNameTooltipHandler = () => {
+		setDisplayedNameTooltipVisible(false);
+	};
+	const displayPasswordTooltipHandler = () => {
+		setpasswordTooltipVisible(true);
+	};
+	const hidePasswordTooltipHandler = () => {
+		setpasswordTooltipVisible(false);
+	};
 
 	const usernameRegex = /^.{3,}$/;
 	const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -19,6 +46,7 @@ const LoginPage = () => {
 		username: '',
 		email: '',
 		password: '',
+		// termsAccepted: false,
 	});
 
 	const [isEdited, setIsEdited] = useState({
@@ -36,8 +64,6 @@ const LoginPage = () => {
 		email: false,
 		password: false,
 	});
-
-	const dispatch = useDispatch();
 
 	const handleInputFocus = (event) => {
 		const { name } = event.target;
@@ -67,30 +93,29 @@ const LoginPage = () => {
 		}));
 	};
 
+
 	useEffect(() => {
 		if (
 			formData.firstName.trim() !== '' &&
 			formData.lastName.trim() !== '' &&
 			usernameRegex.test(formData.username) &&
 			emailRegex.test(formData.email) &&
-			// formData.password.trim() !== ''
-			passwordRegex.test(formData.password)
+			passwordRegex.test(formData.password) &&
+			termsAccepted
 		) {
 			setValid(true);
 		} else {
-			setValid(false)
+			setValid(false);
 		}
-	}, [formData]);
+	}, [formData, termsAccepted]);
 
 	const loginHandler = () => {
 		dispatch(
 			authActions.login({ username: formData.username, email: formData.email })
 		);
-		console.log(formData);
+		navigate(-1);
 	};
 
-	console.log('Edited', { isEdited });
-	console.log('Focused', { isFocused });
 
 	return (
 		<div className={classes.loginPanel}>
@@ -190,7 +215,24 @@ const LoginPage = () => {
 							onBlur={handleInputBlur}
 							onFocus={handleInputFocus}
 						></input>
-						<AiOutlineInfoCircle className={classes.tooltip} />
+						<div
+							className={classes.tooltip}
+							onMouseEnter={displayNameTooltipHandler}
+							onFocus={displayNameTooltipHandler}
+							onMouseLeave={hideNameTooltipHandler}
+							onBlur={hideNameTooltipHandler}
+							tabIndex={0}
+						>
+							<AiOutlineInfoCircle />
+						</div>
+						{displayedNameTooltipVisible && (
+							<p className={classes.info}>
+								{' '}
+								The displayed name must contain from 3 to 16 characters. It may
+								contain letters, numbers, non-consecutive hyphens, periods,
+								underscores and spaces.
+							</p>
+						)}
 					</label>
 				</fieldset>
 				<fieldset>
@@ -236,17 +278,89 @@ const LoginPage = () => {
 						<input
 							id="password"
 							required
-							// type="password"
+							type={!passwordVisible ? 'password' : 'text'}
 							name="password"
 							value={formData.password}
 							onChange={handleInputChange}
 							onBlur={handleInputBlur}
 							onFocus={handleInputFocus}
 						></input>
-						<AiFillEye className={`${classes.tooltip} ${classes.margin}`} />
-						<AiOutlineInfoCircle className={classes.tooltip} />
+						<div
+							className={`${classes.tooltip} ${classes.margin}`}
+							onClick={() => setPasswordVisible(!passwordVisible)}
+							tabIndex={0}
+						>
+							{!passwordVisible ? <AiFillEyeInvisible /> : <AiFillEye />}
+						</div>
+						<div
+							className={classes.tooltip}
+							onFocus={displayPasswordTooltipHandler}
+							onMouseEnter={displayPasswordTooltipHandler}
+							onBlur={hidePasswordTooltipHandler}
+							onMouseLeave={hidePasswordTooltipHandler}
+							tabIndex={0}
+						>
+							<AiOutlineInfoCircle />
+						</div>
+						{passwordTooltipVisible && (
+							<p className={classes.info}>
+								{' '}
+								The password must consist of at least 7 characters, 1 number and
+								1 letter, and must not contain whitespaces.
+							</p>
+						)}
 					</label>
 				</fieldset>
+				<fieldset>
+					<label className={classes.checkLabel}>
+						<div className={classes.checkbox}>
+							<input
+								type="checkbox"
+								tabIndex={0}
+							></input>
+						</div>
+						<p>
+							I want to receive information about news, surveys and promotions
+							from Epic Games.
+						</p>
+					</label>
+				</fieldset>
+				<fieldset>
+					<label className={classes.checkLabel}>
+						<div className={classes.checkbox}>
+							<input
+								type="checkbox"
+								tabIndex={0}
+								checked={termsAccepted}
+								// onKeyPress={() =>
+								// 	{setTermsEdited(true)
+								// 	setTermsAccepted(!termsAccepted)}
+								// }
+								
+								onChange={(event) => {
+									setTermsAccepted(event.target.checked);
+									setTermsEdited(true);
+								}}
+							></input>
+						</div>
+						<p>
+							I am familiar with and I accept the{' '}
+							<a
+								href="https://www.epicgames.com/site/pl/tos?lang=en"
+								target="_blank"
+								rel="noreferrer"
+								tabIndex={0}
+							>
+								Terms of Service.
+							</a>
+						</p>
+					</label>
+				</fieldset>
+				{termsEdited && !termsAccepted && (
+					<div className={classes.termsError}>
+						<p>You must accept the Terms of Service</p>
+					</div>
+				)}
 				<CTAButton
 					disabled={!valid}
 					onClick={loginHandler}
@@ -254,6 +368,12 @@ const LoginPage = () => {
 					Log In
 				</CTAButton>
 			</form>
+			<div className={classes.navigateBack}>
+				<AiOutlineArrowLeft
+					onClick={() => navigate(-1)}
+					tabIndex={0}
+				/>
+			</div>
 		</div>
 	);
 };

@@ -1,4 +1,3 @@
-
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import RootLayout from './pages/Root';
 import ErrorPage from './pages/ErrorPage';
@@ -13,6 +12,7 @@ import ReadmePage from './pages/ReadmePage';
 import WishlistPage from './pages/WishlistPage';
 import CartPage from './pages/CartPage';
 import GamesByGenresPage from './pages/GamesByGenresPage';
+import LoginPage from './pages/LoginPage';
 
 function App() {
 	const router = createBrowserRouter([
@@ -46,6 +46,10 @@ function App() {
 					loader: gameDetailsLoader,
 				},
 			],
+		},
+		{
+			path: '/register',
+			element: <LoginPage />,
 		},
 	]);
 

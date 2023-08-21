@@ -86,12 +86,14 @@ const Header = (props) => {
 					</ul>
 					<ul className={classes.rightNav}>
 						<li className={`${classes.listItem} ${classes.profile}`}>
-							<a tabIndex="0">
+							<NavLink
+								to="/register"
+								tabIndex="0"
+							>
 								{' '}
 								<BsFillPersonFill className={classes.icon} />
-								
 								{username ? username : 'Log In'}{' '}
-							</a>
+							</NavLink>
 						</li>
 						<li className={`${classes.listItem} ${classes.downloadButton}`}>
 							<a tabIndex="0">Download</a>

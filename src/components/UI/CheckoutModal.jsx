@@ -116,7 +116,8 @@ const CheckoutModal = (props) => {
 									<input
 										type="radio"
 										name="paymentMethod"
-										readOnly
+										value="Credit Card"
+										
 										checked={checkedInput === 'Credit Card'}
 										tabIndex={-1}
 									></input>
@@ -135,7 +136,7 @@ const CheckoutModal = (props) => {
 									<input
 										type="radio"
 										name="paymentMethod"
-										readOnly
+										value="PayPal"
 										checked={checkedInput === 'PayPal'}
 										tabIndex={-1}
 									></input>
@@ -153,7 +154,7 @@ const CheckoutModal = (props) => {
 									<input
 										type="radio"
 										name="paymentMethod"
-										readOnly
+										value="Online Banking"
 										checked={checkedInput === 'Online Banking'}
 										tabIndex={-1}
 									></input>
@@ -187,7 +188,9 @@ const CheckoutModal = (props) => {
 								open={order}
 							>
 								<p>Thanks, for your order. Enjoy playing!</p>
-								<CTAButton onClick={onOrderHandler}>Go back to home page</CTAButton>
+								<CTAButton onClick={onOrderHandler}>
+									Go back to home page
+								</CTAButton>
 							</dialog>
 						</div>
 					)}

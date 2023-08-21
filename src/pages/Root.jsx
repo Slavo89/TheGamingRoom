@@ -34,7 +34,6 @@ const RootLayout = () => {
 
 	return (
 		<>
-			{/* <CheckoutModal /> */}
 			<Header
 				onClick={toggleBackdropHandler}
 				onClose={closeBackdropHandler}
