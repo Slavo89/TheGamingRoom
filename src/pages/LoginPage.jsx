@@ -6,11 +6,101 @@ import {
 	AiFillEye,
 	AiOutlineArrowLeft,
 } from 'react-icons/ai';
+import Select from 'react-select';
 import { useDispatch } from 'react-redux';
 import { authActions } from '../store/auth-slice';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+const options = [
+	{ value: 'USA', label: 'USA' },
+	{ value: 'UK', label: 'UK' },
+	{ value: 'Poland', label: 'Poland' },
+];
+
+const styles = {
+	// menu: (baseStyles, state) => ({
+	// 	...baseStyles,
+	// }),
+	control: (baseStyles, state) => ({
+		...baseStyles,
+		transition: 'border 0.3s',
+		backgroundColor: 'inherit',
+		borderColor: state.isFocused ? 'var(--hover-color)' : '#505050',
+		boxShadow: 'var(--hover-color)',
+		cursor: 'text',
+		'&:hover': {
+			borderColor: 'var(--hover-color)',
+		},
+	}),
+
+	input: (baseStyles) => ({
+		...baseStyles,
+		color: 'var(--hover-color)',
+	}),
+	placeholder: (baseStyles) => ({
+		...baseStyles,
+		color: 'var(--hover-color)',
+	}),
+	singleValue: (baseStyles, state) => ({
+		...baseStyles,
+		color: 'var(--hover-color)',
+		borderColor: state.isSelected ? 'var(--hover-color)' : 'red',
+	}),
+	option: (baseStyles, state) => ({
+		...baseStyles,
+		backgroundColor: state.isFocused || state.isSelected ? '#666' : '#505050',
+		color: 'var(--hover-color)',
+	}),
+	menu: (baseStyles) => ({
+		...baseStyles,
+		backgroundColor: '#505050',
+	}),
+	dropdownIndicator: (baseStyles, state) => ({
+		...baseStyles,
+		color: state.isFocused || (state.isSelected && 'var(--hover-color)'),
+		backgroundColor: 'inherit',
+		borderRadius: '5px',
+		cursor: 'pointer',
+		transform: state.menuIsOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+		transition: 'background-color 0.3s, transform 0.3s',
+		'&:hover': {
+			color: 'var(--hover-color)',
+			backgroundColor: '#505050',
+		},
+		'& svg': {
+			display: 'inline-block',
+			transition: 'transform 0.3s',
+			transform: state.isFocused ? 'rotate(180deg)' : 'rotate(0deg)',
+		},
+	}),
+	// dropdownIndicator: (baseStyles, state) => {
+	// 	let rotateDegrees = state.isFocused ? 180 : 0;
+
+	// 	if (state.menuIsOpen && state.isFocused) {
+	// 		rotateDegrees = 0;
+	// 	}
+
+	// 	return {
+	// 		...baseStyles,
+	// 		color: state.isFocused || (state.isSelected && 'var(--hover-color)'),
+	// 		backgroundColor: 'inherit',
+	// 		borderRadius: '5px',
+	// 		cursor: 'pointer',
+	// 		transform: `rotate(${rotateDegrees}deg)`,
+	// 		transition: 'background-color 0.3s, transform 0.3s',
+	// 		'&:hover': {
+	// 			color: 'var(--hover-color)',
+	// 			backgroundColor: '#505050',
+	// 		},
+	// 	};
+	// },
+	// indicatorContainer: (baseStyles, state) => ({
+	// 	...baseStyles,
+	// 	transform: state.menuIsOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+	// 	transition: 'transform 0.3s',
+	// }),
+};
 const LoginPage = () => {
 	const [displayedNameTooltipVisible, setDisplayedNameTooltipVisible] =
 		useState(false);
@@ -93,7 +183,6 @@ const LoginPage = () => {
 		}));
 	};
 
-
 	useEffect(() => {
 		if (
 			formData.firstName.trim() !== '' &&
@@ -116,7 +205,6 @@ const LoginPage = () => {
 		navigate(-1);
 	};
 
-
 	return (
 		<div className={classes.loginPanel}>
 			<img
@@ -134,17 +222,24 @@ const LoginPage = () => {
 			>
 				<fieldset>
 					<label htmlFor="country">
-						<span>Country</span>
-						<select
+						<Select
+							options={options}
+							styles={styles}
+							isSearchable={true}
+						/>
+						{/* <span>Country</span> */}
+						{/* <select
 							id="country"
-							required
 							type="text"
 							name="country"
 							value={formData.country}
 							// onChange={handleInputChange}
 						>
-							<option value="country">Country</option>
-						</select>
+							<option value="country">Poland</option>
+							<option value="country">USA</option>
+							<option value="country">UK</option>
+							<option value="country">Germany</option>
+						</select> */}
 					</label>
 				</fieldset>
 				<fieldset className={classes.name}>
@@ -336,7 +431,7 @@ const LoginPage = () => {
 								// 	{setTermsEdited(true)
 								// 	setTermsAccepted(!termsAccepted)}
 								// }
-								
+
 								onChange={(event) => {
 									setTermsAccepted(event.target.checked);
 									setTermsEdited(true);
