@@ -1,12 +1,14 @@
 import { BsFillPersonFill } from 'react-icons/bs';
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import classes from './Header.module.scss';
 import FocusTrap from 'focus-trap-react';
+import { useEffect } from 'react';
 
 const Header = (props) => {
-	const username = useSelector(state => state.auth.username)
+	const username = useSelector(state => state.auth.username);
+	const location = useLocation()
 	const [navExpanded, setNavExpanded] = useState(false);
 	const toggleNavbarHandler = () => {
 		setNavExpanded(!navExpanded);
@@ -16,6 +18,10 @@ const Header = (props) => {
 		toggleNavbarHandler();
 		props.onClose();
 	};
+
+	useEffect(() => {
+		setNavExpanded(false)
+	}, [location])
 
 	const linkClass = ({ isActive }) => (isActive ? classes.active : '');
 

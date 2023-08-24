@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import useMediaQuery from './../../hooks/use-MediaQuery.js';
 import { useSelector } from 'react-redux';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { BsSearch, BsCheckCircle, BsCart2, BsXLg } from 'react-icons/bs';
 import FocusTrap from 'focus-trap-react';
 import OpenListButton from '../UI/Buttons/OpenListButton.jsx';
@@ -10,6 +10,7 @@ import SearchInput from './SearchInput.jsx';
 
 const ActionsBar = (props) => {
 	const navigate = useNavigate();
+	const location = useLocation();
 
 	const [searchPanelOpen, setSearchPanelOpen] = useState(false);
 	const [listOpen, setListOpen] = useState(false);
@@ -56,12 +57,14 @@ const ActionsBar = (props) => {
 
 	const toggleSearchPanelHandler = () => {
 		setSearchPanelOpen(!searchPanelOpen);
+		setListOpen(false)
 		props.onClick();
 	};
 
 	const toggleListHandler = () => {
 		props.onClick();
 		setListOpen(!listOpen);
+		setSearchPanelOpen(false)
 	};
 
 	const renderResults = (
@@ -159,6 +162,11 @@ const ActionsBar = (props) => {
 			</ul>
 		</div>
 	);
+
+	useEffect(() => {
+		setListOpen(false);
+		setSearchPanelOpen(false);
+	}, [location]);
 
 	return (
 		<FocusTrap active={listOpen}>

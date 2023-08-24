@@ -22,12 +22,12 @@
 
 		label {
 			position: relative;
+
 			&:focus-within {
 				span {
 					transform: translate(17.5px, 8px) scale(0.875);
 				}
 			}
-
 			span {
 				position: absolute;
 				cursor: text;
@@ -35,13 +35,15 @@
 				transition: transform 0.3s;
 				transform: translate(20px, 15px) scale(1);
 			}
-			// .select-contaier {
-			// 	background-color: var(--grey-color) ;
-			// 	.select__control {
-			// 	}
-			// }
+			span.countrySpan {
+				position: absolute;
+				top: 9px;
+				left: 20px;
+				&:not(:focus) {
+					transform: none;
+				}
+			}
 		}
-		select,
 		input {
 			display: flex;
 			width: 100%;
@@ -53,21 +55,12 @@
 			border-radius: 5px;
 		}
 
-		// select {
-		// 	option {
-		// 		// border: none;
-		// 		padding: 1rem 1.5rem;
-		// 		margin: 5rem;
-		// 		background-color: #444444;
-		// 		border-radius: 15px;
-		// 		&:checked, &:focus {
-		// 			background-color: #fff;
-		// 		}
-		// 	}
-		// }
 		.name {
 			display: flex;
 			gap: 1rem;
+			&:-webkit-autofill {
+				color: var(--hover-color);
+			}
 			label {
 				width: 100%;
 			}
@@ -151,6 +144,19 @@
 				}
 			}
 		}
+
+		input:-webkit-autofill,
+		input:autofill {
+			// border: 1px solid #444;
+			// border-radius: 5px;
+			// border-radius: 20px;
+			background-clip: padding-box;
+			-webkit-text-fill-color: var(--hover-color);
+			-webkit-box-shadow: 0 0 0px 100px var(--grey-color) inset !important;
+			transition: background-color 5000s ease-in-out 0s; // fallback for older browsers
+		}
+
+
 		.termsError {
 			padding: 1rem 3rem;
 			text-align: center;

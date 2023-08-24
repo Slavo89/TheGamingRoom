@@ -12,7 +12,7 @@ import ReadmePage from './pages/ReadmePage';
 import WishlistPage from './pages/WishlistPage';
 import CartPage from './pages/CartPage';
 import GamesByGenresPage from './pages/GamesByGenresPage';
-import LoginPage from './pages/LoginPage';
+import LoginPage, {loader as countriesLoader} from './pages/LoginPage';
 
 function App() {
 	const router = createBrowserRouter([
@@ -50,6 +50,7 @@ function App() {
 		{
 			path: '/register',
 			element: <LoginPage />,
+			loader: countriesLoader
 		},
 	]);
 

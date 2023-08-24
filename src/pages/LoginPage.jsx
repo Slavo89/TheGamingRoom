@@ -1,5 +1,6 @@
 import classes from './LoginPage.module.scss';
 import CTAButton from './../components/UI/Buttons/CTAButton';
+import axios from 'axios';
 import {
 	AiOutlineInfoCircle,
 	AiFillEyeInvisible,
@@ -7,101 +8,111 @@ import {
 	AiOutlineArrowLeft,
 } from 'react-icons/ai';
 import Select from 'react-select';
+import { useLoaderData, json } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { authActions } from '../store/auth-slice';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const options = [
-	{ value: 'USA', label: 'USA' },
-	{ value: 'UK', label: 'UK' },
-	{ value: 'Poland', label: 'Poland' },
-];
-
-const styles = {
-	// menu: (baseStyles, state) => ({
-	// 	...baseStyles,
-	// }),
-	control: (baseStyles, state) => ({
-		...baseStyles,
-		transition: 'border 0.3s',
-		backgroundColor: 'inherit',
-		borderColor: state.isFocused ? 'var(--hover-color)' : '#505050',
-		boxShadow: 'var(--hover-color)',
-		cursor: 'text',
-		'&:hover': {
-			borderColor: 'var(--hover-color)',
-		},
-	}),
-
-	input: (baseStyles) => ({
-		...baseStyles,
-		color: 'var(--hover-color)',
-	}),
-	placeholder: (baseStyles) => ({
-		...baseStyles,
-		color: 'var(--hover-color)',
-	}),
-	singleValue: (baseStyles, state) => ({
-		...baseStyles,
-		color: 'var(--hover-color)',
-		borderColor: state.isSelected ? 'var(--hover-color)' : 'red',
-	}),
-	option: (baseStyles, state) => ({
-		...baseStyles,
-		backgroundColor: state.isFocused || state.isSelected ? '#666' : '#505050',
-		color: 'var(--hover-color)',
-	}),
-	menu: (baseStyles) => ({
-		...baseStyles,
-		backgroundColor: '#505050',
-	}),
-	dropdownIndicator: (baseStyles, state) => ({
-		...baseStyles,
-		color: state.isFocused || (state.isSelected && 'var(--hover-color)'),
-		backgroundColor: 'inherit',
-		borderRadius: '5px',
-		cursor: 'pointer',
-		transform: state.menuIsOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-		transition: 'background-color 0.3s, transform 0.3s',
-		'&:hover': {
-			color: 'var(--hover-color)',
-			backgroundColor: '#505050',
-		},
-		'& svg': {
-			display: 'inline-block',
-			transition: 'transform 0.3s',
-			transform: state.isFocused ? 'rotate(180deg)' : 'rotate(0deg)',
-		},
-	}),
-	// dropdownIndicator: (baseStyles, state) => {
-	// 	let rotateDegrees = state.isFocused ? 180 : 0;
-
-	// 	if (state.menuIsOpen && state.isFocused) {
-	// 		rotateDegrees = 0;
-	// 	}
-
-	// 	return {
-	// 		...baseStyles,
-	// 		color: state.isFocused || (state.isSelected && 'var(--hover-color)'),
-	// 		backgroundColor: 'inherit',
-	// 		borderRadius: '5px',
-	// 		cursor: 'pointer',
-	// 		transform: `rotate(${rotateDegrees}deg)`,
-	// 		transition: 'background-color 0.3s, transform 0.3s',
-	// 		'&:hover': {
-	// 			color: 'var(--hover-color)',
-	// 			backgroundColor: '#505050',
-	// 		},
-	// 	};
-	// },
-	// indicatorContainer: (baseStyles, state) => ({
-	// 	...baseStyles,
-	// 	transform: state.menuIsOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-	// 	transition: 'transform 0.3s',
-	// }),
-};
 const LoginPage = () => {
+	const countryList = useLoaderData();
+	const styles = {
+		control: (baseStyles, state) => ({
+			...baseStyles,
+			// height: '6rem',
+			paddingLeft: '16.5px',
+			backgroundColor: 'inherit',
+			borderColor: state.isFocused ? 'var(--hover-color)' : '#505050',
+			boxShadow: 'var(--hover-color)',
+			fontSize: '1.4rem',
+			cursor: 'text',
+			transition: 'border 0.3s',
+			'&:hover': {
+				borderColor: 'var(--hover-color)',
+			},
+		}),
+		valueContainer: (baseStyles) => ({
+			...baseStyles,
+			padding: '0',
+		}),
+
+		input: (baseStyles) => ({
+			...baseStyles,
+			color: 'var(--hover-color)',
+			height: '6rem',
+			margin: '0',
+			padding: '0',
+			marginLeft: '2px',
+			transform: isMenuOpen ? 'translateY(6px)' : '',
+		}),
+		placeholder: (baseStyles) => ({
+			...baseStyles,
+			color: 'var(--hover-color)',
+			marginTop: '11px',
+		}),
+		singleValue: (baseStyles, state) => ({
+			...baseStyles,
+			color: 'var(--hover-color)',
+			borderColor: state.isSelected ? 'var(--hover-color)' : 'red',
+			marginTop: '11px',
+		}),
+		option: (baseStyles, state) => ({
+			...baseStyles,
+			paddingLeft: '2rem',
+			fontSize: '1.4rem',
+			backgroundColor: state.isFocused || state.isSelected ? '#666' : '#505050',
+			color: 'var(--hover-color)',
+		}),
+		menu: (baseStyles) => ({
+			...baseStyles,
+			backgroundColor: '#505050',
+			boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.7)',
+		}),
+		indicatorContaier: (baseStyles) => ({
+			...baseStyles,
+			height: '6rem',
+		}),
+		dropdownIndicator: (baseStyles, state) => ({
+			...baseStyles,
+			color: state.isFocused || (state.isSelected && 'var(--hover-color)'),
+			backgroundColor: 'inherit',
+			borderRadius: '5px',
+			transition: 'background-color 0.3s, transform 0.3s',
+			cursor: 'pointer',
+			'&:hover': {
+				color: 'var(--hover-color)',
+				backgroundColor: '#505050',
+			},
+			'& svg': {
+				display: 'inline-block',
+				transition: 'transform 0.3s',
+				transform: isMenuOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+			},
+		}),
+		menuList: (baseStyles,) => ({
+			...baseStyles,
+			'::-webkit-scrollbar': {
+				width: '11px',
+			},
+			'::-webkit-scrollbar-track': {
+				background: 'var(--grey-color)',
+			},
+			'::-webkit-scrollbar-thumb': {
+				background: '#aaa',
+				borderRadius: '5px',
+				height: '25px'
+			},
+		}),
+	};
+
+	const options = [
+		...countryList.map((country) => ({
+			value: country.name.official,
+			label: country.name.common,
+		})),
+	];
+	options.sort((a, b) => a.label.localeCompare(b.label));
+
 	const [displayedNameTooltipVisible, setDisplayedNameTooltipVisible] =
 		useState(false);
 	const [passwordTooltipVisible, setpasswordTooltipVisible] = useState(false);
@@ -109,6 +120,8 @@ const LoginPage = () => {
 	const [termsAccepted, setTermsAccepted] = useState(false);
 	const [termsEdited, setTermsEdited] = useState(false);
 	const [valid, setValid] = useState(false);
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
+
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
@@ -205,6 +218,14 @@ const LoginPage = () => {
 		navigate(-1);
 	};
 
+	const handleMenuOpen = () => {
+		setIsMenuOpen(true);
+	};
+
+	const handleMenuClose = () => {
+		setIsMenuOpen(false);
+	};
+
 	return (
 		<div className={classes.loginPanel}>
 			<img
@@ -222,24 +243,15 @@ const LoginPage = () => {
 			>
 				<fieldset>
 					<label htmlFor="country">
+						<span className={classes.countrySpan}>Country</span>
 						<Select
 							options={options}
+							defaultValue={options.find((option) => option.label === 'Poland')}
 							styles={styles}
 							isSearchable={true}
+							onMenuOpen={handleMenuOpen}
+							onMenuClose={handleMenuClose}
 						/>
-						{/* <span>Country</span> */}
-						{/* <select
-							id="country"
-							type="text"
-							name="country"
-							value={formData.country}
-							// onChange={handleInputChange}
-						>
-							<option value="country">Poland</option>
-							<option value="country">USA</option>
-							<option value="country">UK</option>
-							<option value="country">Germany</option>
-						</select> */}
 					</label>
 				</fieldset>
 				<fieldset className={classes.name}>
@@ -474,3 +486,20 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
+export async function loader() {
+	try {
+		const response = await axios.get(`https://restcountries.com/v3.1/all`);
+
+		const data = response.data;
+		// console.log(data);
+		return data;
+	} catch (error) {
+		return json(
+			{ message: 'Something went wrong.' },
+			{
+				status: 500,
+			}
+		);
+	}
+}

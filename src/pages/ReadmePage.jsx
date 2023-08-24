@@ -1,9 +1,6 @@
-
-import LoginPage from './LoginPage'
-
 const ReadmePage = () => {
   return (
-	<LoginPage/>
+	<h1>Readme</h1>
   )
 }
 

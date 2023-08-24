@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Outlet, useNavigation } from 'react-router-dom';
+import { Outlet, useLocation, useNavigation } from 'react-router-dom';
 import Header from './../components/Layout/Header';
 import ActionsBar from '../components/Layout/ActionsBar';
 import Backdrop from './../components/UI/Backdrop';
@@ -11,6 +11,7 @@ import LoadingSpinner from '../components/UI/LoadingSpinner';
 
 const RootLayout = () => {
 	const navigation = useNavigation();
+	const location = useLocation();
 	const backdropState = useSelector(
 		(state) => state.backdrop.isBackdropVisible
 	);
@@ -31,6 +32,10 @@ const RootLayout = () => {
 			document.body.classList.remove('unscrollable');
 		}
 	}, [backdropState]);
+
+	useEffect(() => {
+		closeBackdropHandler();
+	}, [location]);
 
 	return (
 		<>
