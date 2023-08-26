@@ -6,28 +6,26 @@
 	display: flex;
 	justify-content: space-between;
 
-	// display: none;  // TURNING OFF NAVBAR FOR DEVELOPMENT
+	// .logo {
+	// 	margin-left: 0.5rem;
+	// 	padding: 0 1rem;
+	// 	display: flex;
+	// 	align-items: center;
+	// 	cursor: pointer;
 
-	.logo {
-		margin-left: 0.5rem;
-		padding: 0 1rem;
-		display: flex;
-		align-items: center;
-		cursor: pointer;
+	// 	&:hover,
+	// 	&:focus {
+	// 		outline: none;
+	// 		img {
+	// 			transform: scale(1.05);
+	// 		}
+	// 	}
 
-		&:hover,
-		&:focus {
-			outline: none;
-			img {
-				transform: scale(1.05);
-			}
-		}
-
-		img {
-			height: 3.5rem;
-			transition: transform 0.2s;
-		}
-	}
+	// 	img {
+	// 		height: 3.5rem;
+	// 		transition: transform 0.2s;
+	// 	}
+	// }
 	.navbar {
 		position: absolute;
 		top: 5rem;
@@ -67,34 +65,44 @@
 			}
 		}
 
-		.downloadButton {
-			background-color: var(--blue-color);
-			transition: all 0.2s;
-			&:hover {
-				color: var(--hover-color);
-				background-color: var(--blue-hover);
-			}
-		}
-
 		.rightNav {
-			display: grid;
-			grid-template-columns: 3fr 2fr;
-
 			.listItem {
-				text-align: center;
+				height: 5rem;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				text-transform: uppercase;
+				background-color: var(--grey-color);
+			}
+
+			.profile {
+				background-color: var(--blue-color);
+				div,
+				a {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					gap: 0.5rem;
+				}
 				.icon {
-					margin-right: 0.5rem;
+					margin-bottom: 0.5rem;
 					font-size: 1.6rem;
 					transition: color 0.4s;
 				}
 			}
-			.profile:hover {
-				.icon {
+			.logoutButton {
+				cursor: pointer;
+				&:hover {
 					color: var(--hover-color);
 				}
-			}
-			& > :first-child {
-				border: 1px solid #333;
+				button {
+					height: 100%;
+					background-color: inherit;
+					border: none;
+					color: currentColor;
+					text-transform: uppercase;
+					cursor: pointer;
+				}
 			}
 		}
 	}
@@ -152,16 +160,28 @@
 			}
 
 			.rightNav {
-				& > :first-child {
-					border: none;
-				}
-				li {
-					display: flex;
-					justify-content: flex-end;
-				}
+				min-width: 125px;
+				width: fit-content;
+				height: auto;
+				display: flex;
+				flex-direction: column;
 
-				.icon {
-					margin-bottom: 0.5rem;
+				.listItem {
+					width: 100%;
+					height: 5rem;
+					padding: 0 1rem;
+				}
+				.profile {
+					gap: 0.5rem;
+					transition: all 0.2s;
+					cursor: pointer;
+					&:hover {
+						color: var(--hover-color);
+						background-color: var(--blue-hover);
+						.icon {
+							color: var(--hover-color);
+						}
+					}
 				}
 			}
 		}

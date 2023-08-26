@@ -1,5 +1,4 @@
 import classes from './LoginPage.module.scss';
-import CTAButton from './../components/UI/Buttons/CTAButton';
 import axios from 'axios';
 import {
 	AiOutlineInfoCircle,
@@ -468,12 +467,13 @@ const LoginPage = () => {
 						<p>You must accept the Terms of Service</p>
 					</div>
 				)}
-				<CTAButton
+				<button
 					disabled={!valid}
 					onClick={loginHandler}
+					className={classes.loginButton}
 				>
 					Log In
-				</CTAButton>
+				</button>
 			</form>
 			<div className={classes.navigateBack}>
 				<AiOutlineArrowLeft

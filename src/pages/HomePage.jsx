@@ -11,6 +11,7 @@ const HomePage = () => {
 	const is768Px = useMediaQuery('(width >= 768px)');
 	const data = useLoaderData();
 
+
 	// adding price property based on metacritic rating to all game objects, destructure parent_platforms, genres and tags for easier access
 	const gamesData = data.map((game) => {
 		const gamesData = { ...game };

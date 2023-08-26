@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 
 const CheckoutModal = (props) => {
 	const cartItems = useSelector((state) => state.cart);
-	const username = useSelector(state => state.auth.username)
+	const username = useSelector((state) => state.auth.username);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [checkedInput, setCheckedInput] = useState('');
@@ -117,9 +117,9 @@ const CheckoutModal = (props) => {
 										type="radio"
 										name="paymentMethod"
 										value="Credit Card"
-										
 										checked={checkedInput === 'Credit Card'}
 										tabIndex={-1}
+										readOnly
 									></input>
 								</div>
 								<BsFillCreditCardFill />
@@ -139,6 +139,7 @@ const CheckoutModal = (props) => {
 										value="PayPal"
 										checked={checkedInput === 'PayPal'}
 										tabIndex={-1}
+										readOnly
 									></input>
 								</div>
 								<BsPaypal /> PayPal
@@ -157,6 +158,7 @@ const CheckoutModal = (props) => {
 										value="Online Banking"
 										checked={checkedInput === 'Online Banking'}
 										tabIndex={-1}
+										readOnly
 									></input>
 								</div>
 								<BsBank2 /> Online Banking

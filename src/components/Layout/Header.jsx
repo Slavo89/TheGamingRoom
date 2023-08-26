@@ -5,11 +5,20 @@ import { useSelector } from 'react-redux';
 import classes from './Header.module.scss';
 import FocusTrap from 'focus-trap-react';
 import { useEffect } from 'react';
+import useMediaQuery from '../../hooks/use-MediaQuery';
 
 const Header = (props) => {
-	const username = useSelector(state => state.auth.username);
-	const location = useLocation()
+	const username = useSelector((state) => state.auth.username);
+	const isLoggedIn = useSelector((state) => state.auth.isAuthenicated);
+	const location = useLocation();
 	const [navExpanded, setNavExpanded] = useState(false);
+	const [dropdownMenu, setDropdownMenu] = useState(false);
+	const is800px = useMediaQuery('(width >= 800px)');
+
+	const dropdownMenuHandler = () => {
+		setDropdownMenu(!dropdownMenu);
+	};
+
 	const toggleNavbarHandler = () => {
 		setNavExpanded(!navExpanded);
 	};
@@ -19,9 +28,14 @@ const Header = (props) => {
 		props.onClose();
 	};
 
+	const logoutHandler = () => {
+		window.location.reload();
+		// dispatch(authActions.logout());
+	};
+
 	useEffect(() => {
-		setNavExpanded(false)
-	}, [location])
+		setNavExpanded(false);
+	}, [location]);
 
 	const linkClass = ({ isActive }) => (isActive ? classes.active : '');
 
@@ -72,7 +86,6 @@ const Header = (props) => {
 								href="https://www.epicgames.com/help/"
 								target="_blank"
 								rel="noreferrer"
-								// onClick={closeAndNavigate}
 								tabIndex="0"
 							>
 								Support
@@ -83,28 +96,85 @@ const Header = (props) => {
 								href="https://www.unrealengine.com/"
 								target="_blank"
 								rel="noreferrer"
-								// onClick={closeAndNavigate}
 								tabIndex="0"
 							>
 								Unreal Engine
 							</a>
 						</li>
 					</ul>
-					<ul className={classes.rightNav}>
-						<li className={`${classes.listItem} ${classes.profile}`}>
-							<NavLink
-								to="/register"
-								tabIndex="0"
-							>
-								{' '}
-								<BsFillPersonFill className={classes.icon} />
-								{username ? username : 'Log In'}{' '}
-							</NavLink>
-						</li>
-						<li className={`${classes.listItem} ${classes.downloadButton}`}>
-							<a tabIndex="0">Download</a>
-						</li>
-					</ul>
+					{!is800px ? (
+						<ul className={classes.rightNav}>
+							{!isLoggedIn ? (
+								<li className={`${classes.listItem} ${classes.profile}`}>
+									<NavLink
+										to="/register"
+										tabIndex="0"
+									>
+										
+										<BsFillPersonFill className={classes.icon} />
+										Log In
+									</NavLink>
+								</li>
+							) : (
+								<>
+									<li className={`${classes.listItem} ${classes.profile}`}>
+										<div>
+											{' '}
+											<BsFillPersonFill className={classes.icon} />
+											{username}{' '}
+										</div>
+									</li>
+
+									<li
+										className={`${classes.listItem} ${classes.logoutButton}`}
+										onClick={logoutHandler}
+									>
+										<button>Log Out</button>
+									</li>
+								</>
+							)}
+						</ul>
+					) : (
+						<div className={classes.rightNav}>
+							{!isLoggedIn ? (
+								<div className={`${classes.listItem} ${classes.profile}`}>
+									<NavLink
+										to="/register"
+										tabIndex="0"
+									>
+										{' '}
+										<BsFillPersonFill className={classes.icon} />
+										{'Log In'}{' '}
+									</NavLink>
+								</div>
+							) : (
+								<ul
+									className={classes.rightNav}
+									onMouseEnter={dropdownMenuHandler}
+									onMouseLeave={dropdownMenuHandler}
+								>
+									<li
+										tabIndex="0"
+										className={`${classes.listItem} ${classes.profile}`}
+									>
+										{' '}
+										<BsFillPersonFill className={classes.icon} />
+										{username}{' '}
+									</li>
+									{dropdownMenu && (
+										<>
+											<li
+												className={`${classes.listItem} ${classes.logoutButton}`}
+												onClick={logoutHandler}
+											>
+												<button>Log Out</button>
+											</li>
+										</>
+									)}
+								</ul>
+							)}
+						</div>
+					)}
 				</nav>
 
 				<div
