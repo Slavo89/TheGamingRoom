@@ -6,13 +6,12 @@ import GameDetailsPage, {
 	loader as gameDetailsLoader,
 } from './pages/GameDetailsPage';
 import DistributionPage from './pages/DistributionPage';
-import SupportPage from './pages/SupportPage';
 import BrowsePage from './pages/BrowsePage';
 import ReadmePage from './pages/ReadmePage';
 import WishlistPage from './pages/WishlistPage';
 import CartPage from './pages/CartPage';
 import GamesByGenresPage from './pages/GamesByGenresPage';
-import LoginPage, {loader as countriesLoader} from './pages/LoginPage';
+import LoginPage, { loader as countriesLoader } from './pages/LoginPage';
 
 function App() {
 	const router = createBrowserRouter([
@@ -27,7 +26,6 @@ function App() {
 					loader: gameListLoader,
 				},
 				{ path: 'distribution', element: <DistributionPage /> },
-				{ path: 'support', element: <SupportPage /> },
 				{
 					path: 'browse',
 					element: <BrowsePage />,
@@ -50,11 +48,15 @@ function App() {
 		{
 			path: '/register',
 			element: <LoginPage />,
-			loader: countriesLoader
+			loader: countriesLoader,
 		},
 	]);
 
-	return <RouterProvider router={router}></RouterProvider>;
+	return (
+		<RouterProvider router={router}>
+			
+		</RouterProvider>
+	);
 }
 
 export default App;

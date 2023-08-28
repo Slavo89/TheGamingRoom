@@ -88,7 +88,7 @@ const LoginPage = () => {
 				transform: isMenuOpen ? 'rotate(180deg)' : 'rotate(0deg)',
 			},
 		}),
-		menuList: (baseStyles,) => ({
+		menuList: (baseStyles) => ({
 			...baseStyles,
 			'::-webkit-scrollbar': {
 				width: '11px',
@@ -99,7 +99,7 @@ const LoginPage = () => {
 			'::-webkit-scrollbar-thumb': {
 				background: '#aaa',
 				borderRadius: '5px',
-				height: '25px'
+				height: '25px',
 			},
 		}),
 	};
@@ -321,25 +321,25 @@ const LoginPage = () => {
 							onBlur={handleInputBlur}
 							onFocus={handleInputFocus}
 						></input>
-						<div
-							className={classes.tooltip}
-							onMouseEnter={displayNameTooltipHandler}
-							onFocus={displayNameTooltipHandler}
-							onMouseLeave={hideNameTooltipHandler}
-							onBlur={hideNameTooltipHandler}
-							tabIndex={0}
-						>
-							<AiOutlineInfoCircle />
-						</div>
-						{displayedNameTooltipVisible && (
-							<p className={classes.info}>
-								{' '}
-								The displayed name must contain from 3 to 16 characters. It may
-								contain letters, numbers, non-consecutive hyphens, periods,
-								underscores and spaces.
-							</p>
-						)}
 					</label>
+					<div
+						className={classes.tooltip}
+						onMouseEnter={displayNameTooltipHandler}
+						onFocus={displayNameTooltipHandler}
+						onMouseLeave={hideNameTooltipHandler}
+						onBlur={hideNameTooltipHandler}
+						tabIndex={0}
+					>
+						<AiOutlineInfoCircle />
+					</div>
+					{displayedNameTooltipVisible && (
+						<p className={classes.info}>
+							{' '}
+							The displayed name must contain from 3 to 16 characters. It may
+							contain letters, numbers, non-consecutive hyphens, periods,
+							underscores and spaces.
+						</p>
+					)}
 				</fieldset>
 				<fieldset>
 					<label htmlFor="email">
@@ -391,31 +391,31 @@ const LoginPage = () => {
 							onBlur={handleInputBlur}
 							onFocus={handleInputFocus}
 						></input>
-						<div
-							className={`${classes.tooltip} ${classes.margin}`}
-							onClick={() => setPasswordVisible(!passwordVisible)}
-							tabIndex={0}
-						>
-							{!passwordVisible ? <AiFillEyeInvisible /> : <AiFillEye />}
-						</div>
-						<div
-							className={classes.tooltip}
-							onFocus={displayPasswordTooltipHandler}
-							onMouseEnter={displayPasswordTooltipHandler}
-							onBlur={hidePasswordTooltipHandler}
-							onMouseLeave={hidePasswordTooltipHandler}
-							tabIndex={0}
-						>
-							<AiOutlineInfoCircle />
-						</div>
-						{passwordTooltipVisible && (
-							<p className={classes.info}>
-								{' '}
-								The password must consist of at least 7 characters, 1 number and
-								1 letter, and must not contain whitespaces.
-							</p>
-						)}
 					</label>
+					<div
+						className={`${classes.tooltip} ${classes.margin}`}
+						onClick={() => setPasswordVisible(!passwordVisible)}
+						tabIndex={0}
+					>
+						{!passwordVisible ? <AiFillEyeInvisible /> : <AiFillEye />}
+					</div>
+					{passwordTooltipVisible && (
+						<p className={classes.info}>
+							{' '}
+							The password must consist of at least 7 characters, 1 number and 1
+							letter, and must not contain whitespaces.
+						</p>
+					)}
+					<div
+						className={classes.tooltip}
+						onFocus={displayPasswordTooltipHandler}
+						onMouseEnter={displayPasswordTooltipHandler}
+						onBlur={hidePasswordTooltipHandler}
+						onMouseLeave={hidePasswordTooltipHandler}
+						tabIndex={0}
+					>
+						<AiOutlineInfoCircle />
+					</div>
 				</fieldset>
 				<fieldset>
 					<label className={classes.checkLabel}>

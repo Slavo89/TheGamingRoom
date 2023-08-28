@@ -18,10 +18,34 @@
 		gap: 3rem;
 		fieldset {
 			border: none;
+			position: relative;
+			.tooltip {
+				position: absolute;
+				top: 50%;
+				right: 0;
+				padding: 1rem;
+				margin-right: 0.2rem;
+				transform: translateY(-50%);
+				font-size: 2rem;
+				border-radius: 5px;
+				cursor: pointer;
+				transition: background-color 0.2s;
+				& > * {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+				}
+				&.margin {
+					right: 3.5rem;
+				}
+				&:hover,
+				&:focus {
+					background-color: #505050;
+				}
+			}
 		}
 
 		label {
-			position: relative;
 
 			&:focus-within {
 				span {
@@ -75,30 +99,7 @@
 				border: 1px solid #de3341;
 			}
 		}
-		.tooltip {
-			position: absolute;
-			top: 50%;
-			right: 0;
-			padding: 1rem;
-			margin-right: 0.2rem;
-			transform: translateY(-50%);
-			font-size: 2rem;
-			border-radius: 5px;
-			cursor: pointer;
-			transition: background-color 0.2s;
-			& > * {
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			}
-			&.margin {
-				right: 3.5rem;
-			}
-			&:hover,
-			&:focus {
-				background-color: #505050;
-			}
-		}
+
 		.info {
 			position: absolute;
 			top: 130%;
@@ -147,9 +148,6 @@
 
 		input:-webkit-autofill,
 		input:autofill {
-			// border: 1px solid #444;
-			// border-radius: 5px;
-			// border-radius: 20px;
 			background-clip: padding-box;
 			-webkit-text-fill-color: var(--hover-color);
 			-webkit-box-shadow: 0 0 0px 100px var(--grey-color) inset !important;

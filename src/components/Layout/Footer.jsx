@@ -119,7 +119,7 @@ const Footer = () => {
 									target="_blank"
 									rel="noreferrer"
 								>
-									UX Researcgh
+									UX Research
 								</a>
 							</li>
 							<li>

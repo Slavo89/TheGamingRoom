@@ -189,7 +189,10 @@ const CheckoutModal = (props) => {
 								className={classes.dialog}
 								open={order}
 							>
-								<p>Thanks, for your order. Enjoy playing!</p>
+								<p>
+									Awesome! Your order is confirmed. Get ready to dive into some
+									gaming fun!
+								</p>
 								<CTAButton onClick={onOrderHandler}>
 									Go back to home page
 								</CTAButton>

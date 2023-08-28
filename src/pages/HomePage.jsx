@@ -34,6 +34,7 @@ const HomePage = () => {
 			</section>
 			{!is768Px && <GamesList games={gamesList} />}
 			{is768Px && <DesktopGamesList games={gamesList} />}
+			
 		</>
 	);
 };

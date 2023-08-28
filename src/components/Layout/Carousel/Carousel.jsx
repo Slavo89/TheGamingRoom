@@ -7,7 +7,6 @@ import 'swiper/scss/pagination';
 const Carousel = (props) => {
 	const carouselGames = props.games;
 
-	// console.log(carouselGames);
 	return (
 		<Swiper
 			modules={[Pagination]}

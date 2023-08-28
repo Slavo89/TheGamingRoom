@@ -1,0 +1,60 @@
+.readmeSection {
+	.title {
+        text-align: center;
+		margin: 2rem 0;
+	}
+    .listTitle {
+        margin: 2rem 0;
+    }
+
+	.description {
+		border-bottom: 1px solid var(--border-color);
+		.paragraph {
+			margin-bottom: 1rem;
+			text-align: justify;
+			.link {
+				text-decoration: none;
+				color: var(--hover-color);
+				transition: color 0.3s;
+				&:hover {
+					color: var(--blue-color);
+				}
+			}
+		}
+	}
+
+	.list {
+		padding-bottom: 2rem;
+		border-bottom: 1px solid var(--border-color);
+		li {
+			margin-left: 2rem;
+			font-size: 1.6rem;
+			line-height: 2.5rem;
+		}
+	}
+
+    .list:last-child {
+        border-bottom: none;
+    }
+}
+
+@media (width >= 600px) {
+    .readmeSection {
+        margin: 0 5rem;
+    }
+}
+@media (width >= 900px) {
+    .readmeSection {
+        margin: 0 10rem;
+    }
+}
+@media (width >= 1200px) {
+    .readmeSection {
+        margin: 0 15rem;
+    }
+}
+@media (width >= 1500px) {
+    .readmeSection {
+        margin: 0 20rem;
+    }
+}
