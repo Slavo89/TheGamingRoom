@@ -99,6 +99,7 @@ const GameDetailsPage = () => {
 								<img
 									key={platform}
 									src={platforms[platform]}
+									alt='Platform logo'
 									height={16}
 									className={classes.icon}
 								></img>

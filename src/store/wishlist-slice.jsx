@@ -32,6 +32,10 @@ const wishlistSlice = createSlice({
 				state.items = state.items.filter((item) => item.id !== id);
 			}
 		},
+		resetWishlist(state) {
+			state.items = [];
+		}
+		
 	},
 });
 

@@ -92,7 +92,3 @@ const CartCard = (props) => {
 };
 
 export default CartCard;
-
-{
-	/* <CTAButton onClick={onAdd}>Add to Cart</CTAButton> */
-}

@@ -30,10 +30,6 @@ const GamesList = (props) => {
 								genres={game.genres}
 								esrb_rating={game.esrb_rating}
 								parent_platforms={game.parent_platforms}
-								// rating={game.rating}
-								// // platforms={game.parent_platforms
-								// // 	.map((item) => item.platform.name)
-								// // 	.join(', ')}
 							/>
 						))}
 					</ul>
@@ -52,11 +48,6 @@ const GamesList = (props) => {
 								esrb_rating={game.esrb_rating}
 								parent_platforms={game.parent_platforms}
 								tags={game.tags}
-								// rating={game.rating}
-								// platforms={game.parent_platforms
-								// genres={game.genres.map((genre) => genre.name)}
-								// 	.map((item) => item.platform.name)
-								// 	.join(', ')}
 							/>
 						))}
 					</ul>
@@ -75,11 +66,6 @@ const GamesList = (props) => {
 								esrb_rating={game.esrb_rating}
 								parent_platforms={game.parent_platforms}
 								tags={game.tags}
-								// rating={game.rating}
-								// platforms={game.parent_platforms
-								// genres={game.genres.map((genre) => genre.name)}
-								// 	.map((item) => item.platform.name)
-								// 	.join(', ')}
 							/>
 						))}
 					</ul>

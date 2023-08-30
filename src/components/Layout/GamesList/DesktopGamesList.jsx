@@ -18,8 +18,6 @@ const DesktopGamesList = (props) => {
 						esrb_rating={game.esrb_rating}
 						parent_platforms={game.parent_platforms}
 						tags={game.tags}
-						// metacritic={game.metacritic}
-						// rating={game.rating}
 					/>
 				))}
 			</ul>
@@ -36,8 +34,6 @@ const DesktopGamesList = (props) => {
 						esrb_rating={game.esrb_rating}
 						parent_platforms={game.parent_platforms}
 						tags={game.tags}
-						// metacritic={game.metacritic}-
-						// rating={game.rating}
 					/>
 				))}
 			</ul>
@@ -54,8 +50,6 @@ const DesktopGamesList = (props) => {
 						esrb_rating={game.esrb_rating}
 						parent_platforms={game.parent_platforms}
 						tags={game.tags}
-						// rating={game.rating}
-						// metacritic={game.metacritic}
 					/>
 				))}
 			</ul>

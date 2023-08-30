@@ -3,7 +3,6 @@ import useMediaQuery from '../hooks/use-MediaQuery';
 import { FaRegQuestionCircle, FaMailBulk } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { wishlistActions } from '../store/wishlist-slice';
-// import { cartActions } from '../store/cart-slice';
 import classes from './WishilstPage.module.scss';
 import CartCard from '../components/UI/Cards/CartCard';
 import EmptyCartList from '../components/Layout/EmptyCartList';
@@ -21,19 +20,6 @@ const WishlistPage = () => {
 	const dispatch = useDispatch();
 	const is770Px = useMediaQuery('(width >= 770px)');
 
-	// const addToCartHandler = (game) => {
-	// 	dispatch(
-	// 		cartActions.addItemToCart({
-	// 			key: game.id,
-	// 			id: game.id,
-	// 			name: game.name,
-	// 			price: game.price,
-	// 			background_image: game.background_image,
-	// 			esrb_rating: game.esrb_rating,
-	// 			parent_platforms: game.parent_platforms,
-	// 		})
-	// 	);
-	// };
 
 	const removeFromWishlistHandler = (itemId) => {
 		dispatch(wishlistActions.removeItemFromWishlist(itemId));
@@ -134,7 +120,6 @@ const WishlistPage = () => {
 												price: game.price,
 												esrb_rating: game.esrb_rating,
 											}}
-											// onAdd={() => addToCartHandler(game)}
 											onRemove={() => removeFromWishlistHandler(game.id)}
 										/>
 									))}

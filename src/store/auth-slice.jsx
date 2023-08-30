@@ -13,11 +13,11 @@ const authSlice = createSlice({
 			state.username = action.payload.username;
 			state.email = action.payload.email;
 		},
-		// logout(state) {
-		// 	state.isAuthenicated = false;
-		// 	state.username = '';
-		// 	state.email = '';
-		// },
+		logout(state) {
+			state.isAuthenicated = false;
+			state.username = '';
+			state.email = '';
+		},
 	},
 });
 

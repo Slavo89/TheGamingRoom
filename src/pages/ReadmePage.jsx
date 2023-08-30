@@ -62,6 +62,7 @@ const ReadmePage = () => {
 				<li>React Select (for creating interactive dropdown lists)</li>
 				<li>React Carousel (for displaying image carousels)</li>
 				<li>Focus Trap React (for handling focus trapping on elements)</li>
+				<li>Rest Coutnties API (for getting a list of countiries for login form )</li>
 			</ul>
 		</section>
 	);

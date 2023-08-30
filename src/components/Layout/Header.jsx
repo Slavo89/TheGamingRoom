@@ -1,16 +1,21 @@
 import { BsFillPersonFill } from 'react-icons/bs';
 import { useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { authActions } from '../../store/auth-slice';
 import classes from './Header.module.scss';
 import FocusTrap from 'focus-trap-react';
 import { useEffect } from 'react';
 import useMediaQuery from '../../hooks/use-MediaQuery';
+import { wishlistActions } from '../../store/wishlist-slice';
+import { cartActions } from '../../store/cart-slice';
 
 const Header = (props) => {
 	const username = useSelector((state) => state.auth.username);
 	const isLoggedIn = useSelector((state) => state.auth.isAuthenicated);
+	const dispatch = useDispatch()
 	const location = useLocation();
+	const navigate = useNavigate()
 	const [navExpanded, setNavExpanded] = useState(false);
 	const [dropdownMenu, setDropdownMenu] = useState(false);
 	const is800px = useMediaQuery('(width >= 800px)');
@@ -29,8 +34,10 @@ const Header = (props) => {
 	};
 
 	const logoutHandler = () => {
-		window.location.reload();
-		// dispatch(authActions.logout());
+		dispatch(wishlistActions.resetWishlist())
+		dispatch(cartActions.resetCart())
+		dispatch(authActions.logout());
+		navigate('/')
 	};
 
 	useEffect(() => {
