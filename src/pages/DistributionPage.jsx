@@ -5,35 +5,35 @@ import useMediaQuery from './../hooks/use-MediaQuery';
 const cardData = [
 	{
 		id: 1,
-		src: '/src/assets/distributionImages/direct-game-distribution-06596600236d.svg',
+		src: '/dist/assets/distributionImages/direct-game-distribution-06596600236d.svg',
 		title: 'Reach a Global Audience',
 		text: `Direct distribution to over 230 million Epic users across 187
 								countries with 16 languages supported.`,
 	},
 	{
 		id: 2,
-		src: '/src/assets/distributionImages/video-game-revenue-c74196d72f94.svg',
+		src: '/dist/assets/distributionImages/video-game-revenue-c74196d72f94.svg',
 		title: '88%/12% Revenue Split',
 		text: `Keep 88% of the revenue and monitor product performance with
 								integrated analytics dashboard.`,
 	},
 	{
 		id: 3,
-		src: '/src/assets/distributionImages/player-engagement-69f0a2ba31cd.svg',
+		src: '/dist/assets/distributionImages/player-engagement-69f0a2ba31cd.svg',
 		title: 'Drive Player Engagement',
 		text: `Tap into store features like wishlists, achievements, store-wide
 								promotions and more!`,
 	},
 	{
 		id: 4,
-		src: '/src/assets/distributionImages/epic-games-payment-methods-18cc6135990f.svg',
+		src: '/dist/assets/distributionImages/epic-games-payment-methods-18cc6135990f.svg',
 		title: 'Worldwide E-Commerce',
 		text: `Epic's payment service supports 76 payment methods with 47
 								regional currencies and more on the way.`,
 	},
 	{
 		id: 5,
-		src: '/src/assets/distributionImages/epic-games-wallet-2af74bb47a7a.svg',
+		src: '/dist/assets/distributionImages/epic-games-wallet-2af74bb47a7a.svg',
 		title: 'Epic Wallet',
 		text: `Users can load up their Wallet with funds to spend on products
 								and services in the store, now available in more than 140
@@ -41,7 +41,7 @@ const cardData = [
 	},
 	{
 		id: 6,
-		src: '/src/assets/distributionImages/game-ratings-localization-and-affliate-network-benefits-a931a6cb27b8.svg',
+		src: '/dist/assets/distributionImages/game-ratings-localization-and-affliate-network-benefits-a931a6cb27b8.svg',
 		title: 'Additional Benefits',
 		text: `Easy IARC ratings in Epic Developer Portal, request no-cost
 								localization for store pages and activate our Support-A-Creator
@@ -265,7 +265,7 @@ const DistributionPage = () => {
 					{is1024px && (
 						<div className={classes.animation}>
 							<img
-								src="/src/assets/distributionImages/development.webp"
+								src="/dist/assets/distributionImages/development.webp"
 								alt="icon"
 								className={classes.image}
 							></img>
@@ -274,7 +274,7 @@ const DistributionPage = () => {
 					<div className={classes.content}>
 						<div>
 							<img
-								src="/src/assets/distributionImages/egs logo.webp"
+								src="/dist/assets/distributionImages/egs logo.webp"
 								alt="epic logo"
 								height={100}
 								width={65}
@@ -336,7 +336,7 @@ const DistributionPage = () => {
 				>
 					<div>
 						<img
-							src="/src/assets/distributionImages/epic-community-logo.svg"
+							src="/dist/assets/distributionImages/epic-community-logo.svg"
 							alt="logo"
 							className={classes.cardLogo}
 						></img>
@@ -360,7 +360,7 @@ const DistributionPage = () => {
 					>
 						<div>
 							<img
-								src="/src/assets/distributionImages/epic-online-services-logo.svg"
+								src="/dist/assets/distributionImages/epic-online-services-logo.svg"
 								alt="logo"
 								className={classes.cardLogo}
 							></img>
@@ -383,7 +383,7 @@ const DistributionPage = () => {
 					>
 						<div>
 							<img
-								src="/src/assets/distributionImages/unreal-engine-logo.svg"
+								src="/dist/assets/distributionImages/unreal-engine-logo.svg"
 								alt="logo"
 								className={classes.cardLogo}
 							></img>
