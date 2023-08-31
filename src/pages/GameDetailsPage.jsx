@@ -51,8 +51,9 @@ const GameDetailsPage = () => {
 						width="100%"
 						radius="10px"
 						slideBackgroundColor="transparent"
+						slideImageFit="cover"
 						thumbnails={true}
-						thumbnailWidth="100px"
+						thumbnailWidth="75px"
 						thumbnailHeight="50px"
 					/>
 				</div>
@@ -99,7 +100,7 @@ const GameDetailsPage = () => {
 								<img
 									key={platform}
 									src={platforms[platform]}
-									alt='Platform logo'
+									alt="Platform logo"
 									height={16}
 									className={classes.icon}
 								></img>

@@ -153,7 +153,8 @@
 
 	// MEDIA QUERIES
 
-	@media (width >= 770px) {
+	// @media (width >= 770px) {
+	@media (width >= 1040px) {
 		.detailsContainer {
 			display: grid;
 			gap: 1.5rem 2rem;
