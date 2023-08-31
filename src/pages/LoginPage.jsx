@@ -229,7 +229,7 @@ const LoginPage = () => {
 		<div className={classes.loginPanel}>
 			<img
 				className={classes.logo}
-				src="/src/assets/epicLogo.png"
+				src="/assets/epicLogo.png"
 				alt="logo"
 				width={50}
 			></img>

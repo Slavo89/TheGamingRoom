@@ -49,16 +49,6 @@ const Header = (props) => {
 	return (
 		<FocusTrap active={navExpanded}>
 			<header className={classes.header}>
-				{/* <NavLink
-				className={classes.logo}
-				to="/"
-				end={true}
-			>
-				<img
-					src="/src/assets/logo.png"
-					alt="logo"
-				/>
-			</NavLink> */}
 
 				<nav
 					className={
