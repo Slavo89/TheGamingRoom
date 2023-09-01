@@ -1,12 +1,15 @@
 import axios from 'axios';
 import { useLoaderData, json } from 'react-router-dom';
-import { Carousel } from 'react-carousel-minimal';
+// import { Carousel } from 'react-carousel-minimal';
 import useWishlist from '../hooks/useWishlist';
 import classes from './GameDetailsPage.module.scss';
 import WishlistButton from '../components/UI/Buttons/WishlistButton';
 import CTAButton from '../components/UI/Buttons/CTAButton';
 import useCart from '../hooks/useCart';
 import { platforms } from '../data/iconsSRC';
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { useState } from 'react';
 
 const GameDetailsPage = () => {
 	const { data, screenshots } = useLoaderData();
@@ -29,10 +32,12 @@ const GameDetailsPage = () => {
 	const [inCart, cartHandler] = useCart(gameDetails);
 
 	const carouselData = [
-		{ image: gameDetails.background_image },
-		{ image: gameDetails.background_image_additional },
+		{ id: 1, image: gameDetails.background_image },
+		{ id: 2, image: gameDetails.background_image_additional },
 		...screenshots,
 	];
+
+	// console.log(carouselData);
 
 	return (
 		<section className={classes.gameDetails}>
@@ -45,8 +50,8 @@ const GameDetailsPage = () => {
 				<span className={classes.numeralRating}>{gameDetails.rating}</span>
 			</div>
 			<div className={classes.detailsContainer}>
-				<div className={classes.carousel}>
-					<Carousel
+				<div className={classes.carouselContainer}>
+					{/* <Carousel
 						data={carouselData}
 						width="100%"
 						radius="10px"
@@ -55,7 +60,38 @@ const GameDetailsPage = () => {
 						thumbnails={true}
 						thumbnailWidth="75px"
 						thumbnailHeight="50px"
-					/>
+					/> */}
+					<Carousel
+						showArrows={true}
+						infiniteLoop={true}
+						showThumbs={true}
+						showStatus={false}
+						showIndicators={false}
+						// renderThumbs={(isSelected) => {
+						// 	const defStyle = {
+						// 		marginLeft: 20,
+						// 		color: 'white',
+						// 		cursor: 'pointer',
+						// 	};
+						// 	const style = isSelected
+						// 		? { ...defStyle, color: 'red' }
+						// 		: { ...defStyle };
+						// 	return (style={style})
+						// }}
+						
+					>
+						{carouselData.map((data) => (
+							<div
+								key={data.id}
+								className={classes.imageContainer}
+							>
+								<img
+									alt="Game screen"
+									src={data.image}
+								/>
+							</div>
+						))}
+					</Carousel>
 				</div>
 				<div className={classes.actions}>
 					<div className={classes.price}>
