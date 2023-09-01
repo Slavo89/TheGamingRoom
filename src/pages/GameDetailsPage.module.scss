@@ -45,7 +45,6 @@
 			width: 100%;
 			:global(.carousel) {
 				display: flex;
-				// 	justify-content: center;
 				align-items: center;
 			}
 			:global(.thumb) {
@@ -64,7 +63,7 @@
 			}
 			:global(.carousel-slider) {
 				:global(.control-arrow) {
-					// top: 50%;
+					top: 50%;
 					display: none;
 					justify-content: center;
 					align-items: center;
@@ -75,11 +74,7 @@
 					transform: translateY(-50%);
 					transition: all 0.3s;
 				}
-				// &:hover {
-				// 	.control-arrow {
-				// 		background: black;
-				// 	}
-				// }
+				
 			}
 			:global(.carousel):hover :global(.control-arrow) {
 				display: flex;
@@ -94,11 +89,11 @@
 					display: flex;
 					justify-content: center;
 					align-items: center;
-					height: 30px;
-					width: 30px;
+					height: 35px;
+					width: 35px;
 					border-radius: 50%;
 					background-color: rgba($color: white, $alpha: 0.1);
-					// transform: translateY(-50%);
+					
 				}
 			}
 		}
@@ -208,14 +203,17 @@
 
 	// MEDIA QUERIES
 
-	// @media (width >= 770px) {
-		@media (width >= 1040px) {
+	@media (width >= 770px) {
+		// @media (width >= 1040px) {
 		.detailsContainer {
+			
 			display: grid;
 			gap: 1.5rem 2rem;
 			grid-template-columns: 3fr 2fr;
 			grid-template-rows: 1fr 1fr;
 			.carouselContainer {
+				width: 60vw;
+				margin-top: auto;
 				grid-column: 1/2;
 				grid-row: 1/3;
 				:global(.thumbs-wrapper) {
