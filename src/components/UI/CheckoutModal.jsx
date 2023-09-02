@@ -164,23 +164,23 @@ const CheckoutModal = (props) => {
 								<BsBank2 /> Online Banking
 							</li>
 						</ul>
-					</div>
-					<div className={classes.paymentAction}>
-						<p className={classes.eula}>
-							By clicking `Place Order`, I certify that I am 18 years of age or
-							older and am an authorized user of this payment method, and agree
-							to the terms of the End User License Agreement.
-						</p>
-						<div
-							className={classes.buttonContainer}
-							tabIndex={0}
-						>
-							<CTAButton
-								disabled={!checkedInput}
-								onClick={placeOrderHandler}
+						<div className={classes.paymentAction}>
+							<p className={classes.eula}>
+								By clicking `Place Order`, I certify that I am 18 years of age
+								or older and am an authorized user of this payment method, and
+								agree to the terms of the End User License Agreement.
+							</p>
+							<div
+								className={classes.buttonContainer}
+								tabIndex={0}
 							>
-								Place Order
-							</CTAButton>
+								<CTAButton
+									disabled={!checkedInput}
+									onClick={placeOrderHandler}
+								>
+									Place Order
+								</CTAButton>
+							</div>
 						</div>
 					</div>
 					{order && (
