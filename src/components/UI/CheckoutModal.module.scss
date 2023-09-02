@@ -16,7 +16,7 @@
 	color: var(--black-color);
 	background-color: #fff;
 	z-index: 10000;
-	overflow-y: hidden;
+	// overflow-y: hidden;
 	display: flex;
 	flex-direction: column;
 	& > * {
@@ -111,6 +111,7 @@
 	.paymentMethods {
 		// padding-bottom: 3rem;
 		margin: 1.5rem 0;
+		// overflow: auto;
 		.title {
 			padding: 1.5rem 0rem;
 			display: flex;

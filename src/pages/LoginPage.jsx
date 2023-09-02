@@ -18,7 +18,6 @@ const LoginPage = () => {
 	const styles = {
 		control: (baseStyles, state) => ({
 			...baseStyles,
-			// height: '6rem',
 			paddingLeft: '16.5px',
 			backgroundColor: 'inherit',
 			borderColor: state.isFocused ? 'var(--hover-color)' : '#505050',
@@ -224,6 +223,13 @@ const LoginPage = () => {
 	const handleMenuClose = () => {
 		setIsMenuOpen(false);
 	};
+
+	useEffect(() => {
+		window.scrollTo({
+			top: 0,
+			behavior: 'instant',
+		});
+	}, [])
 
 	return (
 		<div className={classes.loginPanel}>
@@ -492,7 +498,6 @@ export async function loader() {
 		const response = await axios.get(`https://restcountries.com/v3.1/all`);
 
 		const data = response.data;
-		// console.log(data);
 		return data;
 	} catch (error) {
 		return json(
