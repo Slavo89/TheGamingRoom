@@ -164,6 +164,7 @@ const CheckoutModal = (props) => {
 								<BsBank2 /> Online Banking
 							</li>
 						</ul>
+					</div>
 						<div className={classes.paymentAction}>
 							<p className={classes.eula}>
 								By clicking `Place Order`, I certify that I am 18 years of age
@@ -182,7 +183,6 @@ const CheckoutModal = (props) => {
 								</CTAButton>
 							</div>
 						</div>
-					</div>
 					{order && (
 						<div className={classes.backdrop}>
 							<dialog
