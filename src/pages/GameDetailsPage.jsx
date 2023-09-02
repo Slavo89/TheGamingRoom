@@ -35,7 +35,6 @@ const GameDetailsPage = () => {
 		...screenshots,
 	];
 
-	// console.log(carouselData);
 
 	return (
 		<section className={classes.gameDetails}>

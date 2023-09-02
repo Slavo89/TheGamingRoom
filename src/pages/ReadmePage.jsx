@@ -40,6 +40,12 @@ const ReadmePage = () => {
 					Additionally, the resolution of downloaded images was limited by the
 					API.
 				</p>
+				<p className={classes.paragraph}>
+					The links in the footer are intentionally commented out. While
+					developing the project, I could use `account-slice` for implementing wishlist,
+					cart and making an account functionalities. Instead, I implemented them differently as part
+					of the learning process. The project serves as a learning experience.
+				</p>
 			</div>
 
 			<h2 className={classes.listTitle}>Features</h2>
@@ -60,9 +66,11 @@ const ReadmePage = () => {
 				<li>Axios (for making HTTP requests)</li>
 				<li>Swiper (for creating slide shows)</li>
 				<li>React Select (for creating interactive dropdown lists)</li>
-				<li>React Carousel (for displaying image carousels)</li>
+				<li>React Responsive Carousel(for displaying image carousels)</li>
 				<li>Focus Trap React (for handling focus trapping on elements)</li>
-				<li>Rest Coutnties API (for getting a list of countiries for login form )</li>
+				<li>
+					Rest Coutnties API (for getting a list of countiries for login form )
+				</li>
 			</ul>
 		</section>
 	);

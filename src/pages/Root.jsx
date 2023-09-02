@@ -35,6 +35,10 @@ const RootLayout = () => {
 
 	useEffect(() => {
 		closeBackdropHandler();
+		window.scrollTo({
+			top: 0,
+			behavior: 'instant'
+		})
 	}, [location]);
 
 	return (

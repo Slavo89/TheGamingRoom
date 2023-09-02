@@ -1,5 +1,6 @@
 import { useRouteError } from 'react-router-dom';
 import { useState } from 'react';
+import classes from './ErrorPage.module.scss'
 import Container from '../components/Layout/Container';
 import Header from '../components/Layout/Header';
 import ActionsBar from '../components/Layout/ActionsBar';
@@ -42,8 +43,8 @@ const ErrorPage = () => {
 					onClose={closeBackdrop}
 				/>
 				<Container>
-					<h1>{title}</h1>
-					<p>{message}</p>
+					<h1 className={classes.errorTitle}>{title}</h1>
+					<p className={classes.errorMessage}>{message}</p>
 				</Container>
 			</main>
 			<Footer />

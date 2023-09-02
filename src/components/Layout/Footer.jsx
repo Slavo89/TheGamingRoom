@@ -58,8 +58,6 @@ const Footer = () => {
 				>
 					<BsChevronUp />
 				</button>
-
-				{/* </div> */}
 			</div>
 			<div className={classes.footerLinks}>
 				<div>
@@ -68,36 +66,36 @@ const Footer = () => {
 						<ul className={classes.list}>
 							<li>
 								<a
-									href=""
-									target="_blank"
-									rel="noreferrer"
+								// href=""
+								// target="_blank"
+								// rel="noreferrer"
 								>
 									Support-A-Creator
 								</a>
 							</li>
 							<li>
 								<a
-									href=""
-									target="_blank"
-									rel="noreferrer"
+								// href=""
+								// target="_blank"
+								// rel="noreferrer"
 								>
 									Distribute on Epic Games
 								</a>
 							</li>
 							<li>
 								<a
-									href=""
-									target="_blank"
-									rel="noreferrer"
+								// href=""
+								// target="_blank"
+								// rel="noreferrer"
 								>
 									Careers
 								</a>
 							</li>
 							<li>
 								<a
-									href=""
-									target="_blank"
-									rel="noreferrer"
+								// href=""
+								// target="_blank"
+								// rel="noreferrer"
 								>
 									Company
 								</a>
@@ -106,27 +104,27 @@ const Footer = () => {
 						<ul className={classes.list}>
 							<li>
 								<a
-									href=""
-									target="_blank"
-									rel="noreferrer"
+								// href=""
+								// target="_blank"
+								// rel="noreferrer"
 								>
 									Fan art Policy
 								</a>
 							</li>
 							<li>
 								<a
-									href=""
-									target="_blank"
-									rel="noreferrer"
+								// href=""
+								// target="_blank"
+								// rel="noreferrer"
 								>
 									UX Research
 								</a>
 							</li>
 							<li>
 								<a
-									href=""
-									target="_blank"
-									rel="noreferrer"
+								// href=""
+								// target="_blank"
+								// rel="noreferrer"
 								>
 									Store EULA
 								</a>
@@ -135,27 +133,27 @@ const Footer = () => {
 						<ul className={classes.list}>
 							<li>
 								<a
-									href=""
-									target="_blank"
-									rel="noreferrer"
+								// href=""
+								// target="_blank"
+								// rel="noreferrer"
 								>
 									Online Services
 								</a>
 							</li>
 							<li>
 								<a
-									href=""
-									target="_blank"
-									rel="noreferrer"
+								// href=""
+								// target="_blank"
+								// rel="noreferrer"
 								>
 									Comunity Rules
 								</a>
 							</li>
 							<li>
 								<a
-									href=""
-									target="_blank"
-									rel="noreferrer"
+								// href=""
+								// target="_blank"
+								// rel="noreferrer"
 								>
 									Epic Newsroom
 								</a>
@@ -168,24 +166,48 @@ const Footer = () => {
 					<div className={classes.listContainer}>
 						<ul className={classes.list}>
 							<li>
-								<a href="">Battle Breakers </a>
+								<a
+								// href=""
+								>
+									Battle Breakers{' '}
+								</a>
 							</li>
 							<li>
-								<a href="">Fortnite </a>
+								<a
+								// href=""
+								>
+									Fortnite{' '}
+								</a>
 							</li>
 							<li>
-								<a href="">Infinity Blade </a>
+								<a
+								// href=""
+								>
+									Infinity Blade{' '}
+								</a>
 							</li>
 						</ul>
 						<ul className={classes.list}>
 							<li>
-								<a href="">Robo Recall </a>
+								<a
+								// href=""
+								>
+									Robo Recall{' '}
+								</a>
 							</li>
 							<li>
-								<a href="">Shadow Complex </a>
+								<a
+								// href=""
+								>
+									Shadow Complex{' '}
+								</a>
 							</li>
 							<li>
-								<a href="">Unreal Tournament </a>
+								<a
+								// href=""
+								>
+									Unreal Tournament{' '}
+								</a>
 							</li>
 						</ul>
 					</div>
