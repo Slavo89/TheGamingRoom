@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import useMediaQuery from '../hooks/use-MediaQuery';
 import { FaRegQuestionCircle, FaMailBulk } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { wishlistActions } from '../store/wishlist-slice';
 import classes from './WishilstPage.module.scss';
 import CartCard from '../components/UI/Cards/CartCard';
@@ -11,6 +12,8 @@ import SortList from '../components/Layout/SortList';
 
 const WishlistPage = () => {
 	const wishlistItems = useSelector((state) => state.wishlist.items);
+	const isLoggedIn = useSelector((state) => state.auth.isAuthenicated);
+	const navigate = useNavigate();
 	const [sortedItems, setSortedItems] = useState(wishlistItems);
 	const [filteredItems, setFilteredItems] = useState(wishlistItems);
 	const [displayedItems, setDisplayedItems] = useState(wishlistItems);
@@ -19,7 +22,6 @@ const WishlistPage = () => {
 
 	const dispatch = useDispatch();
 	const is770Px = useMediaQuery('(width >= 770px)');
-
 
 	const removeFromWishlistHandler = (itemId) => {
 		dispatch(wishlistActions.removeItemFromWishlist(itemId));
@@ -50,7 +52,11 @@ const WishlistPage = () => {
 	}, [filteredItems, sortedItems]);
 
 	const handleCheckboxChange = () => {
-		setChecked(!checked);
+		if (isLoggedIn) {
+			setChecked(!checked);
+		} else {
+			navigate('/register');
+		}
 	};
 
 	let notification;

@@ -23,6 +23,7 @@ const Header = (props) => {
 	const dropdownMenuHandler = () => {
 		setDropdownMenu(!dropdownMenu);
 	};
+	
 
 	const toggleNavbarHandler = () => {
 		setNavExpanded(!navExpanded);
@@ -46,6 +47,7 @@ const Header = (props) => {
 
 	const linkClass = ({ isActive }) => (isActive ? classes.active : '');
 
+	console.log(isLoggedIn, dropdownMenu );
 	return (
 		<FocusTrap active={navExpanded}>
 			<header className={classes.header}>
@@ -159,14 +161,14 @@ const Header = (props) => {
 										{username}{' '}
 									</li>
 									{dropdownMenu && (
-										<>
+										
 											<li
 												className={`${classes.listItem} ${classes.logoutButton}`}
 												onClick={logoutHandler}
 											>
 												<button>Log Out</button>
 											</li>
-										</>
+										
 									)}
 								</ul>
 							)}
