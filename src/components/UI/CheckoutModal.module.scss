@@ -11,7 +11,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	height: 100vh;
+	height: 90vh;
 	width: 100%;
 	color: var(--black-color);
 	background-color: #fff;
@@ -235,7 +235,7 @@
 		display: grid;
 		grid-template-rows: max-content auto 1fr;
 		grid-template-columns: 1.8fr 1fr;
-		overflow-y: hidden;
+		// overflow-y: hidden;
 		.label {
 			grid-column: 1/2;
 			.closeBtn {
