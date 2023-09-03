@@ -232,260 +232,260 @@ const LoginPage = () => {
 	}, [])
 
 	return (
-		<div className={classes.loginPanel}>
-			<img
-				className={classes.logo}
-				src="/assets/epicLogo.png"
-				alt="logo"
-				width={50}
-			></img>
-			<h3>Register and Log In</h3>
-			<form
-				onSubmit={(event) => {
-					event.preventDefault();
-				}}
-				className={classes.form}
-			>
-				<fieldset>
-					<label htmlFor="country">
-						<span className={classes.countrySpan}>Country</span>
-						<Select
-							options={options}
-							defaultValue={options.find((option) => option.label === 'Poland')}
-							styles={styles}
-							isSearchable={true}
-							onMenuOpen={handleMenuOpen}
-							onMenuClose={handleMenuClose}
-						/>
-					</label>
-				</fieldset>
-				<fieldset className={classes.name}>
-					<label htmlFor="name">
-						<span>First Name</span>
-						{isEdited.firstName && !isFocused.firstName && (
-							<>
-								{formData.firstName.trim() === '' && (
-									<p className={classes.error}>Required</p>
-								)}
-							</>
-						)}
-						<input
-							id="name"
-							name="firstName"
-							required
-							type="text"
-							value={formData.firstName}
-							onChange={handleInputChange}
-							onBlur={handleInputBlur}
-							onFocus={handleInputFocus}
-						></input>
-					</label>
-
-					<label htmlFor="lastName">
-						<span>Last name</span>
-						{isEdited.lastName && !isFocused.lastName && (
-							<>
-								{formData.lastName.trim() === '' && (
-									<p className={classes.error}>Required</p>
-								)}
-							</>
-						)}
-						<input
-							id="lastName"
-							name="lastName"
-							required
-							type="text"
-							value={formData.lastName}
-							onChange={handleInputChange}
-							onBlur={handleInputBlur}
-							onFocus={handleInputFocus}
-						></input>
-					</label>
-				</fieldset>
-				<fieldset>
-					<label htmlFor="displayedName">
-						<span>Displayed name</span>
-						{isEdited.username && !isFocused.username && (
-							<>
-								{formData.username.trim() === '' && (
-									<p className={classes.error}>Required</p>
-								)}
-								{formData.username.trim() !== '' &&
-									!usernameRegex.test(formData.username) && (
-										<p className={classes.error}>Too short</p>
-									)}
-							</>
-						)}
-						<input
-							id="displayedName"
-							name="username"
-							maxLength={16}
-							required
-							type="text"
-							value={formData.username}
-							onChange={handleInputChange}
-							onBlur={handleInputBlur}
-							onFocus={handleInputFocus}
-						></input>
-					</label>
-					<div
-						className={classes.tooltip}
-						onMouseEnter={displayNameTooltipHandler}
-						onFocus={displayNameTooltipHandler}
-						onMouseLeave={hideNameTooltipHandler}
-						onBlur={hideNameTooltipHandler}
-						tabIndex={0}
-					>
-						<AiOutlineInfoCircle />
-					</div>
-					{displayedNameTooltipVisible && (
-						<p className={classes.info}>
-							{' '}
-							The displayed name must contain from 3 to 16 characters. It may
-							contain letters, numbers, non-consecutive hyphens, periods,
-							underscores and spaces.
-						</p>
-					)}
-				</fieldset>
-				<fieldset>
-					<label htmlFor="email">
-						<span>E-mail</span>
-						{isEdited.email && !isFocused.email && (
-							<>
-								{formData.email.trim() === '' && (
-									<p className={classes.error}>Required</p>
-								)}
-								{formData.email.trim() !== '' &&
-									!emailRegex.test(formData.email) && (
-										<p className={classes.error}>Invalid e-mail</p>
-									)}
-							</>
-						)}
-						<input
-							id="email"
-							name="email"
-							required
-							type="text"
-							value={formData.email}
-							onChange={handleInputChange}
-							onBlur={handleInputBlur}
-							onFocus={handleInputFocus}
-						></input>
-					</label>
-				</fieldset>
-				<fieldset>
-					<label htmlFor="password">
-						<span>Password</span>
-						{isEdited.password && !isFocused.password && (
-							<>
-								{formData.password.trim() === '' && (
-									<p className={classes.error}>Required</p>
-								)}
-								{formData.password.trim() !== '' &&
-									!passwordRegex.test(formData.password) && (
-										<p className={classes.error}>Invalid format</p>
-									)}
-							</>
-						)}
-						<input
-							id="password"
-							required
-							type={!passwordVisible ? 'password' : 'text'}
-							name="password"
-							value={formData.password}
-							onChange={handleInputChange}
-							onBlur={handleInputBlur}
-							onFocus={handleInputFocus}
-						></input>
-					</label>
-					<div
-						className={`${classes.tooltip} ${classes.margin}`}
-						onClick={() => setPasswordVisible(!passwordVisible)}
-						tabIndex={0}
-					>
-						{!passwordVisible ? <AiFillEyeInvisible /> : <AiFillEye />}
-					</div>
-					{passwordTooltipVisible && (
-						<p className={classes.info}>
-							{' '}
-							The password must consist of at least 7 characters, 1 number and 1
-							letter, and must not contain whitespaces.
-						</p>
-					)}
-					<div
-						className={classes.tooltip}
-						onFocus={displayPasswordTooltipHandler}
-						onMouseEnter={displayPasswordTooltipHandler}
-						onBlur={hidePasswordTooltipHandler}
-						onMouseLeave={hidePasswordTooltipHandler}
-						tabIndex={0}
-					>
-						<AiOutlineInfoCircle />
-					</div>
-				</fieldset>
-				<fieldset>
-					<label className={classes.checkLabel}>
-						<div className={classes.checkbox}>
-							<input
-								type="checkbox"
-								tabIndex={0}
-							></input>
-						</div>
-						<p>
-							I want to receive information about news, surveys and promotions
-							from Epic Games.
-						</p>
-					</label>
-				</fieldset>
-				<fieldset>
-					<label className={classes.checkLabel}>
-						<div className={classes.checkbox}>
-							<input
-								type="checkbox"
-								tabIndex={0}
-								checked={termsAccepted}
-								// onKeyPress={() =>
-								// 	{setTermsEdited(true)
-								// 	setTermsAccepted(!termsAccepted)}
-								// }
-
-								onChange={(event) => {
-									setTermsAccepted(event.target.checked);
-									setTermsEdited(true);
-								}}
-							></input>
-						</div>
-						<p>
-							I am familiar with and I accept the{' '}
-							<a
-								href="https://www.epicgames.com/site/pl/tos?lang=en"
-								target="_blank"
-								rel="noreferrer"
-								tabIndex={0}
-							>
-								Terms of Service.
-							</a>
-						</p>
-					</label>
-				</fieldset>
-				{termsEdited && !termsAccepted && (
-					<div className={classes.termsError}>
-						<p>You must accept the Terms of Service</p>
-					</div>
-				)}
-				<button
-					disabled={!valid}
-					onClick={loginHandler}
-					className={classes.loginButton}
+		<div className={classes.formContainer}>
+			<div className={classes.loginPanel}>
+				<img
+					className={classes.logo}
+					src="/assets/epicLogo.png"
+					alt="logo"
+					width={50}
+				></img>
+				<h3>Register and Log In</h3>
+				<form
+					onSubmit={(event) => {
+						event.preventDefault();
+					}}
+					className={classes.form}
 				>
-					Log In
-				</button>
-			</form>
-			<div className={classes.navigateBack}>
-				<AiOutlineArrowLeft
-					onClick={() => navigate(-1)}
-					tabIndex={0}
-				/>
+					<fieldset>
+						<label htmlFor="country">
+							<span className={classes.countrySpan}>Country</span>
+							<Select
+								options={options}
+								defaultValue={options.find((option) => option.label === 'Poland')}
+								styles={styles}
+								isSearchable={true}
+								onMenuOpen={handleMenuOpen}
+								onMenuClose={handleMenuClose}
+							/>
+						</label>
+					</fieldset>
+					<fieldset className={classes.name}>
+						<label htmlFor="name">
+							<span>First Name</span>
+							{isEdited.firstName && !isFocused.firstName && (
+								<>
+									{formData.firstName.trim() === '' && (
+										<p className={classes.error}>Required</p>
+									)}
+								</>
+							)}
+							<input
+								id="name"
+								name="firstName"
+								required
+								type="text"
+								value={formData.firstName}
+								onChange={handleInputChange}
+								onBlur={handleInputBlur}
+								onFocus={handleInputFocus}
+							></input>
+						</label>
+						<label htmlFor="lastName">
+							<span>Last name</span>
+							{isEdited.lastName && !isFocused.lastName && (
+								<>
+									{formData.lastName.trim() === '' && (
+										<p className={classes.error}>Required</p>
+									)}
+								</>
+							)}
+							<input
+								id="lastName"
+								name="lastName"
+								required
+								type="text"
+								value={formData.lastName}
+								onChange={handleInputChange}
+								onBlur={handleInputBlur}
+								onFocus={handleInputFocus}
+							></input>
+						</label>
+					</fieldset>
+					<fieldset>
+						<label htmlFor="displayedName">
+							<span>Displayed name</span>
+							{isEdited.username && !isFocused.username && (
+								<>
+									{formData.username.trim() === '' && (
+										<p className={classes.error}>Required</p>
+									)}
+									{formData.username.trim() !== '' &&
+										!usernameRegex.test(formData.username) && (
+											<p className={classes.error}>Too short</p>
+										)}
+								</>
+							)}
+							<input
+								id="displayedName"
+								name="username"
+								maxLength={16}
+								required
+								type="text"
+								value={formData.username}
+								onChange={handleInputChange}
+								onBlur={handleInputBlur}
+								onFocus={handleInputFocus}
+							></input>
+						</label>
+						<div
+							className={classes.tooltip}
+							onMouseEnter={displayNameTooltipHandler}
+							onFocus={displayNameTooltipHandler}
+							onMouseLeave={hideNameTooltipHandler}
+							onBlur={hideNameTooltipHandler}
+							tabIndex={0}
+						>
+							<AiOutlineInfoCircle />
+						</div>
+						{displayedNameTooltipVisible && (
+							<p className={classes.info}>
+								{' '}
+								The displayed name must contain from 3 to 16 characters. It may
+								contain letters, numbers, non-consecutive hyphens, periods,
+								underscores and spaces.
+							</p>
+						)}
+					</fieldset>
+					<fieldset>
+						<label htmlFor="email">
+							<span>E-mail</span>
+							{isEdited.email && !isFocused.email && (
+								<>
+									{formData.email.trim() === '' && (
+										<p className={classes.error}>Required</p>
+									)}
+									{formData.email.trim() !== '' &&
+										!emailRegex.test(formData.email) && (
+											<p className={classes.error}>Invalid e-mail</p>
+										)}
+								</>
+							)}
+							<input
+								id="email"
+								name="email"
+								required
+								type="text"
+								value={formData.email}
+								onChange={handleInputChange}
+								onBlur={handleInputBlur}
+								onFocus={handleInputFocus}
+							></input>
+						</label>
+					</fieldset>
+					<fieldset>
+						<label htmlFor="password">
+							<span>Password</span>
+							{isEdited.password && !isFocused.password && (
+								<>
+									{formData.password.trim() === '' && (
+										<p className={classes.error}>Required</p>
+									)}
+									{formData.password.trim() !== '' &&
+										!passwordRegex.test(formData.password) && (
+											<p className={classes.error}>Invalid format</p>
+										)}
+								</>
+							)}
+							<input
+								id="password"
+								required
+								type={!passwordVisible ? 'password' : 'text'}
+								name="password"
+								value={formData.password}
+								onChange={handleInputChange}
+								onBlur={handleInputBlur}
+								onFocus={handleInputFocus}
+							></input>
+						</label>
+						<div
+							className={`${classes.tooltip} ${classes.margin}`}
+							onClick={() => setPasswordVisible(!passwordVisible)}
+							tabIndex={0}
+						>
+							{!passwordVisible ? <AiFillEyeInvisible /> : <AiFillEye />}
+						</div>
+						{passwordTooltipVisible && (
+							<p className={classes.info}>
+								{' '}
+								The password must consist of at least 7 characters, 1 number and 1
+								letter, and must not contain whitespaces.
+							</p>
+						)}
+						<div
+							className={classes.tooltip}
+							onFocus={displayPasswordTooltipHandler}
+							onMouseEnter={displayPasswordTooltipHandler}
+							onBlur={hidePasswordTooltipHandler}
+							onMouseLeave={hidePasswordTooltipHandler}
+							tabIndex={0}
+						>
+							<AiOutlineInfoCircle />
+						</div>
+					</fieldset>
+					<fieldset>
+						<label className={classes.checkLabel}>
+							<div className={classes.checkbox}>
+								<input
+									type="checkbox"
+									tabIndex={0}
+								></input>
+							</div>
+							<p>
+								I want to receive information about news, surveys and promotions
+								from Epic Games.
+							</p>
+						</label>
+					</fieldset>
+					<fieldset>
+						<label className={classes.checkLabel}>
+							<div className={classes.checkbox}>
+								<input
+									type="checkbox"
+									tabIndex={0}
+									checked={termsAccepted}
+									// onKeyPress={() =>
+									// 	{setTermsEdited(true)
+									// 	setTermsAccepted(!termsAccepted)}
+									// }
+									onChange={(event) => {
+										setTermsAccepted(event.target.checked);
+										setTermsEdited(true);
+									}}
+								></input>
+							</div>
+							<p>
+								I am familiar with and I accept the{' '}
+								<a
+									href="https://www.epicgames.com/site/pl/tos?lang=en"
+									target="_blank"
+									rel="noreferrer"
+									tabIndex={0}
+								>
+									Terms of Service.
+								</a>
+							</p>
+						</label>
+					</fieldset>
+					{termsEdited && !termsAccepted && (
+						<div className={classes.termsError}>
+							<p>You must accept the Terms of Service</p>
+						</div>
+					)}
+					<button
+						disabled={!valid}
+						onClick={loginHandler}
+						className={classes.loginButton}
+					>
+						Log In
+					</button>
+				</form>
+				<div className={classes.navigateBack}>
+					<AiOutlineArrowLeft
+						onClick={() => navigate(-1)}
+						tabIndex={0}
+					/>
+				</div>
 			</div>
 		</div>
 	);

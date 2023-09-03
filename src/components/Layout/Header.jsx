@@ -13,9 +13,9 @@ import { cartActions } from '../../store/cart-slice';
 const Header = (props) => {
 	const username = useSelector((state) => state.auth.username);
 	const isLoggedIn = useSelector((state) => state.auth.isAuthenicated);
-	const dispatch = useDispatch()
+	const dispatch = useDispatch();
 	const location = useLocation();
-	const navigate = useNavigate()
+	const navigate = useNavigate();
 	const [navExpanded, setNavExpanded] = useState(false);
 	const [dropdownMenu, setDropdownMenu] = useState(false);
 	const is800px = useMediaQuery('(width >= 800px)');
@@ -23,7 +23,6 @@ const Header = (props) => {
 	const dropdownMenuHandler = () => {
 		setDropdownMenu(!dropdownMenu);
 	};
-	
 
 	const toggleNavbarHandler = () => {
 		setNavExpanded(!navExpanded);
@@ -35,10 +34,10 @@ const Header = (props) => {
 	};
 
 	const logoutHandler = () => {
-		dispatch(wishlistActions.resetWishlist())
-		dispatch(cartActions.resetCart())
+		dispatch(wishlistActions.resetWishlist());
+		dispatch(cartActions.resetCart());
 		dispatch(authActions.logout());
-		navigate('/')
+		navigate('/');
 	};
 
 	useEffect(() => {
@@ -47,11 +46,9 @@ const Header = (props) => {
 
 	const linkClass = ({ isActive }) => (isActive ? classes.active : '');
 
-	console.log(isLoggedIn, dropdownMenu );
 	return (
 		<FocusTrap active={navExpanded}>
 			<header className={classes.header}>
-
 				<nav
 					className={
 						navExpanded
@@ -108,8 +105,8 @@ const Header = (props) => {
 									<NavLink
 										to="/register"
 										tabIndex="0"
+										onClick={closeAndNavigate}
 									>
-										
 										<BsFillPersonFill className={classes.icon} />
 										Log In
 									</NavLink>
@@ -161,14 +158,12 @@ const Header = (props) => {
 										{username}{' '}
 									</li>
 									{dropdownMenu && (
-										
-											<li
-												className={`${classes.listItem} ${classes.logoutButton}`}
-												onClick={logoutHandler}
-											>
-												<button>Log Out</button>
-											</li>
-										
+										<li
+											className={`${classes.listItem} ${classes.logoutButton}`}
+											onClick={logoutHandler}
+										>
+											<button>Log Out</button>
+										</li>
 									)}
 								</ul>
 							)}
