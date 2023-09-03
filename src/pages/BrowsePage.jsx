@@ -2,8 +2,6 @@ import axios from 'axios';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-// import { Swiper, SwiperSlide } from 'swiper/react';
-// import { Navigation } from 'swiper';
 import { useState, useRef, useEffect } from 'react';
 import { json } from 'react-router-dom';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
@@ -95,6 +93,9 @@ const BrowsePage = () => {
 		speed: 500,
 		slidesToShow: 5,
 		slidesToScroll: 5,
+		centerMode: true,
+		centerPadding: '0px',
+		initialSlide: 0,
 		responsive: [
 			{
 				breakpoint: 1600,
@@ -151,15 +152,13 @@ const BrowsePage = () => {
 					{...slickSettings}
 				>
 					{genres.map((genre) => (
-						<div
-							className={classes.slide}
-							key={genre.id}
-						>
+						
 							<GenreCard
+								key={genre.id}
 								name={genre.name}
 								image={genre.image_background}
 							/>
-						</div>
+						
 					))}
 				</Slider>
 			</section>
@@ -178,70 +177,3 @@ const BrowsePage = () => {
 
 export default BrowsePage;
 
-{
-	/* <Swiper
-					modules={[Navigation]}
-					breakpoints={{
-						320: {
-							slidesPerView: 2,
-							slidesPerGroup: 2,
-							spaceBetween: 20,
-						},
-						768: {
-							slidesPerView: 4,
-							slidesPerGroup: 4,
-							spaceBetween: 15,
-						},
-						1600: {
-							slidesPerView: 5,
-							slidesPerGroup: 5,
-							spaceBetween: 15,
-						},
-					}}
-					loop={true}
-					navigation={{
-						enabled: true,
-						clickable: true,
-					}}
-
-					
-					onBeforeInit={(swiper) => {
-						swiper.params.navigation.prevEl = prevRef.current;
-						swiper.params.navigation.nextEl = nextRef.current;
-						swiper.navigation.init()
-					}}
-					onInit={(swiper) => {
-						swiper.params.navigation.prevEl = prevRef.current;
-						swiper.params.navigation.nextEl = nextRef.current;
-						swiper.navigation.init();
-					}}
-					onResize={(swiper) => {
-					swiper.params.navigation.prevEl = prevRef.current;
-					swiper.params.navigation.nextEl = nextRef.current;
-					
-					swiper.navigation.init();
-					
-					}}
-				>
-					{genres.map((genre) => (
-						<SwiperSlide key={genre.id}>
-							<GenreCard
-								name={genre.name}
-								image={genre.image_background}
-							/>
-						</SwiperSlide>
-					))}
-				</Swiper> */
-}
-{
-	/* <div className={classes.sliderContainer}>
-					{genres.map((genre) => (
-						<div className={classes.slide} key={genre.id}>
-							<GenreCard
-								name={genre.name}
-								image={genre.image_background}
-							/>
-						</div>
-					))}
-				</div> */
-}
