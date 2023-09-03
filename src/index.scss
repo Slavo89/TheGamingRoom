@@ -37,7 +37,7 @@ body {
 	font-size: 1.4rem;
 	font-weight: 400;
 	line-height: 1.5;
-	// overflow-x: hidden;
+	overflow-x: hidden;
 	
 	&.unscrollable {
 		overflow-y: hidden;
@@ -61,6 +61,7 @@ h3 {
 
 section {
 	margin-bottom: 5rem;
+	overflow: hidden;
 }
 
 .swiper-pagination {

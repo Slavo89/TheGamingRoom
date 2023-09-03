@@ -1,4 +1,4 @@
-.titleContainer {
+.navigationContainer {
 	margin-bottom: 2rem;
 	top: 0;
 	left: 0;
@@ -34,10 +34,6 @@
 	}
 }
 
-.genreCards {
-	margin-top: 100px;
-	list-style: none;
-	display: flex;
-	gap: min(5%, 2rem);
-	overflow: hidden;
+.slick-slide {
+	margin: 0 10px;
 }

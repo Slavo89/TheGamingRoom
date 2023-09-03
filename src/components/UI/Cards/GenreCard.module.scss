@@ -1,5 +1,7 @@
 .genreListItem {
 	padding: 1.5rem;
+	margin: 0 10px;
+	min-height: 170px;
 	background-color: var(--grey-color);
 	border-radius: 5px;
 	display: flex;
@@ -27,6 +29,7 @@
 	}
 }
 .title {
+	margin-top: 1rem;
 	font-size: 1.6rem;
 	font-weight: 700;
 	text-align: center;

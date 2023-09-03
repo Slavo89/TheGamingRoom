@@ -1,6 +1,9 @@
 import axios from 'axios';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+// import { Swiper, SwiperSlide } from 'swiper/react';
+// import { Navigation } from 'swiper';
 import { useState, useRef, useEffect } from 'react';
 import { json } from 'react-router-dom';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
@@ -13,8 +16,7 @@ import LoadingSpinner from '../components/UI/LoadingSpinner';
 
 const BrowsePage = () => {
 	const [activeArrow, setActiveArrow] = useState(null);
-	const prevRef = useRef(null);
-	const nextRef = useRef(null);
+	const sliderRef = useRef(null);
 	const [games, setGames] = useState([]);
 	const [genres, setGenres] = useState([]);
 	const [dataLoaded, setDataLoaded] = useState(false);
@@ -69,7 +71,6 @@ const BrowsePage = () => {
 		fetchGamesData();
 	}, [activeBrowsePage]);
 
-
 	// Adding price property based on metacritic rating to all game objects, destructure parent_platforms, genres and tags for easier access
 	const gamesData = games.map((game) => {
 		const gamesData = { ...game };
@@ -89,31 +90,54 @@ const BrowsePage = () => {
 		};
 	}, [dispatch]);
 
+	const slickSettings = {
+		dots: false,
+		speed: 500,
+		slidesToShow: 5,
+		slidesToScroll: 5,
+		responsive: [
+			{
+				breakpoint: 1600,
+				settings: {
+					slidesToShow: 4,
+					slidesToScroll: 4,
+				},
+			},
+			{
+				breakpoint: 768,
+				settings: {
+					slidesToShow: 2,
+					slidesToScroll: 2,
+				},
+			},
+		],
+	};
+
 	return (
 		<>
 			<section>
-				<div className={classes.titleContainer}>
+				<div className={classes.navigationContainer}>
 					<h3>Popular Genres</h3>
 					<div className={classes.arrowNagination}>
 						<span
-							className={`${classes.arrow} ${
+							className={`${classes.prev} ${classes.arrow} ${
 								activeArrow === 'prev' ? `${classes.active}` : ''
 							}`}
-							ref={prevRef}
 							onClick={() => {
 								setActiveArrow('prev');
+								sliderRef.current.slickPrev();
 							}}
 							tabIndex="0"
 						>
 							<BsChevronLeft />
 						</span>
 						<span
-							className={`${classes.arrow} ${
+							className={`${classes.next} ${classes.arrow} ${
 								activeArrow === 'next' ? `${classes.active}` : ''
 							}`}
-							ref={nextRef}
 							onClick={() => {
 								setActiveArrow('next');
+								sliderRef.current.slickNext();
 							}}
 							tabIndex="0"
 						>
@@ -121,18 +145,42 @@ const BrowsePage = () => {
 						</span>
 					</div>
 				</div>
-				<Swiper
+
+				<Slider
+					ref={sliderRef}
+					{...slickSettings}
+				>
+					{genres.map((genre) => (
+						<div
+							className={classes.slide}
+							key={genre.id}
+						>
+							<GenreCard
+								name={genre.name}
+								image={genre.image_background}
+							/>
+						</div>
+					))}
+				</Slider>
+			</section>
+			{dataLoaded ? (
+				<GamesLibrary
+					games={gamesData}
+					onPageChange={changeActiveBrowsePageHandler}
+					page={activeBrowsePage}
+				/>
+			) : (
+				<LoadingSpinner />
+			)}
+		</>
+	);
+};
+
+export default BrowsePage;
+
+{
+	/* <Swiper
 					modules={[Navigation]}
-					onInit={(swiper) => {
-						swiper.params.navigation.prevEl = prevRef.current;
-						swiper.params.navigation.nextEl = nextRef.current;
-						swiper.navigation.init();
-					}}
-					onResize={(swiper) => {
-						swiper.params.navigation.prevEl = prevRef.current;
-						swiper.params.navigation.nextEl = nextRef.current;
-						swiper.navigation.init();
-					}}
 					breakpoints={{
 						320: {
 							slidesPerView: 2,
@@ -155,31 +203,45 @@ const BrowsePage = () => {
 						enabled: true,
 						clickable: true,
 					}}
+
+					
+					onBeforeInit={(swiper) => {
+						swiper.params.navigation.prevEl = prevRef.current;
+						swiper.params.navigation.nextEl = nextRef.current;
+						swiper.navigation.init()
+					}}
+					onInit={(swiper) => {
+						swiper.params.navigation.prevEl = prevRef.current;
+						swiper.params.navigation.nextEl = nextRef.current;
+						swiper.navigation.init();
+					}}
+					onResize={(swiper) => {
+					swiper.params.navigation.prevEl = prevRef.current;
+					swiper.params.navigation.nextEl = nextRef.current;
+					
+					swiper.navigation.init();
+					
+					}}
 				>
-					<div className={classes.swiper}>
-						<ul className={classes.genreCards}>
-							{genres.map((genre) => (
-								<SwiperSlide key={genre.id}>
-									<GenreCard
-										name={genre.name}
-										image={genre.image_background}
-									/>
-								</SwiperSlide>
-							))}
-						</ul>
-					</div>
-				</Swiper>
-			</section>
-
-			{dataLoaded ? (
-				<GamesLibrary
-					games={gamesData}
-					onPageChange={changeActiveBrowsePageHandler}
-					page={activeBrowsePage}
-				/>
-			) : <LoadingSpinner/>}
-		</>
-	);
-};
-
-export default BrowsePage;
+					{genres.map((genre) => (
+						<SwiperSlide key={genre.id}>
+							<GenreCard
+								name={genre.name}
+								image={genre.image_background}
+							/>
+						</SwiperSlide>
+					))}
+				</Swiper> */
+}
+{
+	/* <div className={classes.sliderContainer}>
+					{genres.map((genre) => (
+						<div className={classes.slide} key={genre.id}>
+							<GenreCard
+								name={genre.name}
+								image={genre.image_background}
+							/>
+						</div>
+					))}
+				</div> */
+}
