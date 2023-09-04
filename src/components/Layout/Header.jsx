@@ -18,6 +18,7 @@ const Header = (props) => {
 	const navigate = useNavigate();
 	const [navExpanded, setNavExpanded] = useState(false);
 	const [dropdownMenu, setDropdownMenu] = useState(false);
+	const [zIndex, setZIndex] = useState(1);
 	const is800px = useMediaQuery('(width >= 800px)');
 
 	const dropdownMenuHandler = () => {
@@ -32,6 +33,15 @@ const Header = (props) => {
 		toggleNavbarHandler();
 		props.onClose();
 	};
+
+	const zIndexHandler = () => {
+		if (zIndex === 1) {
+			setZIndex(1000)
+		}
+		if (zIndex === 1000) {
+			setZIndex(1)
+		}
+	}
 
 	const logoutHandler = () => {
 		dispatch(wishlistActions.resetWishlist());
@@ -55,6 +65,7 @@ const Header = (props) => {
 							? `${classes.navbar} ${classes.open}`
 							: `${classes.navbar}`
 					}
+					style={{zIndex: zIndex}}
 				>
 					<ul className={classes.leftNav}>
 						<li className={`${classes.listItem} ${classes.active}`}>
@@ -178,10 +189,12 @@ const Header = (props) => {
 					onClick={() => {
 						props.onClick();
 						toggleNavbarHandler();
+						zIndexHandler()
 					}}
 					onKeyPress={() => {
 						props.onClick();
 						toggleNavbarHandler();
+						zIndexHandler()
 					}}
 					tabIndex={1}
 				>

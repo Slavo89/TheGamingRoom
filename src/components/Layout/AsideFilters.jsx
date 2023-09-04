@@ -4,7 +4,6 @@ import { backdropActions } from '../../store/backdrop-slice';
 import { useDispatch } from 'react-redux';
 import OpenListButton from '../UI/Buttons/OpenListButton';
 import classes from './AsideFiltes.module.scss';
-import CTAButton from '../UI/Buttons/CTAButton';
 
 const AsideFilters = (props) => {
 	const [genreListOpen, setGenreListOpen] = useState(false);
@@ -43,9 +42,25 @@ const AsideFilters = (props) => {
 	const genres = getFilters('genres');
 	const platforms = getFilters('platforms');
 
-	//  Too many pointless features are displayed so I hard-coded an array 
+	//  Too many pointless features are displayed so I hard-coded an array
 	// const features = getFilters('features');
-	const features = ['Singleplayer', 'Multiplayer', 'Co-op', 'First-Person', 'Horror', 'Third Person', 'Open World', 'PvP', 'Sci-fi', 'Exploration', 'Hack and Slash', 'MMORPG', 'Survival', 'Tactical', 'Mature',  ]
+	const features = [
+		'Singleplayer',
+		'Multiplayer',
+		'Co-op',
+		'First-Person',
+		'Horror',
+		'Third Person',
+		'Open World',
+		'PvP',
+		'Sci-fi',
+		'Exploration',
+		'Hack and Slash',
+		'MMORPG',
+		'Survival',
+		'Tactical',
+		'Mature',
+	];
 
 	const selectFilterHandler = (item) => {
 		if (selectedFilters.includes(item)) {
@@ -129,142 +144,146 @@ const AsideFilters = (props) => {
 	};
 
 	return (
-		<aside
-			className={
-				props.filtersMenuOpen
-					? `${classes.asideFilters} ${classes.show}`
-					: `${classes.asideFilters}`
-			}
-		>
-			{selectedFilters.length > 0 ? (
-				<div>
-					<span>Filters ({selectedFilters.length})</span>
-					<button
-						className={classes.resetButton}
-						onClick={resetFiltersHandler}
+		<>
+			<aside
+				className={
+					props.filtersMenuOpen
+						? `${classes.asideFilters} ${classes.show}`
+						: `${classes.asideFilters}`
+				}
+			>
+				{selectedFilters.length > 0 ? (
+					<div>
+						<span>Filters ({selectedFilters.length})</span>
+						<button
+							className={classes.resetButton}
+							onClick={resetFiltersHandler}
+						>
+							Reset
+						</button>
+					</div>
+				) : (
+					<div>
+						<span>Filters</span>
+					</div>
+				)}
+				{props.children}
+				<div className={classes.filterTypeContainer}>
+					<OpenListButton
+						onClick={() => {
+							toggleListHandler(event);
+						}}
+						onListOpen={genreListOpen}
 					>
-						Reset
+						Genre
+					</OpenListButton>
+				</div>
+				{genreListOpen && (
+					<ul>
+						{genres.map((genre) => (
+							<li
+								key={genre}
+								className={`${classes.listItem} ${
+									selectedFilters.includes(genre) ? classes.selected : ''
+								}`}
+								tabIndex="0"
+								onClick={genresFilterHandler}
+								onKeyDown={(event) => {
+									if (event.key === 'Enter') {
+										genresFilterHandler(event);
+									}
+								}}
+							>
+								{genre}
+								<BsCheck2 />
+							</li>
+						))}
+					</ul>
+				)}
+				<div className={classes.filterTypeContainer}>
+					<OpenListButton
+						onClick={toggleListHandler}
+						onListOpen={featuresListOpen}
+					>
+						Features
+					</OpenListButton>
+				</div>
+				{featuresListOpen && (
+					<ul>
+						{features.map((feature) => (
+							<li
+								key={feature}
+								className={`${classes.listItem} ${
+									selectedFilters.includes(feature) ? classes.selected : ''
+								}`}
+								tabIndex="0"
+								onClick={featuresFilterHandler}
+								onKeyDown={(event) => {
+									if (event.key === 'Enter') {
+										featuresFilterHandler(event);
+									}
+								}}
+							>
+								{feature}
+								<BsCheck2 />
+							</li>
+						))}
+					</ul>
+				)}
+				<div className={classes.filterTypeContainer}>
+					<OpenListButton
+						onClick={toggleListHandler}
+						onListOpen={platformListOpen}
+					>
+						Platform
+					</OpenListButton>
+				</div>
+				{platformListOpen && (
+					<ul>
+						{platforms.map((platform) => (
+							<li
+								key={platform}
+								className={`${classes.listItem} ${
+									selectedFilters.includes(platform) ? classes.selected : ''
+								}`}
+								tabIndex="0"
+								onClick={platformsFilterHandler}
+								onKeyDown={(event) => {
+									if (event.key === 'Enter') {
+										platformsFilterHandler(event);
+									}
+								}}
+							>
+								{platform}
+								<BsCheck2 />
+							</li>
+						))}
+					</ul>
+				)}
+				<div className={classes.buttonsContainer}>
+					<button
+						className={classes.clearButton}
+						onClick={() => {
+							props.onToggleMenuOpen();
+							resetFiltersHandler();
+							hideBackdropHandler();
+						}}
+					>
+						Clear
+					</button>
+					<button
+						className={classes.applyButton}
+						onClick={() => {
+							props.onToggleMenuOpen();
+							hideBackdropHandler();
+						}}
+					>
+						Apply
 					</button>
 				</div>
-			) : (
-				<div>
-					<span>Filters</span>
-				</div>
-			)}
-			{props.children}
-			<div className={classes.filterTypeContainer}>
-				<OpenListButton
-					onClick={() => {
-						toggleListHandler(event);
-					}}
-					onListOpen={genreListOpen}
-				>
-					Genre
-				</OpenListButton>
-			</div>
-			{genreListOpen && (
-				<ul>
-					{genres.map((genre) => (
-						<li
-							key={genre}
-							className={`${classes.listItem} ${
-								selectedFilters.includes(genre) ? classes.selected : ''
-							}`}
-							tabIndex="0"
-							onClick={genresFilterHandler}
-							onKeyDown={(event) => {
-								if (event.key === 'Enter') {
-									genresFilterHandler(event);
-								}
-							}}
-						>
-							{genre}
-							<BsCheck2 />
-						</li>
-					))}
-				</ul>
-			)}
-			<div className={classes.filterTypeContainer}>
-				<OpenListButton
-					onClick={toggleListHandler}
-					onListOpen={featuresListOpen}
-				>
-					Features
-				</OpenListButton>
-			</div>
-			{featuresListOpen && (
-				<ul>
-					{features.map((feature) => (
-						<li
-							key={feature}
-							className={`${classes.listItem} ${
-								selectedFilters.includes(feature) ? classes.selected : ''
-							}`}
-							tabIndex="0"
-							onClick={featuresFilterHandler}
-							onKeyDown={(event) => {
-								if (event.key === 'Enter') {
-									featuresFilterHandler(event);
-								}
-							}}
-						>
-							{feature}
-							<BsCheck2 />
-						</li>
-					))}
-				</ul>
-			)}
-			<div className={classes.filterTypeContainer}>
-				<OpenListButton
-					onClick={toggleListHandler}
-					onListOpen={platformListOpen}
-				>
-					Platform
-				</OpenListButton>
-			</div>
-			{platformListOpen && (
-				<ul>
-					{platforms.map((platform) => (
-						<li
-							key={platform}
-							className={`${classes.listItem} ${
-								selectedFilters.includes(platform) ? classes.selected : ''
-							}`}
-							tabIndex="0"
-							onClick={platformsFilterHandler}
-							onKeyDown={(event) => {
-								if (event.key === 'Enter') {
-									platformsFilterHandler(event);
-								}
-							}}
-						>
-							{platform}
-							<BsCheck2 />
-						</li>
-					))}
-				</ul>
-			)}
-			<div className={classes.buttonsContainer}>
-				<button
-					className={classes.clearButton}
-					onClick={() => {
-						props.onToggleMenuOpen();
-						resetFiltersHandler();
-						hideBackdropHandler();
-					}}
-				>
-					Clear
-				</button>
-				<CTAButton
-					onClick={() => {
-						props.onToggleMenuOpen();
-						hideBackdropHandler();
-					}}
-				>
-					Apply
-				</CTAButton>
-			</div>
-		</aside>
+			</aside>
+			
+		</>
 	);
 };
 

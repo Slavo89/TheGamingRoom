@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import useMediaQuery from '../hooks/use-MediaQuery';
 import { FaRegQuestionCircle, FaMailBulk } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { wishlistActions } from '../store/wishlist-slice';
 import classes from './WishilstPage.module.scss';
 import CartCard from '../components/UI/Cards/CartCard';
@@ -14,6 +14,7 @@ const WishlistPage = () => {
 	const wishlistItems = useSelector((state) => state.wishlist.items);
 	const isLoggedIn = useSelector((state) => state.auth.isAuthenicated);
 	const navigate = useNavigate();
+	const { pathname } = useLocation();
 	const [sortedItems, setSortedItems] = useState(wishlistItems);
 	const [filteredItems, setFilteredItems] = useState(wishlistItems);
 	const [displayedItems, setDisplayedItems] = useState(wishlistItems);
@@ -52,11 +53,7 @@ const WishlistPage = () => {
 	}, [filteredItems, sortedItems]);
 
 	const handleCheckboxChange = () => {
-		if (isLoggedIn) {
-			setChecked(!checked);
-		} else {
-			navigate('/register');
-		}
+		setChecked(!checked);
 	};
 
 	let notification;
@@ -66,6 +63,12 @@ const WishlistPage = () => {
 	if (checked) {
 		notification = 'You are subscribed to wishlist email notification';
 	}
+
+	useEffect(() => {
+		if (!isLoggedIn) {
+			navigate('/register', { state: { prevoiusPath: pathname } });
+		}
+	}, [isLoggedIn, navigate]);
 
 	return (
 		<>

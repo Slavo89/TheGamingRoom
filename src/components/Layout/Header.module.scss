@@ -4,6 +4,7 @@
 	background-color: var(--grey-color);
 	display: flex;
 	justify-content: space-between;
+	
 	.navbar {
 		position: absolute;
 		top: 5rem;
@@ -15,7 +16,7 @@
 		flex-direction: column;
 		justify-content: space-between;
 		transition: width 0.2s;
-		z-index: 1000;
+		z-index: 500;
 		overflow: hidden;
 
 		.leftNav {
@@ -96,8 +97,8 @@
 			width: 100%;
 			font-size: 1.2rem;
 			flex-direction: row;
-			transform: translateX(0);
-			visibility: visible;
+			// transform: translateX(0);
+			overflow: visible;
 
 			.listItem {
 				position: relative;
@@ -137,6 +138,7 @@
 			}
 
 			.rightNav {
+				position: relative;
 				min-width: 125px;
 				width: fit-content;
 				height: auto;
@@ -160,9 +162,10 @@
 						}
 					}
 				}
-				.logoutButton {
-					// display: flex;
-				}
+				// .logoutButton {
+				// 	// display: flex;
+				// 	// z-index: 10000;
+				// }
 			}
 		}
 	}
@@ -198,6 +201,8 @@
 
 		@media (width >= 800px) {
 			display: none;
+			visibility: hidden;
+			width: 0;
 		}
 	}
 	.menu.close {
@@ -215,5 +220,8 @@
 
 	.navbar.open {
 		width: calc(100vw - 4.5rem);
+		@media (width >=800px)  {
+			width: 100%;
+		}
 	}
 }

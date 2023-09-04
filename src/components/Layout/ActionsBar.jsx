@@ -12,8 +12,12 @@ const ActionsBar = (props) => {
 	const navigate = useNavigate();
 	const location = useLocation();
 
+	const [zIndex, setZIndex] = useState(0);
+
+	
 	const [searchPanelOpen, setSearchPanelOpen] = useState(false);
 	const [listOpen, setListOpen] = useState(false);
+	const isLoggedIn = useSelector((state) => state.auth.isAuthenicated);
 	const cartItems = useSelector((state) => state.cart.items.length);
 	const is1024Px = useMediaQuery('(width >= 1024px)');
 	const is1280Px = useMediaQuery('(width >= 1280px)');
@@ -49,10 +53,20 @@ const ActionsBar = (props) => {
 		}
 	}, [cartItems]);
 
+	const zIndexHandler = () => {
+		if (zIndex === 0) {
+			setZIndex(1000)
+		} 
+		if (zIndex === 1000) {
+			setZIndex(0)
+		}
+	}
+
 	const changePageName = () => {
 		setPageName(event.target.innerHTML);
 		setListOpen(false);
 		props.onClose();
+		zIndexHandler();
 	};
 
 	const toggleSearchPanelHandler = () => {
@@ -65,6 +79,7 @@ const ActionsBar = (props) => {
 		props.onClick();
 		setListOpen(!listOpen);
 		setSearchPanelOpen(false)
+		zIndexHandler()
 	};
 
 	const renderResults = (
@@ -170,7 +185,7 @@ const ActionsBar = (props) => {
 
 	return (
 		<FocusTrap active={listOpen}>
-			<div className={classes.actionsBar}>
+			<div className={classes.actionsBar} style={{zIndex: zIndex}}>
 				{!is1024Px ? (
 					<div className={classes.searchBarSmall}>
 						<button
@@ -220,7 +235,7 @@ const ActionsBar = (props) => {
 					)}
 				</div>
 
-				<div className={classes.rightBar}>
+				{isLoggedIn && <div className={classes.rightBar}>
 					<NavLink
 						to="/wishlist"
 						className={({ isActive }) =>
@@ -241,7 +256,7 @@ const ActionsBar = (props) => {
 							<span key={key}>{prevCartItems}</span>
 						</div>
 					</NavLink>
-				</div>
+				</div>}
 
 				{listOpen && mainBarList}
 			</div>

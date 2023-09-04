@@ -7,13 +7,14 @@ import {
 	AiOutlineArrowLeft,
 } from 'react-icons/ai';
 import Select from 'react-select';
-import { useLoaderData, json } from 'react-router-dom';
+import { useLoaderData, json, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { authActions } from '../store/auth-slice';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
+	const location = useLocation();
 	const countryList = useLoaderData();
 	const styles = {
 		control: (baseStyles, state) => ({
@@ -224,12 +225,22 @@ const LoginPage = () => {
 		setIsMenuOpen(false);
 	};
 
+	const handleGoBack = () => {
+		// Checking the previous path in the browser history
+
+		if (location.state) {
+			navigate('/');
+		} else {
+			navigate(-1);
+		}
+	};
+
 	useEffect(() => {
 		window.scrollTo({
 			top: 0,
 			behavior: 'instant',
 		});
-	}, [])
+	}, []);
 
 	return (
 		<div className={classes.formContainer}>
@@ -252,7 +263,9 @@ const LoginPage = () => {
 							<span className={classes.countrySpan}>Country</span>
 							<Select
 								options={options}
-								defaultValue={options.find((option) => option.label === 'Poland')}
+								defaultValue={options.find(
+									(option) => option.label === 'Poland'
+								)}
 								styles={styles}
 								isSearchable={true}
 								onMenuOpen={handleMenuOpen}
@@ -408,8 +421,8 @@ const LoginPage = () => {
 						{passwordTooltipVisible && (
 							<p className={classes.info}>
 								{' '}
-								The password must consist of at least 7 characters, 1 number and 1
-								letter, and must not contain whitespaces.
+								The password must consist of at least 7 characters, 1 number and
+								1 letter, and must not contain whitespaces.
 							</p>
 						)}
 						<div
@@ -482,7 +495,8 @@ const LoginPage = () => {
 				</form>
 				<div className={classes.navigateBack}>
 					<AiOutlineArrowLeft
-						onClick={() => navigate(-1)}
+						// onClick={() => navigate(-1)}
+						onClick={handleGoBack}
 						tabIndex={0}
 					/>
 				</div>

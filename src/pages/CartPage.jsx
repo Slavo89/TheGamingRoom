@@ -6,10 +6,14 @@ import CheckoutModal from '../components/UI/CheckoutModal';
 import { cartActions } from '../store/cart-slice';
 import { useDispatch, useSelector } from 'react-redux';
 import { wishlistActions } from '../store/wishlist-slice';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const CartPage = () => {
 	const cartItems = useSelector((state) => state.cart);
+	const isLoggedIn = useSelector((state) => state.auth.isAuthenicated);
+	const {pathname} = useLocation()
+	const navigate = useNavigate()
 	const dispatch = useDispatch();
 	const [showCheckout, setShowChechout] = useState(false);
 
@@ -42,6 +46,12 @@ const CartPage = () => {
 			document.body.classList.remove('unscrollable');
 		}
 	};
+
+	useEffect(() => {
+		if (!isLoggedIn) {
+			navigate('/register',{state: {prevoiusPath: pathname}});
+		}
+	}, [isLoggedIn, navigate]);
 
 	return (
 		<>

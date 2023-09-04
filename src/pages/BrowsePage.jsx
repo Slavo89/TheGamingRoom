@@ -88,31 +88,31 @@ const BrowsePage = () => {
 		};
 	}, [dispatch]);
 
-	const slickSettings = {
-		dots: false,
-		speed: 500,
-		slidesToShow: 5,
-		slidesToScroll: 5,
-		centerMode: true,
-		centerPadding: '0px',
-		initialSlide: 0,
-		responsive: [
-			{
-				breakpoint: 1600,
-				settings: {
-					slidesToShow: 4,
-					slidesToScroll: 4,
-				},
-			},
-			{
-				breakpoint: 768,
-				settings: {
-					slidesToShow: 2,
-					slidesToScroll: 2,
-				},
-			},
-		],
-	};
+	// const slickSettings = {
+	// 	dots: false,
+	// 	speed: 500,
+	// 	slidesToShow: 5,
+	// 	slidesToScroll: 5,
+	// 	// centerMode: true,
+	// 	centerPadding: '0px',
+	// 	initialSlide: 1,
+	// 	responsive: [
+	// 		{
+	// 			breakpoint: 1600,
+	// 			settings: {
+	// 				slidesToShow: 4,
+	// 				slidesToScroll: 4,
+	// 			},
+	// 		},
+	// 		{
+	// 			breakpoint: 768,
+	// 			settings: {
+	// 				slidesToShow: 2,
+	// 				slidesToScroll: 2,
+	// 			},
+	// 		},
+	// 	],
+	// };
 
 	return (
 		<>
@@ -149,16 +149,36 @@ const BrowsePage = () => {
 
 				<Slider
 					ref={sliderRef}
-					{...slickSettings}
+					// {...slickSettings}
+					dots={false}
+					speed={500}
+					slidesToShow={5}
+					slidesToScroll={5}
+					centerPadding={'0px'}
+					initialSlide={1}
+					responsive={[
+						{
+							breakpoint: 1600,
+							settings: {
+								slidesToShow: 4,
+								slidesToScroll: 4,
+							},
+						},
+						{
+							breakpoint: 768,
+							settings: {
+								slidesToShow: 2,
+								slidesToScroll: 2,
+							},
+						},
+					]}
 				>
 					{genres.map((genre) => (
-						
-							<GenreCard
-								key={genre.id}
-								name={genre.name}
-								image={genre.image_background}
-							/>
-						
+						<GenreCard
+							key={genre.id}
+							name={genre.name}
+							image={genre.image_background}
+						/>
 					))}
 				</Slider>
 			</section>
@@ -176,4 +196,3 @@ const BrowsePage = () => {
 };
 
 export default BrowsePage;
-

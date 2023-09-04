@@ -155,20 +155,22 @@ const SortList = (props) => {
 				</ul>
 			)}
 			{!is1024Px && (
-				<button
-					className={classes.filterHeader}
-					onClick={() => {
-						props.onToggleFiltersMenu();
-						toggleBackdropHandler();
-					}}
-				>
-					<span>Filter</span>
-					<div className={classes.menuIcon}>
-						<div className={`${classes.line} ${classes.top}`}></div>
-						<div className={`${classes.line} ${classes.middle}`}></div>
-						<div className={`${classes.line} ${classes.bottom}`}></div>
-					</div>
-				</button>
+				<>
+					<button
+						className={classes.filterHeader}
+						onClick={() => {
+							props.onToggleFiltersMenu();
+							toggleBackdropHandler();
+						}}
+					>
+						<span>Filter</span>
+						<div className={classes.menuIcon}>
+							<div className={`${classes.line} ${classes.top}`}></div>
+							<div className={`${classes.line} ${classes.middle}`}></div>
+							<div className={`${classes.line} ${classes.bottom}`}></div>
+						</div>
+					</button>
+				</>
 			)}
 		</div>
 	);

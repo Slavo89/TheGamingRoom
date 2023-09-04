@@ -1,5 +1,4 @@
 .actionsBar {
-	// display: none;
 	position: sticky;
 	top: 0;
 	height: 10rem;
@@ -8,7 +7,7 @@
 	display: flex;
 	align-items: center;
 	background-color: var(--black-color);
-	z-index: 100;
+	// z-index: -1;
 
 	svg {
 		font-size: 1.6rem;
