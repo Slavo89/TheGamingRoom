@@ -4,9 +4,11 @@
 	background-color: var(--grey-color);
 	display: flex;
 	justify-content: space-between;
-	
+	z-index: 1000;
+
 	.navbar {
 		position: absolute;
+		padding-top: 0.2rem;
 		top: 5rem;
 		right: 0;
 		height: calc(100dvh - 5rem);
@@ -16,7 +18,7 @@
 		flex-direction: column;
 		justify-content: space-between;
 		transition: width 0.2s;
-		z-index: 500;
+		// z-index: 1000;
 		overflow: hidden;
 
 		.leftNav {
@@ -33,6 +35,8 @@
 
 			a {
 				padding: 1rem 3rem;
+				margin-bottom: 0.5rem;
+				margin-inline: 0.2rem;
 				display: block;
 				height: 100%;
 				line-height: 2.2rem;
@@ -40,6 +44,11 @@
 				text-decoration: none;
 				color: inherit;
 				cursor: pointer;
+				transition: color 0.3s;
+				&:hover,
+				&:focus {
+					color: var(--hover-color);
+				}
 			}
 		}
 
@@ -57,6 +66,7 @@
 				background-color: var(--blue-color);
 				div,
 				a {
+					margin: 0;
 					display: flex;
 					justify-content: center;
 					align-items: center;
@@ -65,7 +75,6 @@
 				.icon {
 					margin-bottom: 0.5rem;
 					font-size: 1.6rem;
-					transition: color 0.4s;
 				}
 			}
 			.logoutButton {
@@ -97,7 +106,6 @@
 			width: 100%;
 			font-size: 1.2rem;
 			flex-direction: row;
-			// transform: translateX(0);
 			overflow: visible;
 
 			.listItem {
@@ -129,7 +137,7 @@
 					&.active,
 					&:focus {
 						color: var(--hover-color);
-						outline: none;
+
 						&::before {
 							height: 5px;
 						}
@@ -220,7 +228,7 @@
 
 	.navbar.open {
 		width: calc(100vw - 4.5rem);
-		@media (width >=800px)  {
+		@media (width >=800px) {
 			width: 100%;
 		}
 	}

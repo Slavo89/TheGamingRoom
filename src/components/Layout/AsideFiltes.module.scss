@@ -1,5 +1,5 @@
 .asideFilters {
-	position: absolute;
+	position: fixed;
 	display: none;
 	flex-direction: column;
 	width: 100%;
@@ -7,7 +7,7 @@
 	overflow: auto;
 	z-index: 1000;
 	background-color: var(--black-color);
-	top: -5rem;
+	top: 0rem;
 	right: 0;
 	&.show {
 		display: flex;

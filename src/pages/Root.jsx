@@ -49,8 +49,6 @@ const RootLayout = () => {
 			/>
 			<main>
 				<ActionsBar
-					onClick={toggleBackdropHandler}
-					onClose={closeBackdropHandler}
 				/>
 				<Container>
 					{navigation.state === 'loading' ? <LoadingSpinner /> : <Outlet />}

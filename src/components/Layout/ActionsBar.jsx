@@ -8,13 +8,12 @@ import OpenListButton from '../UI/Buttons/OpenListButton.jsx';
 import classes from './ActionsBar.module.scss';
 import SearchInput from './SearchInput.jsx';
 
-const ActionsBar = (props) => {
+const ActionsBar = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
+	const [focusTrapActive, setFocusTrapActive] = useState(false);
 
-	const [zIndex, setZIndex] = useState(0);
-
-	
+	const [showBackdrop, setShowBackdrop] = useState(false);
 	const [searchPanelOpen, setSearchPanelOpen] = useState(false);
 	const [listOpen, setListOpen] = useState(false);
 	const isLoggedIn = useSelector((state) => state.auth.isAuthenicated);
@@ -53,33 +52,38 @@ const ActionsBar = (props) => {
 		}
 	}, [cartItems]);
 
-	const zIndexHandler = () => {
-		if (zIndex === 0) {
-			setZIndex(1000)
-		} 
-		if (zIndex === 1000) {
-			setZIndex(0)
-		}
-	}
-
 	const changePageName = () => {
 		setPageName(event.target.innerHTML);
 		setListOpen(false);
-		props.onClose();
-		zIndexHandler();
+		setShowBackdrop(false);
 	};
 
 	const toggleSearchPanelHandler = () => {
-		setSearchPanelOpen(!searchPanelOpen);
-		setListOpen(false)
-		props.onClick();
+		if (searchPanelOpen === false) {
+			setSearchPanelOpen(true);
+			setListOpen(false);
+			setShowBackdrop(true);
+			focusTrapActive(true);
+		} else {
+			setListOpen(false);
+			setSearchPanelOpen(false);
+			setShowBackdrop(false);
+			focusTrapActive(false);
+		}
+
 	};
 
 	const toggleListHandler = () => {
-		props.onClick();
-		setListOpen(!listOpen);
-		setSearchPanelOpen(false)
-		zIndexHandler()
+		if (listOpen === false) {
+			setListOpen(true);
+			setShowBackdrop(true);
+			setFocusTrapActive(true);
+		} else {
+			setListOpen(false);
+			setSearchPanelOpen(false);
+			setShowBackdrop(false);
+			setFocusTrapActive(false);
+		}
 	};
 
 	const renderResults = (
@@ -182,85 +186,100 @@ const ActionsBar = (props) => {
 		setListOpen(false);
 		setSearchPanelOpen(false);
 	}, [location]);
-
 	return (
-		<FocusTrap active={listOpen}>
-			<div className={classes.actionsBar} style={{zIndex: zIndex}}>
-				{!is1024Px ? (
-					<div className={classes.searchBarSmall}>
-						<button
-							type="button"
-							className={classes.searchButton}
-							onClick={toggleSearchPanelHandler}
-						>
-							<BsSearch />
-						</button>
-						{searchPanelOpen && (
-							<FocusTrap>
-								<div className={classes.searchPanel}>
-									{searchButton}
-									<SearchInput onRenderResults={renderResults} />
-									<button
-										type="button"
-										onClick={toggleSearchPanelHandler}
-										className={classes.closeButton}
-									>
-										<BsXLg />
-									</button>
-									{renderResults()}
-								</div>
-							</FocusTrap>
-						)}
-					</div>
-				) : (
-					<div className={classes.searchBarLarge}>
-						<div className={classes.searchBarContainer}>
-							{searchButton}
-							<SearchInput onRenderResults={renderResults} />
-						</div>
-						{renderResults()}
-					</div>
-				)}
-				<div className={classes.mainBar}>
-					{!is1280Px ? (
-						<div>
-							<OpenListButton
-								onClick={toggleListHandler}
-								onChangeText={pageName}
-								onListOpen={listOpen}
-							/>
+		<>
+			<FocusTrap
+				active={focusTrapActive}
+				focusTrapOptions={{
+					// allowOutsideClick: true,
+					clickOutsideDeactivates: true,
+
+					onDeactivate: () => {
+						setFocusTrapActive(false)
+						setShowBackdrop(false);
+					},
+				}}
+			>
+				<div className={classes.actionsBar}>
+					{!is1024Px ? (
+						<div className={classes.searchBarSmall}>
+							<button
+								type="button"
+								className={classes.searchButton}
+								onClick={toggleSearchPanelHandler}
+							>
+								<BsSearch />
+							</button>
+							{searchPanelOpen && (
+								<FocusTrap>
+									<div className={classes.searchPanel}>
+										{searchButton}
+										<SearchInput onRenderResults={renderResults} />
+										<button
+											type="button"
+											onClick={toggleSearchPanelHandler}
+											className={classes.closeButton}
+										>
+											<BsXLg />
+										</button>
+										{renderResults()}
+									</div>
+								</FocusTrap>
+							)}
 						</div>
 					) : (
-						mainBarList
-					)}
-				</div>
-
-				{isLoggedIn && <div className={classes.rightBar}>
-					<NavLink
-						to="/wishlist"
-						className={({ isActive }) =>
-							isActive ? `${classes.active} ${classes.link}` : classes.link
-						}
-					>
-						{!is1024Px ? <BsCheckCircle /> : <span>Wishlist</span>}
-					</NavLink>
-					<NavLink
-						to="/cart"
-						className={({ isActive }) =>
-							isActive ? `${classes.active} ${classes.link}` : classes.link
-						}
-					>
-						{!is1024Px ? <BsCart2 /> : <span>Cart</span>}
-
-						<div className={badgeClass}>
-							<span key={key}>{prevCartItems}</span>
+						<div className={classes.searchBarLarge}>
+							<div className={classes.searchBarContainer}>
+								{searchButton}
+								<SearchInput onRenderResults={renderResults} />
+							</div>
+							{renderResults()}
 						</div>
-					</NavLink>
-				</div>}
+					)}
+					<div className={classes.mainBar}>
+						{!is1280Px ? (
+							<div>
+								<OpenListButton
+									onClick={toggleListHandler}
+									onChangeText={pageName}
+									onListOpen={listOpen}
+								/>
+							</div>
+						) : (
+							mainBarList
+						)}
+					</div>
 
-				{listOpen && mainBarList}
-			</div>
-		</FocusTrap>
+					{isLoggedIn && (
+						<div className={classes.rightBar}>
+							<NavLink
+								to="/wishlist"
+								className={({ isActive }) =>
+									isActive ? `${classes.active} ${classes.link}` : classes.link
+								}
+							>
+								{!is1024Px ? <BsCheckCircle /> : <span>Wishlist</span>}
+							</NavLink>
+							<NavLink
+								to="/cart"
+								className={({ isActive }) =>
+									isActive ? `${classes.active} ${classes.link}` : classes.link
+								}
+							>
+								{!is1024Px ? <BsCart2 /> : <span>Cart</span>}
+
+								<div className={badgeClass}>
+									<span key={key}>{prevCartItems}</span>
+								</div>
+							</NavLink>
+						</div>
+					)}
+
+					{listOpen && mainBarList}
+				</div>
+			</FocusTrap>
+			{showBackdrop && <div className={classes.actionBackdrop} />}
+		</>
 	);
 };
 
