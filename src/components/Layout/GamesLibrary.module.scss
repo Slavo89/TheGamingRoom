@@ -21,6 +21,10 @@
 		li {
 			padding: 0rem 0.5rem;
 			cursor: pointer;
+			&:focus {
+				outline: none;
+				border: 1px solid var(--font-white);
+			}
 			&:hover {
 				color: var(--font-white);
 			}

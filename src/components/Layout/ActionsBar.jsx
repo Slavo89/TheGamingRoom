@@ -63,14 +63,13 @@ const ActionsBar = () => {
 			setSearchPanelOpen(true);
 			setListOpen(false);
 			setShowBackdrop(true);
-			focusTrapActive(true);
+			setFocusTrapActive(true);
 		} else {
 			setListOpen(false);
 			setSearchPanelOpen(false);
 			setShowBackdrop(false);
-			focusTrapActive(false);
+			setFocusTrapActive(false);
 		}
-
 	};
 
 	const toggleListHandler = () => {
@@ -191,11 +190,12 @@ const ActionsBar = () => {
 			<FocusTrap
 				active={focusTrapActive}
 				focusTrapOptions={{
-					// allowOutsideClick: true,
 					clickOutsideDeactivates: true,
 
 					onDeactivate: () => {
-						setFocusTrapActive(false)
+						setListOpen(false);
+						setSearchPanelOpen(false)
+						setFocusTrapActive(false);
 						setShowBackdrop(false);
 					},
 				}}
@@ -211,20 +211,34 @@ const ActionsBar = () => {
 								<BsSearch />
 							</button>
 							{searchPanelOpen && (
-								<FocusTrap>
-									<div className={classes.searchPanel}>
-										{searchButton}
-										<SearchInput onRenderResults={renderResults} />
-										<button
-											type="button"
-											onClick={toggleSearchPanelHandler}
-											className={classes.closeButton}
-										>
-											<BsXLg />
-										</button>
-										{renderResults()}
-									</div>
-								</FocusTrap>
+								<>
+									<FocusTrap
+										active={focusTrapActive}
+										focusTrapOptions={{
+											// allowOutsideClick: true,
+											clickOutsideDeactivates: true,
+
+											onDeactivate: () => {
+												// setSearchPanelOpen(false);
+												// setFocusTrapActive(false);
+												// setShowBackdrop(false);
+											},
+										}}
+									>
+										<div className={classes.searchPanel}>
+											{searchButton}
+											<SearchInput onRenderResults={renderResults} />
+											<button
+												type="button"
+												onClick={toggleSearchPanelHandler}
+												className={classes.closeButton}
+											>
+												<BsXLg />
+											</button>
+											{renderResults()}
+										</div>
+									</FocusTrap>
+								</>
 							)}
 						</div>
 					) : (

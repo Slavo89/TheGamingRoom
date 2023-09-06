@@ -4,14 +4,14 @@ import { backdropActions } from '../../store/backdrop-slice';
 import useMediaQuery from '../../hooks/use-MediaQuery';
 import OpenListButton from '../UI/Buttons/OpenListButton';
 import classes from './SortList.module.scss';
+import FocusTrap from 'focus-trap-react';
 
 const SortList = (props) => {
 	const sortListRef = useRef(null);
 	const [listOpen, setListOpen] = useState(false);
 	const [activeSort, setActiveSort] = useState(`${props.firstLabel}`);
 	const is1024Px = useMediaQuery('(width >= 1024px)');
-    const dispatch = useDispatch();
-    
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		const closeListHandler = () => {
@@ -55,8 +55,8 @@ const SortList = (props) => {
 			return 0;
 		});
 		props.sortItems(sortedItems);
-        setActiveSort('Alphabetical');
-    };
+		setActiveSort('Alphabetical');
+	};
 
 	const sortByPriceHandler = (price) => {
 		const sortedItems = [...props.originalItems];
@@ -79,7 +79,6 @@ const SortList = (props) => {
 		setListOpen(!listOpen);
 	};
 
-
 	const toggleBackdropHandler = () => {
 		dispatch(backdropActions.showBackdrop());
 	};
@@ -87,6 +86,7 @@ const SortList = (props) => {
 	return (
 		<div className={classes.sortList}>
 			<span className={classes.span}>Sort By :</span>
+
 			<div ref={sortListRef}>
 				<OpenListButton
 					onClick={toggleListHandler}
@@ -95,65 +95,77 @@ const SortList = (props) => {
 				/>
 			</div>
 			{listOpen && (
-				<ul>
-					<li
-						tabIndex="0"
-						className={activeSort === 'Recently Added' ? classes.active : ''}
-						onClick={sortByRecentlyAddedHandler}
-						onKeyDown={(event) => {
-							if (event.key === 'Enter') {
-								sortByRecentlyAddedHandler();
+				<FocusTrap
+					// active={listOpen}
+					focusTrapOptions={{
+						clickOutsideDeactivates: true,
+
+						// onDeactivate: () => {
+						// 	setListOpen(false);
+						// },
+					}}
+				>
+					<ul>
+						<li
+							tabIndex="0"
+							className={activeSort === 'Recently Added' ? classes.active : ''}
+							onClick={sortByRecentlyAddedHandler}
+							onKeyDown={(event) => {
+								if (event.key === 'Enter') {
+									sortByRecentlyAddedHandler();
+								}
+							}}
+						>
+							{props.firstLabel}
+						</li>
+						<li
+							tabIndex="0"
+							className={activeSort === 'Alphabetical' ? classes.active : ''}
+							onClick={sortByNameHandler}
+							onKeyDown={(event) => {
+								if (event.key === 'Enter') {
+									sortByNameHandler();
+								}
+							}}
+						>
+							Alphabetical
+						</li>
+						<li
+							tabIndex="0"
+							className={
+								activeSort === 'Price: Low to High' ? classes.active : ''
 							}
-						}}
-					>
-						{props.firstLabel}
-					</li>
-					<li
-						tabIndex="0"
-						className={activeSort === 'Alphabetical' ? classes.active : ''}
-						onClick={sortByNameHandler}
-						onKeyDown={(event) => {
-							if (event.key === 'Enter') {
-								sortByNameHandler();
-							}
-						}}
-					>
-						Alphabetical
-					</li>
-					<li
-						tabIndex="0"
-						className={
-							activeSort === 'Price: Low to High' ? classes.active : ''
-						}
-						onClick={() => {
-							sortByPriceHandler('lowToHigh');
-						}}
-						onKeyDown={(event) => {
-							if (event.key === 'Enter') {
+							onClick={() => {
 								sortByPriceHandler('lowToHigh');
+							}}
+							onKeyDown={(event) => {
+								if (event.key === 'Enter') {
+									sortByPriceHandler('lowToHigh');
+								}
+							}}
+						>
+							Price: Low to High
+						</li>
+						<li
+							tabIndex="0"
+							className={
+								activeSort === 'Price: High to Low' ? classes.active : ''
 							}
-						}}
-					>
-						Price: Low to High
-					</li>
-					<li
-						tabIndex="0"
-						className={
-							activeSort === 'Price: High to Low' ? classes.active : ''
-						}
-						onClick={() => {
-							sortByPriceHandler('highToLow');
-						}}
-						onKeyDown={(event) => {
-							if (event.key === 'Enter') {
+							onClick={() => {
 								sortByPriceHandler('highToLow');
-							}
-						}}
-					>
-						Price: High to Low
-					</li>
-				</ul>
+							}}
+							onKeyDown={(event) => {
+								if (event.key === 'Enter') {
+									sortByPriceHandler('highToLow');
+								}
+							}}
+						>
+							Price: High to Low
+						</li>
+					</ul>
+				</FocusTrap>
 			)}
+
 			{!is1024Px && (
 				<>
 					<button

@@ -1,25 +1,27 @@
-import classes from './OpenListButton.module.scss'
+import classes from './OpenListButton.module.scss';
 import { BsChevronDown } from 'react-icons/bs';
 
 const OpenListButton = (props) => {
-
-  return (
+	return (
 		<button
 			type="button"
 			className={classes.listButton}
 			onClick={props.onClick}
-		>{props.children}
+			tabIndex={0}
+		>
+			{props.children}
 			<span className={classes.text}>{props.onChangeText}</span>
 			<span>
-              <BsChevronDown
-                  
+				<BsChevronDown
 					className={
-						props.onListOpen ? `${classes.transformOpen}` : `${classes.transformClose}`
+						props.onListOpen
+							? `${classes.transformOpen}`
+							: `${classes.transformClose}`
 					}
 				/>
 			</span>
 		</button>
 	);
-}
+};
 
-export default OpenListButton
+export default OpenListButton;

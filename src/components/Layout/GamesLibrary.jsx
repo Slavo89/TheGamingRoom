@@ -52,9 +52,14 @@ const GamesLibrary = (props) => {
 	const [displayedItems, setDisplayedItems] = useState(props.games);
 	const [filtersMenuOpen, setFiltersMenuOpen] = useState(false);
 
-	const toggleFiltersMenu = () => {
-		setFiltersMenuOpen(!filtersMenuOpen);
-	};
+	// const toggleFiltersMenu = () => {
+	// 	if (filtersMenuOpen === true) {
+	// 		setFiltersMenuOpen(false)
+	// 	} else {
+	// 		setFiltersMenuOpen(true)
+	// 	}
+	// 	setFiltersMenuOpen(!filtersMenuOpen);
+	// };
 
 	const sortItems = (items) => {
 		setSortedItems(items);
@@ -85,7 +90,8 @@ const GamesLibrary = (props) => {
 					<SortList
 						originalItems={props.games}
 						sortItems={sortItems}
-						onToggleFiltersMenu={toggleFiltersMenu}
+						onToggleFiltersMenu={() => setFiltersMenuOpen(true)}
+						// onToggleFiltersMenu={toggleFiltersMenu}
 						firstLabel={'All'}
 					/>
 
@@ -113,7 +119,8 @@ const GamesLibrary = (props) => {
 					games={sortedItems}
 					onFilterChange={handleFilterChange}
 					filtersMenuOpen={filtersMenuOpen}
-					onToggleMenuOpen={toggleFiltersMenu}
+					onCloseMenu={() => setFiltersMenuOpen(false)}
+					onOpenMenu={() => setFiltersMenuOpen(true)}
 				/>
 			</div>
 
@@ -135,6 +142,7 @@ const GamesLibrary = (props) => {
 							onClick={
 								typeof page === 'number' ? () => setActivePage(page) : () => {}
 							}
+							tabIndex={0}
 						>
 							{page}
 						</li>

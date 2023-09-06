@@ -4,6 +4,7 @@ import { backdropActions } from '../../store/backdrop-slice';
 import { useDispatch } from 'react-redux';
 import OpenListButton from '../UI/Buttons/OpenListButton';
 import classes from './AsideFiltes.module.scss';
+import FocusTrap from 'focus-trap-react';
 
 const AsideFilters = (props) => {
 	const [genreListOpen, setGenreListOpen] = useState(false);
@@ -104,6 +105,22 @@ const AsideFilters = (props) => {
 		setSelectedFilters([]);
 	};
 
+	const toggleListHandler = (event) => {
+		if (event.target.innerText === 'Genre') {
+			setGenreListOpen(!genreListOpen);
+		}
+		if (event.target.innerText === 'Features') {
+			setFeaturesListOpen(!featuresListOpen);
+		}
+		if (event.target.innerText === 'Platform') {
+			setPlatformListOpen(!platformListOpen);
+		}
+	};
+
+	const hideBackdropHandler = () => {
+		dispatch(backdropActions.hideBackdrop());
+	};
+
 	useEffect(() => {
 		const filterGames = () => {
 			let filteredGames = props.games;
@@ -127,24 +144,22 @@ const AsideFilters = (props) => {
 		filterGames();
 	}, [selectedFilters]);
 
-	const toggleListHandler = (event) => {
-		if (event.target.innerText === 'Genre') {
-			setGenreListOpen(!genreListOpen);
-		}
-		if (event.target.innerText === 'Features') {
-			setFeaturesListOpen(!featuresListOpen);
-		}
-		if (event.target.innerText === 'Platform') {
-			setPlatformListOpen(!platformListOpen);
-		}
-	};
+	useEffect(() => {}, [props.filtersMenuOpen]);
 
-	const hideBackdropHandler = () => {
-		dispatch(backdropActions.hideBackdrop());
-	};
 
 	return (
-		<>
+		<FocusTrap
+			active={props.filtersMenuOpen}
+			focusTrapOptions={{
+				clickOutsideDeactivates: true,
+
+				onDeactivate: () => {
+					props.onCloseMenu();
+					resetFiltersHandler();
+					hideBackdropHandler();
+				},
+			}}
+		>
 			<aside
 				className={
 					props.filtersMenuOpen
@@ -168,16 +183,19 @@ const AsideFilters = (props) => {
 					</div>
 				)}
 				{props.children}
+
 				<div className={classes.filterTypeContainer}>
 					<OpenListButton
 						onClick={() => {
 							toggleListHandler(event);
 						}}
 						onListOpen={genreListOpen}
+						tabIndex={0}
 					>
 						Genre
 					</OpenListButton>
 				</div>
+
 				{genreListOpen && (
 					<ul>
 						{genres.map((genre) => (
@@ -264,7 +282,8 @@ const AsideFilters = (props) => {
 					<button
 						className={classes.clearButton}
 						onClick={() => {
-							props.onToggleMenuOpen();
+							// props.onToggleMenuOpen();
+							props.onCloseMenu();
 							resetFiltersHandler();
 							hideBackdropHandler();
 						}}
@@ -274,7 +293,8 @@ const AsideFilters = (props) => {
 					<button
 						className={classes.applyButton}
 						onClick={() => {
-							props.onToggleMenuOpen();
+							props.onCloseMenu();
+							// props.onToggleMenuOpen();
 							hideBackdropHandler();
 						}}
 					>
@@ -282,8 +302,7 @@ const AsideFilters = (props) => {
 					</button>
 				</div>
 			</aside>
-			
-		</>
+		</FocusTrap>
 	);
 };
 

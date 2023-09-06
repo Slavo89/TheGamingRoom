@@ -18,7 +18,7 @@ const Header = (props) => {
 	const navigate = useNavigate();
 	const [navExpanded, setNavExpanded] = useState(false);
 	const [dropdownMenu, setDropdownMenu] = useState(false);
-	const [zIndex, setZIndex] = useState(1);
+	// const [zIndex, setZIndex] = useState(1);
 	const is800px = useMediaQuery('(width >= 800px)');
 
 	const dropdownMenuHandler = () => {
@@ -34,14 +34,14 @@ const Header = (props) => {
 		props.onClose();
 	};
 
-	const zIndexHandler = () => {
-		if (zIndex === 1) {
-			setZIndex(1000)
-		}
-		if (zIndex === 1000) {
-			setZIndex(1)
-		}
-	}
+	// const zIndexHandler = () => {
+	// 	if (zIndex === 1) {
+	// 		setZIndex(1000);
+	// 	}
+	// 	if (zIndex === 1000) {
+	// 		setZIndex(1);
+	// 	}
+	// };
 
 	const logoutHandler = () => {
 		dispatch(wishlistActions.resetWishlist());
@@ -65,7 +65,7 @@ const Header = (props) => {
 							? `${classes.navbar} ${classes.open}`
 							: `${classes.navbar}`
 					}
-					style={{zIndex: zIndex}}
+					// style={{ zIndex: zIndex }}
 				>
 					<ul className={classes.leftNav}>
 						<li className={`${classes.listItem} ${classes.active}`}>
@@ -183,20 +183,27 @@ const Header = (props) => {
 				</nav>
 
 				<div
+					tabIndex={1}
 					className={
 						navExpanded ? `${classes.menu} ${classes.close}` : `${classes.menu}`
 					}
 					onClick={() => {
 						props.onClick();
 						toggleNavbarHandler();
-						zIndexHandler()
+						// zIndexHandler();
 					}}
-					onKeyPress={() => {
-						props.onClick();
-						toggleNavbarHandler();
-						zIndexHandler()
+					onKeyDown={(event) => {
+						if (event.key === 'Enter') {
+							event.preventDefault();
+							props.onClick();
+							toggleNavbarHandler();
+						}
 					}}
-					tabIndex={1}
+					// onKeyPress={() => {
+					// 	props.onClick();
+					// 	toggleNavbarHandler();
+					// 	// zIndexHandler();
+					// }}
 				>
 					<div></div>
 				</div>
