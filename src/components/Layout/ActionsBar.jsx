@@ -154,6 +154,7 @@ const ActionsBar = () => {
 						className={linkClass}
 						to="/"
 						onClick={changePageName}
+						tabIndex={0}
 						end={true}
 					>
 						Discover
@@ -164,6 +165,7 @@ const ActionsBar = () => {
 						className={linkClass}
 						to="/browse"
 						onClick={changePageName}
+						tabIndex={0}
 					>
 						Browse
 					</NavLink>
@@ -173,6 +175,7 @@ const ActionsBar = () => {
 						className={linkClass}
 						to="/readme	"
 						onClick={changePageName}
+						tabIndex={0}
 					>
 						ReadMe
 					</NavLink>
@@ -194,7 +197,7 @@ const ActionsBar = () => {
 
 					onDeactivate: () => {
 						setListOpen(false);
-						setSearchPanelOpen(false)
+						setSearchPanelOpen(false);
 						setFocusTrapActive(false);
 						setShowBackdrop(false);
 					},
@@ -264,30 +267,36 @@ const ActionsBar = () => {
 						)}
 					</div>
 
-					{isLoggedIn && (
-						<div className={classes.rightBar}>
-							<NavLink
-								to="/wishlist"
-								className={({ isActive }) =>
-									isActive ? `${classes.active} ${classes.link}` : classes.link
-								}
-							>
-								{!is1024Px ? <BsCheckCircle /> : <span>Wishlist</span>}
-							</NavLink>
-							<NavLink
-								to="/cart"
-								className={({ isActive }) =>
-									isActive ? `${classes.active} ${classes.link}` : classes.link
-								}
-							>
-								{!is1024Px ? <BsCart2 /> : <span>Cart</span>}
+					<div className={classes.rightBar}>
+						{isLoggedIn && (
+							<>
+								<NavLink
+									to="/wishlist"
+									className={({ isActive }) =>
+										isActive
+											? `${classes.active} ${classes.link}`
+											: classes.link
+									}
+								>
+									{!is1024Px ? <BsCheckCircle /> : <span>Wishlist</span>}
+								</NavLink>
+								<NavLink
+									to="/cart"
+									className={({ isActive }) =>
+										isActive
+											? `${classes.active} ${classes.link}`
+											: classes.link
+									}
+								>
+									{!is1024Px ? <BsCart2 /> : <span>Cart</span>}
 
-								<div className={badgeClass}>
-									<span key={key}>{prevCartItems}</span>
-								</div>
-							</NavLink>
-						</div>
-					)}
+									<div className={badgeClass}>
+										<span key={key}>{prevCartItems}</span>
+									</div>
+								</NavLink>
+							</>
+						)}
+					</div>
 
 					{listOpen && mainBarList}
 				</div>

@@ -12,6 +12,7 @@ const GamesLibraryCard = (props) => {
 			<Link
 				to={`/${props.id}`}
 				className={classes.link}
+				aria-label={props.name}
 			>
 				<div className={classes.imageSection}>
 					<picture className={classes.image}>

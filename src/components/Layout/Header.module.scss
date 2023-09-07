@@ -6,10 +6,28 @@
 	justify-content: space-between;
 	z-index: 1000;
 
+	.logo {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: transform 0.3s;
+		width: 55px;
+		cursor: pointer;
+		&:hover,
+		&:focus {
+			outline: none;
+
+			transform: scale(1.02);
+		}
+		&:focus {
+			border: 1px solid var(--hover-color);
+			border-radius: 5px;
+		}
+	}
 	.navbar {
 		// display: none;
 		position: absolute;
-		padding-top: 0.2rem;
+		// padding-top: 0.2rem;
 		top: 5rem;
 		right: 0;
 		height: calc(100dvh - 5rem);
@@ -101,7 +119,8 @@
 			display: flex;
 			position: relative;
 			top: 0;
-			right: 0;
+			// right: 0;
+			// margin-left: 1rem;
 			height: 100%;
 			width: 100%;
 			font-size: 1.2rem;
@@ -134,13 +153,16 @@
 						transition: height 0.2s ease-in-out;
 					}
 					&:hover,
-					&.active,
-					&:focus {
+					&.active {
 						color: var(--hover-color);
 
 						&::before {
 							height: 5px;
 						}
+					}
+
+					&:focus {
+						color: var(--hover-color);
 					}
 				}
 			}
@@ -149,7 +171,7 @@
 				position: relative;
 				min-width: 125px;
 				width: fit-content;
-				height: auto;
+				// height: 50px;
 				display: flex;
 				flex-direction: column;
 
@@ -159,6 +181,7 @@
 					padding: 0 1rem;
 				}
 				.profile {
+					
 					gap: 0.5rem;
 					transition: all 0.2s;
 					cursor: pointer;
@@ -181,8 +204,8 @@
 	// BURGER MENU
 
 	.menu {
-		margin-left: auto;
-
+		// margin-left: auto;
+		display: block;
 		padding: 0 1rem;
 
 		background-color: var(--blue-color);
@@ -191,6 +214,7 @@
 		&:focus {
 			outline: none;
 			border: 1px solid var(--hover-color);
+			border-radius: 5px;
 		}
 
 		&:before,
@@ -205,6 +229,7 @@
 			margin: 10.5px 0;
 			transition: 0.5s;
 		}
+
 		&::before {
 			top: 3px;
 		}
@@ -214,7 +239,7 @@
 
 		@media (width >= 800px) {
 			display: none;
-			visibility: hidden;
+			// visibility: hidden;
 			width: 0;
 		}
 	}
@@ -232,9 +257,9 @@
 	}
 
 	.navbar.open {
-		width: calc(100vw - 4.5rem);
-		@media (width >=800px) {
-			width: 100%;
-		}
+		width: calc(100vw - 5.5rem);
+		// @media (width >=800px) {
+		// 	width: 100%;
+		// }
 	}
 }

@@ -18,7 +18,6 @@ const Header = (props) => {
 	const navigate = useNavigate();
 	const [navExpanded, setNavExpanded] = useState(false);
 	const [dropdownMenu, setDropdownMenu] = useState(false);
-	// const [zIndex, setZIndex] = useState(1);
 	const is800px = useMediaQuery('(width >= 800px)');
 
 	const dropdownMenuHandler = () => {
@@ -34,15 +33,6 @@ const Header = (props) => {
 		props.onClose();
 	};
 
-	// const zIndexHandler = () => {
-	// 	if (zIndex === 1) {
-	// 		setZIndex(1000);
-	// 	}
-	// 	if (zIndex === 1000) {
-	// 		setZIndex(1);
-	// 	}
-	// };
-
 	const logoutHandler = () => {
 		dispatch(wishlistActions.resetWishlist());
 		dispatch(cartActions.resetCart());
@@ -57,15 +47,33 @@ const Header = (props) => {
 	const linkClass = ({ isActive }) => (isActive ? classes.active : '');
 
 	return (
-		<FocusTrap active={navExpanded}>
+		<FocusTrap
+			active={navExpanded}
+			focusTrapOptions={{
+				clickOutsideDeactivates: true,
+
+				onDeactivate: () => {
+					setNavExpanded(false);
+					props.onClose();
+				},
+			}}
+		>
 			<header className={classes.header}>
+				<div
+					className={classes.logo}
+					tabIndex={0}
+				>
+					<img
+						src="../../assets/logo.png"
+						height={45}
+					></img>
+				</div>
 				<nav
 					className={
 						navExpanded
 							? `${classes.navbar} ${classes.open}`
 							: `${classes.navbar}`
 					}
-					// style={{ zIndex: zIndex }}
 				>
 					<ul className={classes.leftNav}>
 						<li className={`${classes.listItem} ${classes.active}`}>
@@ -73,7 +81,7 @@ const Header = (props) => {
 								to="/"
 								className={linkClass}
 								onClick={closeAndNavigate}
-								tabIndex="0"
+								tabIndex={navExpanded || is800px ? 0 : -1}
 							>
 								Store
 							</NavLink>
@@ -83,7 +91,7 @@ const Header = (props) => {
 								to="/distribution"
 								className={linkClass}
 								onClick={closeAndNavigate}
-								tabIndex="0"
+								tabIndex={navExpanded || is800px ? 0 : -1}
 							>
 								Distribution
 							</NavLink>
@@ -93,7 +101,7 @@ const Header = (props) => {
 								href="https://www.epicgames.com/help/"
 								target="_blank"
 								rel="noreferrer"
-								tabIndex="0"
+								tabIndex={navExpanded || is800px ? 0 : -1}
 							>
 								Support
 							</a>
@@ -103,7 +111,7 @@ const Header = (props) => {
 								href="https://www.unrealengine.com/"
 								target="_blank"
 								rel="noreferrer"
-								tabIndex="0"
+								tabIndex={navExpanded || is800px ? 0 : -1}
 							>
 								Unreal Engine
 							</a>
@@ -115,7 +123,7 @@ const Header = (props) => {
 								<li className={`${classes.listItem} ${classes.profile}`}>
 									<NavLink
 										to="/register"
-										tabIndex="0"
+										tabIndex={navExpanded ? 0 : -1}
 										onClick={closeAndNavigate}
 									>
 										<BsFillPersonFill className={classes.icon} />
@@ -147,7 +155,7 @@ const Header = (props) => {
 								<div className={`${classes.listItem} ${classes.profile}`}>
 									<NavLink
 										to="/register"
-										tabIndex="0"
+										tabIndex={0}
 									>
 										{' '}
 										<BsFillPersonFill className={classes.icon} />
@@ -161,7 +169,7 @@ const Header = (props) => {
 									onMouseLeave={dropdownMenuHandler}
 								>
 									<li
-										tabIndex="0"
+										tabIndex={0}
 										className={`${classes.listItem} ${classes.profile}`}
 									>
 										{' '}
@@ -181,29 +189,21 @@ const Header = (props) => {
 						</div>
 					)}
 				</nav>
-
 				<div
-					tabIndex={1}
+					tabIndex={0}
 					className={
-						navExpanded ? `${classes.menu} ${classes.close}` : `${classes.menu}`
+						!navExpanded
+							? `${classes.menu} `
+							: `${classes.menu} ${classes.close}`
 					}
 					onClick={() => {
 						props.onClick();
 						toggleNavbarHandler();
-						// zIndexHandler();
 					}}
-					onKeyDown={(event) => {
-						if (event.key === 'Enter') {
-							event.preventDefault();
-							props.onClick();
-							toggleNavbarHandler();
-						}
+					onKeyPress={() => {
+						props.onClick();
+						toggleNavbarHandler();
 					}}
-					// onKeyPress={() => {
-					// 	props.onClick();
-					// 	toggleNavbarHandler();
-					// 	// zIndexHandler();
-					// }}
 				>
 					<div></div>
 				</div>

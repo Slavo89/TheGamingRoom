@@ -4,7 +4,6 @@ import { useState } from 'react';
 import useWishlist from '../../../hooks/useWishlist';
 import { Link } from 'react-router-dom';
 
-
 const CarouselItem = (props) => {
 	const [showTooltip, setShowTooltip] = useState(false);
 
@@ -22,12 +21,12 @@ const CarouselItem = (props) => {
 						media="(min-width: 0px)"
 						srcSet={props.background_image}
 						alt="Game picture"
-						loading='lazy'
+						loading="lazy"
 					/>
 					<img
 						src={props.background_image}
 						alt="Game picture"
-						loading='lazy'
+						loading="lazy"
 					/>
 				</picture>
 
@@ -42,7 +41,11 @@ const CarouselItem = (props) => {
 						onMouseLeave={showTooltipHandler}
 					/>
 				</div>
-				{showTooltip && <div className={classes.tooltip}>{!inWishlist ? 'Add to Wishlist' : 'Remove from Wishlist'}</div>}
+				{showTooltip && (
+					<div className={classes.tooltip}>
+						{!inWishlist ? 'Add to Wishlist' : 'Remove from Wishlist'}
+					</div>
+				)}
 				<div className={classes.itemDescription}>
 					<p className={classes.title}>{props.name}</p>
 					<p>Rating: {props.rating}</p>
