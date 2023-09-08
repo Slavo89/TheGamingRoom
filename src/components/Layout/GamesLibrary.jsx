@@ -52,15 +52,6 @@ const GamesLibrary = (props) => {
 	const [displayedItems, setDisplayedItems] = useState(props.games);
 	const [filtersMenuOpen, setFiltersMenuOpen] = useState(false);
 
-	// const toggleFiltersMenu = () => {
-	// 	if (filtersMenuOpen === true) {
-	// 		setFiltersMenuOpen(false)
-	// 	} else {
-	// 		setFiltersMenuOpen(true)
-	// 	}
-	// 	setFiltersMenuOpen(!filtersMenuOpen);
-	// };
-
 	const sortItems = (items) => {
 		setSortedItems(items);
 	};
@@ -81,6 +72,7 @@ const GamesLibrary = (props) => {
 
 	useEffect(() => {
 		props.onPageChange(activePage);
+		window.scrollTo(0, 0);
 	}, [activePage]);
 
 	return (
@@ -91,7 +83,6 @@ const GamesLibrary = (props) => {
 						originalItems={props.games}
 						sortItems={sortItems}
 						onToggleFiltersMenu={() => setFiltersMenuOpen(true)}
-						// onToggleFiltersMenu={toggleFiltersMenu}
 						firstLabel={'All'}
 					/>
 

@@ -10,7 +10,7 @@ const DesktoCarouselMainSlide = (props) => {
 	const [inWishlist, wishlistHandler] = useWishlist(game);
 	const [inCart, cartHandler] = useCart(game);
 	return (
-		<Link to={`${game.id}`}>
+		<Link to={`${game.id}`} className={classes.mainSlideContainer}>
 			<div className={classes.leftSection}>
 				<picture className={classes.image}>
 					<source

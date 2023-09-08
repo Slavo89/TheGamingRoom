@@ -1,5 +1,5 @@
 import CarouselItem from './CarouselItem';
-// import Slider from 'react-slick';
+import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -10,15 +10,15 @@ import 'swiper/scss/pagination';
 const Carousel = (props) => {
 	const carouselGames = props.games;
 
-	// const slickSettings = {
-	// 	infinite: false,
-	// 	dots: true,
-	// 	speed: 500,
-	// 	slidesToShow: 1.3,
-	// 	slidesToScroll: 1,
-	// 	initialSlide: 0,
-	// 	arrows: false,
-	// };
+	const slickSettings = {
+		infinite: false,
+		dots: true,
+		speed: 500,
+		slidesToShow: 1.3,
+		slidesToScroll: 1,
+		initialSlide: 0,
+		arrows: false,
+	};
 	return (
 		<>
 			<Swiper
@@ -45,7 +45,7 @@ const Carousel = (props) => {
 					</SwiperSlide>
 				))}
 			</Swiper>
-			{/* <Slider {...slickSettings}>
+			<Slider {...slickSettings}>
 				{carouselGames.map((game) => (
 					<CarouselItem
 						key={game.id}
@@ -60,7 +60,7 @@ const Carousel = (props) => {
 						tags={game.tags}
 					/>
 				))}
-			</Slider> */}
+			</Slider>
 		</>
 	);
 };

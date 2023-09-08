@@ -14,7 +14,7 @@ const CarouselItem = (props) => {
 	const [inWishlist, wishlistHandler] = useWishlist(props);
 
 	return (
-		<Link to={`${props.id}`}>
+		<Link to={`${props.id}`} className={classes.carouselContainer}>
 			<div className={classes.carouselItem}>
 				<picture>
 					<source

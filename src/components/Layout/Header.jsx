@@ -1,6 +1,6 @@
 import { BsFillPersonFill } from 'react-icons/bs';
 import { useState } from 'react';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { authActions } from '../../store/auth-slice';
 import classes from './Header.module.scss';
@@ -59,7 +59,8 @@ const Header = (props) => {
 			}}
 		>
 			<header className={classes.header}>
-				<div
+				<Link
+					to={'/'}
 					className={classes.logo}
 					tabIndex={0}
 				>
@@ -67,7 +68,8 @@ const Header = (props) => {
 						src="../../assets/logo.png"
 						height={45}
 					></img>
-				</div>
+				</Link>
+
 				<nav
 					className={
 						navExpanded
