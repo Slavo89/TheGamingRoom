@@ -60,6 +60,7 @@ const GamesLibrary = (props) => {
 		setFilteredItems(filteredGames);
 	};
 
+
 	useEffect(() => {
 		const findMatchedItems = () => {
 			const matched = sortedItems.filter((sortedItem) =>
@@ -110,7 +111,9 @@ const GamesLibrary = (props) => {
 					games={sortedItems}
 					onFilterChange={handleFilterChange}
 					filtersMenuOpen={filtersMenuOpen}
-					onCloseMenu={() => setFiltersMenuOpen(false)}
+					onCloseMenu={() => {
+						setFiltersMenuOpen(false);
+					}}
 					onOpenMenu={() => setFiltersMenuOpen(true)}
 				/>
 			</div>

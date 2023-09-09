@@ -144,7 +144,6 @@ const AsideFilters = (props) => {
 		filterGames();
 	}, [selectedFilters]);
 
-	useEffect(() => {}, [props.filtersMenuOpen]);
 
 
 	return (
@@ -155,7 +154,7 @@ const AsideFilters = (props) => {
 
 				onDeactivate: () => {
 					props.onCloseMenu();
-					resetFiltersHandler();
+					// resetFiltersHandler();
 					hideBackdropHandler();
 				},
 			}}

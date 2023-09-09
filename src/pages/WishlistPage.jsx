@@ -140,7 +140,11 @@ const WishlistPage = () => {
 							games={sortedItems}
 							onFilterChange={handleFilterChange}
 							filtersMenuOpen={filtersMenuOpen}
-							onToggleMenuOpen={toggleFiltersMenu}
+							// onToggleMenuOpen={toggleFiltersMenu}
+							onCloseMenu={() => {
+								setFiltersMenuOpen(false);
+							}}
+							onOpenMenu={() => setFiltersMenuOpen(true)}
 						/>
 					</div>
 				) : (

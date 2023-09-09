@@ -123,7 +123,6 @@ const BrowsePage = () => {
 
 				<Slider
 					ref={sliderRef}
-					// {...slickSettings}
 					arrows={false}
 					dots={false}
 					speed={500}

@@ -96,13 +96,9 @@ const SortList = (props) => {
 			</div>
 			{listOpen && (
 				<FocusTrap
-					// active={listOpen}
 					focusTrapOptions={{
 						clickOutsideDeactivates: true,
 
-						// onDeactivate: () => {
-						// 	setListOpen(false);
-						// },
 					}}
 				>
 					<ul>

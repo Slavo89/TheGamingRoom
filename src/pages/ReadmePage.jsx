@@ -64,7 +64,8 @@ const ReadmePage = () => {
 				<li>Redux (for state management)</li>
 				<li>React Router DOM (for view navigation)</li>
 				<li>Axios (for making HTTP requests)</li>
-				<li>Swiper (for creating slide shows)</li>
+				<li>Swiper (for creating main page carousel slide shows with better performance)</li>
+				<li>Slick (for Browse Page slider)</li>
 				<li>React Select (for creating interactive dropdown lists)</li>
 				<li>React Responsive Carousel(for displaying image carousels)</li>
 				<li>Focus Trap React (for handling focus trapping on elements)</li>
