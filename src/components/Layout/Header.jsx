@@ -66,6 +66,7 @@ const Header = (props) => {
 				>
 					<img
 						src="../../assets/logo.png"
+						alt="logo"
 						height={45}
 					></img>
 				</Link>
