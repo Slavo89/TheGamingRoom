@@ -4,7 +4,7 @@ This is my amateur project created for learning purposes, inspired by the Epic G
 
 The application utilizes the main API provided by RAWG.io for fetching game data. This API was slightly customized to include game prices based on Metacritic scores.
 
-Unfortunately, due to limitations in the provided API data, the project does not include information about game trailers. This constraint has affected the functionality of the project. Additionally, the resolution of downloaded images was limited by the API.
+Unfortunately, due to limitations in the API data provided, the project does not include different image resolutions. This limitation affected the functionality of the project.
 
 ## Features
 
