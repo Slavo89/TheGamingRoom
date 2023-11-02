@@ -50,8 +50,9 @@ const BrowsePage = () => {
 			setDataLoaded(false);
 			try {
 				const gamesResponse = await axios.get(
-					// `https://api.rawg.io/api/games?key=8c5f5a03a748417b9752c0b536fa1e98&page=1&page_size=40`
-					`https://api.rawg.io/api/games?key=8c5f5a03a748417b9752c0b536fa1e98&page=${activeBrowsePage}&page_size=40`
+					`https://api.rawg.io/api/games?key=${
+						import.meta.env.VITE_RAWG_KEY
+					}&page=${activeBrowsePage}&page_size=40`
 				);
 				const gamesData = gamesResponse.data.results;
 
@@ -104,7 +105,7 @@ const BrowsePage = () => {
 							}}
 							tabIndex="0"
 						>
-							<BsChevronLeft aria-hidden/>
+							<BsChevronLeft aria-hidden />
 						</span>
 						<span
 							className={`${classes.next} ${classes.arrow} ${
@@ -116,7 +117,7 @@ const BrowsePage = () => {
 							}}
 							tabIndex="0"
 						>
-							<BsChevronRight aria-hidden/>
+							<BsChevronRight aria-hidden />
 						</span>
 					</div>
 				</div>

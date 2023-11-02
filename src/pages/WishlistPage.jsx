@@ -68,6 +68,7 @@ const WishlistPage = () => {
 		if (!isLoggedIn) {
 			navigate('/register', { state: { prevoiusPath: pathname } });
 		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isLoggedIn, navigate]);
 
 	return (
@@ -140,7 +141,6 @@ const WishlistPage = () => {
 							games={sortedItems}
 							onFilterChange={handleFilterChange}
 							filtersMenuOpen={filtersMenuOpen}
-							// onToggleMenuOpen={toggleFiltersMenu}
 							onCloseMenu={() => {
 								setFiltersMenuOpen(false);
 							}}

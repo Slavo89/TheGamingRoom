@@ -36,12 +36,15 @@ const GamesByGenresPage = () => {
 			try {
 				if (genreReady) {
 					const gamesResponse = await axios.get(
-						// `https://api.rawg.io/api/games?key=8c5f5a03a748417b9752c0b536fa1e98&page=1&page_size=40`
-						`https://api.rawg.io/api/games?key=8c5f5a03a748417b9752c0b536fa1e98&page=${activeGenrePage}&page_size=40&genres=${genre}`
+						`https://api.rawg.io/api/games?key=${
+							import.meta.env.VITE_RAWG_KEY
+						}&page=${activeGenrePage}&page_size=40&genres=${genre}`
 					);
 
 					const genreInfoResponse = await axios.get(
-						`https://api.rawg.io/api/genres/${genre}?key=8c5f5a03a748417b9752c0b536fa1e98`
+						`https://api.rawg.io/api/genres/${genre}?key=${
+							import.meta.env.VITE_RAWG_KEY
+						}`
 					);
 					const gamesData = gamesResponse.data.results;
 					const genreInfoData = genreInfoResponse.data.description;
@@ -60,6 +63,7 @@ const GamesByGenresPage = () => {
 			}
 		};
 		fetchGamesData();
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [activeGenrePage, genreReady]);
 
 	// adding price property based on metacritic rating to all game objects, destructure parent_platforms, genres and tags for easier access

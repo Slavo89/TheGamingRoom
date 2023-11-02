@@ -51,6 +51,7 @@ const CartPage = () => {
 		if (!isLoggedIn) {
 			navigate('/register',{state: {prevoiusPath: pathname}});
 		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isLoggedIn, navigate]);
 
 	return (

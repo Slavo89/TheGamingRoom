@@ -158,10 +158,10 @@ export async function loader({ params }) {
 	const id = params.gameId;
 	try {
 		const detailResponse = await axios.get(
-			`https://api.rawg.io/api/games/${id}?key=8c5f5a03a748417b9752c0b536fa1e98`
+			`https://api.rawg.io/api/games/${id}?key=${import.meta.env.VITE_RAWG_KEY}`
 		);
 		const screenshotsResponse = await axios.get(
-			`https://api.rawg.io/api/games/${id}/screenshots?key=8c5f5a03a748417b9752c0b536fa1e98`
+			`https://api.rawg.io/api/games/${id}/screenshots?key=${import.meta.env.VITE_RAWG_KEY}`
 		);
 
 		const data = detailResponse.data;
