@@ -1,20 +1,24 @@
 .genreListItem {
 	padding: 1.5rem;
-	margin: 0 5px;
+	margin: 0.5rem;
 	min-height: 170px;
 	background-color: var(--grey-color);
 	border-radius: 5px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
-    cursor: pointer;
-    transition: background-color .2s;
-    &:hover {
-        background-color: rgba(255,255,255, .1);
-    }
+	cursor: pointer;
+	transition: background-color 0.2s;
+	&:hover {
+		background-color: rgba(255, 255, 255, 0.1);
+	}
+	&:focus-within {
+		outline: 2px solid white;
+	}
 	.link {
 		text-decoration: none;
 		color: currentColor;
+		outline: none;
 	}
 }
 .imageSection {
@@ -37,10 +41,10 @@
 
 @media (width >= 768px) {
 	.imageSection {
-        .image {
-            source,
+		.image {
+			source,
 			img {
-                max-height: 165px;
+				max-height: 165px;
 				height: 10vw;
 			}
 		}

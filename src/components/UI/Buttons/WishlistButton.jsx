@@ -23,6 +23,7 @@ const WishlistButton = (props) => {
 			onMouseEnter={props.onMouseEnter}
 			onMouseLeave={props.onMouseLeave}
 			tabIndex="0"
+			// aria-label='Add to wishlist button'
 		>
 			<div className={classes.container}>
 				<div
@@ -31,9 +32,10 @@ const WishlistButton = (props) => {
 							? `${classes.spinner} ${classes.rotate}`
 							: `${classes.spinner} ${classes.rotateBack}`
 					}
+					aria-label={!props.inWishlist ? 'Add to wishlist' : 'Remove from wishlist'}
 				>
 					<span>
-						<BsPlus />
+						<BsPlus aria-hidden/>
 					</span>
 					<span
 						className={
@@ -42,7 +44,7 @@ const WishlistButton = (props) => {
 								: `${classes.spinner} ${classes.check}`
 						}
 					>
-						<BsCheck2 />
+						<BsCheck2 aria-hidden/>
 					</span>
 				</div>
 				{props.children}

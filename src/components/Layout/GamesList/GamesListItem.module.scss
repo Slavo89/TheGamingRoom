@@ -2,8 +2,10 @@
 	padding: 1.5rem;
 	list-style: none;
 	transition: background-color 0.3s;
+	
 
 	a {
+		all: unset;
 		text-decoration: none;
 		color: inherit;
 	}
@@ -13,6 +15,7 @@
 		align-items: center;
 		grid-template-columns: 25% 1fr;
 		grid-column-gap: 2rem;
+		
 
 		.image {
 			position: relative;
@@ -64,9 +67,9 @@
 			}
 		}
 	}
-	&:focus-within {
-		outline: 2px solid var(--hover-color);
-	}
+	// &:focus-within {
+	// 	outline: 2px solid var(--hover-color);
+	// }
 }
 
 // MEDIA QUERIES

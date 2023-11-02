@@ -8,16 +8,18 @@ const OpenListButton = (props) => {
 			className={classes.listButton}
 			onClick={props.onClick}
 			tabIndex={0}
+			aria-label='Open list'
 		>
 			{props.children}
 			<span className={classes.text}>{props.onChangeText}</span>
-			<span>
+			<span className={classes.icon}>
 				<BsChevronDown
 					className={
 						props.onListOpen
 							? `${classes.transformOpen}`
 							: `${classes.transformClose}`
 					}
+					aria-hidden
 				/>
 			</span>
 		</button>

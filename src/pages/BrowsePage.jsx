@@ -104,7 +104,7 @@ const BrowsePage = () => {
 							}}
 							tabIndex="0"
 						>
-							<BsChevronLeft />
+							<BsChevronLeft aria-hidden/>
 						</span>
 						<span
 							className={`${classes.next} ${classes.arrow} ${
@@ -116,7 +116,7 @@ const BrowsePage = () => {
 							}}
 							tabIndex="0"
 						>
-							<BsChevronRight />
+							<BsChevronRight aria-hidden/>
 						</span>
 					</div>
 				</div>
@@ -129,7 +129,8 @@ const BrowsePage = () => {
 					slidesToShow={5}
 					slidesToScroll={5}
 					centerPadding={'0px'}
-					initialSlide={1}
+					initialSlide={0}
+					focusOnSelect={false}
 					responsive={[
 						{
 							breakpoint: 1600,

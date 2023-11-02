@@ -16,11 +16,13 @@ const DesktoCarouselMainSlide = (props) => {
 					<source
 						media="(min-width: 0px)"
 						srcSet={game.background_image}
-						alt="Game picture"
+						alt={props.name}
+						aria-hidden
 					/>
 					<img
 						src={game.background_image}
-						alt="Game picture"
+						alt={props.name}
+						aria-label='Go to game description'
 					/>
 				</picture>
 				<div className={classes.gameDescription}>
@@ -31,7 +33,7 @@ const DesktoCarouselMainSlide = (props) => {
 					</p>
 					<p className={classes.price}>Starting at $ {game.price}</p>
 
-					<div className={classes.buttons}>
+					<div className={classes.buttons} >
 						<div
 							className={classes.buttonContainer}
 							onClick={(event) => event.preventDefault()}
@@ -44,7 +46,7 @@ const DesktoCarouselMainSlide = (props) => {
 							className={`${classes.buttonContainer} ${classes.wishlist}`}
 							onClick={(event) => event.preventDefault()}
 						>
-							<WishlistButton onClick={wishlistHandler} inWishlist={inWishlist} />
+							<WishlistButton onClick={wishlistHandler} inWishlist={inWishlist}/>
 
 							<p>{!inWishlist ? 'Add to Wishlist' : 'In Wishlist'}</p>
 						</div>

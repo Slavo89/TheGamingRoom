@@ -208,6 +208,7 @@ const LoginPage = () => {
 		} else {
 			setValid(false);
 		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [formData, termsAccepted]);
 
 	const loginHandler = () => {
@@ -262,6 +263,7 @@ const LoginPage = () => {
 						<label htmlFor="country">
 							<span className={classes.countrySpan}>Country</span>
 							<Select
+								htmlFor="country"
 								options={options}
 								defaultValue={options.find(
 									(option) => option.label === 'Poland'
@@ -349,7 +351,7 @@ const LoginPage = () => {
 							onBlur={hideNameTooltipHandler}
 							tabIndex={0}
 						>
-							<AiOutlineInfoCircle />
+							<AiOutlineInfoCircle aria-label="Tooltip" />
 						</div>
 						{displayedNameTooltipVisible && (
 							<p className={classes.info}>
@@ -416,7 +418,11 @@ const LoginPage = () => {
 							onClick={() => setPasswordVisible(!passwordVisible)}
 							tabIndex={0}
 						>
-							{!passwordVisible ? <AiFillEyeInvisible /> : <AiFillEye />}
+							{!passwordVisible ? (
+								<AiFillEyeInvisible aria-hidden />
+							) : (
+								<AiFillEye aria-hidden />
+							)}
 						</div>
 						{passwordTooltipVisible && (
 							<p className={classes.info}>
@@ -433,7 +439,7 @@ const LoginPage = () => {
 							onMouseLeave={hidePasswordTooltipHandler}
 							tabIndex={0}
 						>
-							<AiOutlineInfoCircle />
+							<AiOutlineInfoCircle aria-label="Tooltip" />
 						</div>
 					</fieldset>
 					<fieldset>
@@ -457,10 +463,6 @@ const LoginPage = () => {
 									type="checkbox"
 									tabIndex={0}
 									checked={termsAccepted}
-									// onKeyPress={() =>
-									// 	{setTermsEdited(true)
-									// 	setTermsAccepted(!termsAccepted)}
-									// }
 									onChange={(event) => {
 										setTermsAccepted(event.target.checked);
 										setTermsEdited(true);
@@ -493,11 +495,15 @@ const LoginPage = () => {
 						Log In
 					</button>
 				</form>
-				<div className={classes.navigateBack}>
+				<div
+					className={classes.navigateBack}
+					aria-label="Go back"
+				>
 					<AiOutlineArrowLeft
 						// onClick={() => navigate(-1)}
 						onClick={handleGoBack}
 						tabIndex={0}
+						aria-hidden
 					/>
 				</div>
 			</div>
@@ -507,6 +513,7 @@ const LoginPage = () => {
 
 export default LoginPage;
 
+// eslint-disable-next-line react-refresh/only-export-components
 export async function loader() {
 	try {
 		const response = await axios.get(`https://restcountries.com/v3.1/all`);

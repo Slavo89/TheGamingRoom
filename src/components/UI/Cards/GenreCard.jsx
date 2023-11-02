@@ -7,19 +7,17 @@ const GenreCard = (props) => {
 			<Link
 				to={`${props.name}`}
 				className={classes.link}
+				aria-label={`Link to ${props.name} genre` }
+
 			>
 				<div className={classes.imageSection}>
 					<picture className={classes.image}>
-						<source
-							media="(min-width: 0px)"
-							srcSet={props.image}
-							alt="Game picture"
-							loading="lazy"
-						/>
+						
 						<img
 							src={props.image}
-							alt="Game picture"
+							alt={props.name}
 							loading="lazy"
+							aria-hidden
 						/>
 					</picture>
 				</div>

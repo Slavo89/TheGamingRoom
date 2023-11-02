@@ -79,12 +79,12 @@ const WishlistPage = () => {
 						<p className={classes.paragraph}>{notification}</p>
 					) : (
 						<div className={classes.flexContainer}>
-							<FaMailBulk className={classes.icon} />
+							<FaMailBulk className={classes.icon} aria-hidden/>
 							{!checked ? (
 								<>
 									<p className={classes.paragraph}>{notification}</p>
 									<div className={classes.tooltip}>
-										<FaRegQuestionCircle />
+										<FaRegQuestionCircle aria-hidden/>
 										<span className={classes.tooltipText}>
 											Get notified when your wishlisted games go on sale, or are
 											available for purshase or pre-purshase.

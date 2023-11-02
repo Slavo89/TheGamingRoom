@@ -45,7 +45,7 @@ export default HomePage;
 export async function loader() {
 	try {
 		const response = await axios.get(
-			'https://api.rawg.io/api/games?key=8c5f5a03a748417b9752c0b536fa1e98'
+			`https://api.rawg.io/api/games?key=${import.meta.env.VITE_RAWG_KEY}`
 		);
 		const data = response.data;
 		return data.results;

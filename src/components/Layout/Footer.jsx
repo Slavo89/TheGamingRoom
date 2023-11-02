@@ -25,8 +25,9 @@ const Footer = () => {
 							target="_blank"
 							rel="noreferrer"
 							className={classes.link}
+							aria-label="Link to Facebook site"
 						>
-							<SiFacebook />
+							<SiFacebook aria-hidden />
 						</a>
 					</li>
 					<li>
@@ -35,8 +36,9 @@ const Footer = () => {
 							target="_blank"
 							rel="noreferrer"
 							className={classes.link}
+							aria-label="Link to Twitter site"
 						>
-							<SiTwitter />
+							<SiTwitter aria-hidden />
 						</a>
 					</li>
 					<li>
@@ -45,8 +47,9 @@ const Footer = () => {
 							target="_blank"
 							rel="noreferrer"
 							className={classes.link}
+							aria-label="Link to Youtube site"
 						>
-							<SiYoutube />
+							<SiYoutube aria-hidden />
 						</a>
 					</li>
 				</ul>
@@ -60,7 +63,7 @@ const Footer = () => {
 				</button>
 			</div>
 			<div className={classes.footerLinks}>
-				<div>
+				<div aria-hidden>
 					<span className={classes.footerLinksTitle}>Resources</span>
 					<div className={classes.listContainer}>
 						<ul className={classes.list}>
@@ -249,8 +252,9 @@ const Footer = () => {
 							target="_blank"
 							rel="noreferrer"
 							className={classes.logoLink}
+							aria-label="Link to Epic Games Store"
 						>
-							<SiEpicgames />
+							<SiEpicgames aria-hidden/>
 						</a>
 					</li>
 					<li>
@@ -259,8 +263,9 @@ const Footer = () => {
 							target="_blank"
 							rel="noreferrer"
 							className={classes.logoLink}
+							aria-label="Link to Unreal Engine site"
 						>
-							<SiUnrealengine />
+							<SiUnrealengine aria-hidden/>
 						</a>
 					</li>
 				</ul>

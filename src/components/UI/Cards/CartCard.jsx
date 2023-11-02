@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import useCart from '../../../hooks/useCart'
+import useCart from '../../../hooks/useCart';
 import WishlistButton from '../Buttons/WishlistButton';
 import classes from './CartCard.module.scss';
 import CTAButton from '../Buttons/CTAButton';
@@ -27,13 +27,15 @@ const CartCard = (props) => {
 						<source
 							media="(min-width: 0px)"
 							srcSet={background_image}
-							alt="Game picture"
+							alt={props.name}
 							loading="lazy"
+							aria-hidden
 						/>
 						<img
 							src={background_image}
-							alt="Game picture"
+							alt={props.name}
 							loading="lazy"
+							aria-label="Game cover"
 						/>
 					</picture>
 
@@ -44,6 +46,7 @@ const CartCard = (props) => {
 								src={platforms[platform]}
 								height={16}
 								className={classes.icon}
+								aria-label={platform}
 							></img>
 						))}
 					</div>
@@ -58,10 +61,12 @@ const CartCard = (props) => {
 						media="(min-width: 0px)"
 						srcSet={ratingsSrc}
 						alt="ESRB Content Rating Category"
+						aria-hidden
 					/>
 					<img
 						src={ratingsSrc}
 						alt="ESRB Content Rating Category"
+						aria-hidden
 					/>
 				</picture>
 				<div
@@ -82,8 +87,9 @@ const CartCard = (props) => {
 							Move to Wishlist{' '}
 						</WishlistButton>
 					) : (
-						<CTAButton onClick={cartHandler}>{!inCart ? 'Add to Cart' : 'View in Cart'}</CTAButton>
-						
+						<CTAButton onClick={cartHandler}>
+							{!inCart ? 'Add to Cart' : 'View in Cart'}
+						</CTAButton>
 					)}
 				</div>
 			</Link>

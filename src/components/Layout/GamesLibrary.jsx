@@ -74,6 +74,7 @@ const GamesLibrary = (props) => {
 	useEffect(() => {
 		props.onPageChange(activePage);
 		window.scrollTo(0, 0);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [activePage]);
 
 	return (

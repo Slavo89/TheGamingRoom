@@ -1,7 +1,9 @@
 .browseCard {
 	list-style: none;
+	margin: 0 0.2rem;
+	padding: .3rem;
 	&:focus-within {
-		outline: 2px solid var(--hover-color);
+		outline: 1px solid var(--hover-color);
 		border-radius: 5px;
 	}
 

@@ -8,12 +8,9 @@ Unfortunately, due to limitations in the provided API data, the project does not
 
 ## Features
 
-- Browsing available games
-- Detailed game information
-- Adding games to the cart
-- Simple checkout process
-- Wishlist functionality
-- User authentication and login
+- Browsing available cars
+- Detailed car information
+- Filtering and searching available cars
 
 ## Used Technologies and Libraries
 
@@ -27,10 +24,4 @@ Unfortunately, due to limitations in the provided API data, the project does not
 - React-Responsive Carousel (for displaying image carousels)
 - Focus Trap React (for handling focus trapping on elements)
 
-## Additional Notes
 
-- The links in the footer are intentionally commented out.
-
-- While developing the project, I could use "account-slice" for implementing wishlist,
-  cart and making an account functionalities. Instead, I implemented them differently as part
-  of the learning process. The project serves as a learning experience.

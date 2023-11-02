@@ -50,6 +50,7 @@ const ActionsBar = () => {
 		if (cartItems === 0) {
 			setBadgeClass(`${classes.badge} ${classes.hide}`);
 		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [cartItems]);
 
 	const changePageName = () => {
@@ -141,6 +142,7 @@ const ActionsBar = () => {
 		<button
 			type="button"
 			className={classes.searchButton}
+			aria-hidden
 		>
 			<BsSearch />
 		</button>
@@ -210,8 +212,9 @@ const ActionsBar = () => {
 								type="button"
 								className={classes.searchButton}
 								onClick={toggleSearchPanelHandler}
+								aria-label="Open search panel"
 							>
-								<BsSearch />
+								<BsSearch aria-hidden/>
 							</button>
 							{searchPanelOpen && (
 								<>
@@ -253,7 +256,7 @@ const ActionsBar = () => {
 							{renderResults()}
 						</div>
 					)}
-					<div className={classes.mainBar}>
+					<div className={classes.mainBar} >
 						{!is1280Px ? (
 							<div>
 								<OpenListButton
@@ -277,8 +280,9 @@ const ActionsBar = () => {
 											? `${classes.active} ${classes.link}`
 											: classes.link
 									}
+									aria-label='Wishlist'
 								>
-									{!is1024Px ? <BsCheckCircle /> : <span>Wishlist</span>}
+									{!is1024Px ? <BsCheckCircle aria-hidden/> : <span>Wishlist</span>}
 								</NavLink>
 								<NavLink
 									to="/cart"
@@ -287,10 +291,11 @@ const ActionsBar = () => {
 											? `${classes.active} ${classes.link}`
 											: classes.link
 									}
+									aria-label='Cart'
 								>
-									{!is1024Px ? <BsCart2 /> : <span>Cart</span>}
+									{!is1024Px ? <BsCart2 aria-hidden/> : <span>Cart</span>}
 
-									<div className={badgeClass}>
+									<div className={badgeClass} aria-label='Items in cart'>
 										<span key={key}>{prevCartItems}</span>
 									</div>
 								</NavLink>

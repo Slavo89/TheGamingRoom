@@ -1,4 +1,4 @@
-.header {
+	.header {
 	position: relative;
 	height: 5rem;
 	background-color: var(--grey-color);
@@ -25,9 +25,7 @@
 		}
 	}
 	.navbar {
-		// display: none;
 		position: absolute;
-		// padding-top: 0.2rem;
 		top: 5rem;
 		right: 0;
 		height: calc(100dvh - 5rem);
@@ -65,6 +63,7 @@
 				transition: color 0.3s;
 				&:hover,
 				&:focus {
+					outline: none;
 					color: var(--hover-color);
 				}
 			}
@@ -119,8 +118,6 @@
 			display: flex;
 			position: relative;
 			top: 0;
-			// right: 0;
-			// margin-left: 1rem;
 			height: 100%;
 			width: 100%;
 			font-size: 1.2rem;
@@ -193,10 +190,6 @@
 						}
 					}
 				}
-				// .logoutButton {
-				// 	// display: flex;
-				// 	// z-index: 10000;
-				// }
 			}
 		}
 	}
@@ -204,7 +197,6 @@
 	// BURGER MENU
 
 	.menu {
-		// margin-left: auto;
 		display: block;
 		padding: 0 1rem;
 
@@ -239,7 +231,6 @@
 
 		@media (width >= 800px) {
 			display: none;
-			// visibility: hidden;
 			width: 0;
 		}
 	}
@@ -258,8 +249,5 @@
 
 	.navbar.open {
 		width: calc(100vw - 5.5rem);
-		// @media (width >=800px) {
-		// 	width: 100%;
-		// }
 	}
 }

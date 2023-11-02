@@ -43,8 +43,9 @@ const GameDetailsPage = () => {
 				<div
 					className={classes.stars}
 					style={ratingStyle}
+					aria-hidden
 				></div>
-				<span className={classes.numeralRating}>{gameDetails.rating}</span>
+				<span className={classes.numeralRating} aria-label="Rating">{gameDetails.rating}</span>
 			</div>
 			<div className={classes.detailsContainer}>
 				<div className={classes.carouselContainer}>
@@ -85,7 +86,7 @@ const GameDetailsPage = () => {
 								onClick={wishlistHandler}
 								inWishlist={inWishlist}
 							>
-								<p>{!inWishlist ? 'Add to Wishlist' : 'In Wishlist'}</p>
+								<p aria-hidden>{!inWishlist ? 'Add to Wishlist' : 'In Wishlist'}</p>
 							</WishlistButton>
 						</div>
 					</div>
@@ -112,9 +113,10 @@ const GameDetailsPage = () => {
 								<img
 									key={platform}
 									src={platforms[platform]}
-									alt="Platform logo"
+									alt={platform}
 									height={16}
 									className={classes.icon}
+									
 								></img>
 							))}
 						</div>
@@ -138,7 +140,7 @@ const GameDetailsPage = () => {
 						<span>Genres</span>
 						<span>{gameDetails.genres.join(', ')}</span>
 					</div>
-					<hr />
+					<hr aria-hidden/>
 					<div className={classes.gameTypesContainer}>
 						<span>Features</span>
 						<span>{gameDetails.tags.slice(0, 5).join(', ')}</span>

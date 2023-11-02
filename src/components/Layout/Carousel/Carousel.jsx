@@ -15,6 +15,7 @@ const Carousel = (props) => {
 				slidesPerView={1.3}
 				pagination={{
 					clickable: true,
+					
 				}}
 			>
 				{carouselGames.map((game) => (
@@ -33,7 +34,6 @@ const Carousel = (props) => {
 					</SwiperSlide>
 				))}
 			</Swiper>
-			
 		</>
 	);
 };

@@ -16,12 +16,13 @@ const GamesListItem = (props) => {
 							<source
 								media="(min-width: 0px)"
 								srcSet={props.background_image}
-								alt="Game picture"
+								alt={props.name}
 								loading='lazy'
+								aria-hidden
 							/>
 							<img
 								src={props.background_image}
-								alt="Game picture"
+								alt={props.name}
 								loading='lazy'
 							/>
 						</picture>
