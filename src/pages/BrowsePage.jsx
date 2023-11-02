@@ -29,7 +29,7 @@ const BrowsePage = () => {
 		const fetchGenresData = async () => {
 			try {
 				const genresResponse = await axios.get(
-					`https://api.rawg.io/api/genres?key=8c5f5a03a748417b9752c0b536fa1e98`
+					`https://api.rawg.io/api/genres?key=${import.meta.env.VITE_RAWG_KEY}`
 				);
 				const genresData = genresResponse.data.results;
 				setGenres(genresData);
