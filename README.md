@@ -8,12 +8,13 @@ Unfortunately, due to limitations in the API data provided, the project does not
 
 ## Features
 
-Browsing available games
-Detailed game information
-Adding games to the cart
-Simple checkout process
-Wishlist functionality
-User authentication and login
+- Browsing available games
+- Detailed game information
+- Adding games to the cart
+- Simple checkout process
+- Wishlist functionality
+- User authentication and login
+- 
 ## Used Technologies and Libraries
 
 - React
