@@ -14,7 +14,7 @@ Unfortunately, due to limitations in the API data provided, the project does not
 - Simple checkout process
 - Wishlist functionality
 - User authentication and login
-- 
+  
 ## Used Technologies and Libraries
 
 - React
