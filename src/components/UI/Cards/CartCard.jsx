@@ -23,21 +23,14 @@ const CartCard = (props) => {
 				className={classes.link}
 			>
 				<div className={classes.imageSection}>
-					<picture className={classes.image}>
-						<source
-							media="(min-width: 0px)"
-							srcSet={background_image}
-							alt={props.name}
-							loading="lazy"
-							aria-hidden
-						/>
+					<div className={classes.imageContainer}>
 						<img
 							src={background_image}
 							alt={props.name}
 							loading="lazy"
 							aria-label="Game cover"
 						/>
-					</picture>
+					</div>
 
 					<div className={classes.platforms}>
 						{parent_platforms.map((platform) => (
@@ -56,19 +49,13 @@ const CartCard = (props) => {
 					<h3 className={classes.title}>{name}</h3>
 					<div className={classes.price}>$ {price}</div>
 				</div>
-				<picture className={classes.contentRatingSection}>
-					<source
-						media="(min-width: 0px)"
-						srcSet={ratingsSrc}
-						alt="ESRB Content Rating Category"
-						aria-hidden
-					/>
+				<div className={classes.contentRatingSection}>
 					<img
 						src={ratingsSrc}
 						alt="ESRB Content Rating Category"
 						aria-hidden
 					/>
-				</picture>
+				</div>
 				<div
 					className={classes.buttonsSection}
 					onClick={(event) => {

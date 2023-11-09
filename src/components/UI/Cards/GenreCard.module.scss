@@ -23,13 +23,10 @@
 }
 .imageSection {
 	text-align: center;
-	.image {
-		source,
-		img {
-			height: 30vw;
-			width: 100%;
-			object-fit: cover;
-		}
+	img {
+		height: 30vw;
+		width: 100%;
+		object-fit: cover;
 	}
 }
 .title {
@@ -41,12 +38,9 @@
 
 @media (width >= 768px) {
 	.imageSection {
-		.image {
-			source,
-			img {
-				max-height: 165px;
-				height: 10vw;
-			}
+		img {
+			max-height: 165px;
+			height: 10vw;
 		}
 	}
 }

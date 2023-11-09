@@ -10,30 +10,25 @@ const DesktoCarouselMainSlide = (props) => {
 	const [inWishlist, wishlistHandler] = useWishlist(game);
 	const [inCart, cartHandler] = useCart(game);
 	return (
-		<Link to={`${game.id}`} className={classes.mainSlideContainer}>
+		<Link
+			to={`${game.id}`}
+			className={classes.mainSlideContainer}
+		>
 			<div className={classes.leftSection}>
-				<picture className={classes.image}>
-					<source
-						media="(min-width: 0px)"
-						srcSet={game.background_image}
-						alt={props.name}
-						aria-hidden
-					/>
+				<div className={classes.imageContainer}>
 					<img
 						src={game.background_image}
 						alt={props.name}
-						aria-label='Go to game description'
+						aria-label="Go to game description"
 					/>
-				</picture>
+				</div>
 				<div className={classes.gameDescription}>
 					<p className={classes.title}>{game.name}</p>
 					<p className={classes.rating}>Rating: {game.rating}</p>
-					<p className={classes.genres}>
-						Genres: {game.genres.join(', ')}
-					</p>
+					<p className={classes.genres}>Genres: {game.genres.join(', ')}</p>
 					<p className={classes.price}>Starting at $ {game.price}</p>
 
-					<div className={classes.buttons} >
+					<div className={classes.buttons}>
 						<div
 							className={classes.buttonContainer}
 							onClick={(event) => event.preventDefault()}
@@ -46,7 +41,10 @@ const DesktoCarouselMainSlide = (props) => {
 							className={`${classes.buttonContainer} ${classes.wishlist}`}
 							onClick={(event) => event.preventDefault()}
 						>
-							<WishlistButton onClick={wishlistHandler} inWishlist={inWishlist}/>
+							<WishlistButton
+								onClick={wishlistHandler}
+								inWishlist={inWishlist}
+							/>
 
 							<p>{!inWishlist ? 'Add to Wishlist' : 'In Wishlist'}</p>
 						</div>

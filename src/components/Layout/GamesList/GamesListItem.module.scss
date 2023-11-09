@@ -17,7 +17,7 @@
 		grid-column-gap: 2rem;
 		
 
-		.image {
+		.imageContainer {
 			position: relative;
 			height: 100%;
 			max-height: 65px;
@@ -67,16 +67,13 @@
 			}
 		}
 	}
-	// &:focus-within {
-	// 	outline: 2px solid var(--hover-color);
-	// }
 }
 
 // MEDIA QUERIES
 @media (width >= 768px) {
 	.gamesListItem {
 		.container {
-			.image {
+			.imageContainer {
 				.buttonContainer {
 					display: block;
 				}
@@ -91,7 +88,7 @@
 		.container {
 			height: 100px;
 			grid-column-gap: 3rem;
-			.image {
+			.imageContainer {
 				max-height: 100px;
 			}
 		}
@@ -103,7 +100,7 @@
 		padding: 2rem 3rem;
 		.container {
 			height: 130px;
-			.image {
+			.imageContainer {
 				max-height: 130px;
 			}
 		}

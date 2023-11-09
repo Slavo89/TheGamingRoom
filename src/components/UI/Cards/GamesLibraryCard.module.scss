@@ -21,17 +21,14 @@
 		.imageSection {
 			position: relative;
 			transition: all 0.3s;
-			.image {
-				source,
-				img {
-					border-radius: 5px;
-					height: 55vw;
-					max-height: 450px;
-					width: 100%;
-					object-fit: cover;
-					@media (width >= 768px) {
-						max-height: 250px;
-					}
+			img {
+				border-radius: 5px;
+				height: 55vw;
+				max-height: 450px;
+				width: 100%;
+				object-fit: cover;
+				@media (width >= 768px) {
+					max-height: 250px;
 				}
 			}
 		}
@@ -56,12 +53,10 @@
 	.browseCard {
 		.link {
 			.imageSection {
-				.image {
-					source,
 					img {
 						max-height: 250px;
 					}
-				}
+				
 			}
 		}
 	}

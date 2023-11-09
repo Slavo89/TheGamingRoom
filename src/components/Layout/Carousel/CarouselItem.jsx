@@ -14,22 +14,18 @@ const CarouselItem = (props) => {
 	const [inWishlist, wishlistHandler] = useWishlist(props);
 
 	return (
-		<Link to={`${props.id}`} className={classes.carouselContainer} tabIndex={-1} aria-label=''>
+		<Link
+			to={`${props.id}`}
+			className={classes.carouselContainer}
+			tabIndex={-1}
+			aria-label=""
+		>
 			<div className={classes.carouselItem}>
-				<picture aria-hidden>
-					<source
-						media="(min-width: 0px)"
-						srcSet={props.background_image}
-						alt={props.name}
-						loading="lazy"
-						aria-hidden
-					/>
-					<img
-						src={props.background_image}
-						alt={props.name}
-						loading="lazy"
-					/>
-				</picture>
+				<img
+					src={props.background_image}
+					alt={props.name}
+					loading="lazy"
+				/>
 
 				<div
 					className={classes.buttonContainer}
@@ -42,11 +38,13 @@ const CarouselItem = (props) => {
 						onMouseEnter={showTooltipHandler}
 						onMouseLeave={showTooltipHandler}
 						aria-label={props.name}
-						// aria-hidden
 					/>
 				</div>
 				{showTooltip && (
-					<div className={classes.tooltip} aria-hidden>
+					<div
+						className={classes.tooltip}
+						aria-hidden
+					>
 						{!inWishlist ? 'Add to Wishlist' : 'Remove from Wishlist'}
 					</div>
 				)}

@@ -23,12 +23,10 @@
 			gap: 1rem;
 			grid-row: 1/2;
 			grid-column: 1/2;
-			.image {
+			.imageContainer {
 				display: block;
-				// max-width: 150px;
 				max-height: 200px;
 
-				source,
 				img {
 					border-radius: 5px;
 					height: 200px;
@@ -40,7 +38,7 @@
 			.platforms {
 				display: flex;
 				align-items: center;
-				.icon{
+				.icon {
 					margin-right: 0.75rem;
 				}
 			}
@@ -86,7 +84,7 @@
 		@media (width >= 750px) {
 			max-height: 350px;
 			grid-gap: 2rem;
-            grid-template-columns: 150px auto auto;
+			grid-template-columns: 150px auto auto;
 			grid-template-rows: auto minmax(100px, 1fr);
 
 			.imageSection {
@@ -116,7 +114,6 @@
 					align-self: center;
 					font-size: 1.6rem;
 				}
-				
 			}
 		}
 	}

@@ -24,17 +24,13 @@
 		border-radius: 20px;
 	}
 	
-	picture {
-		display: block;
-
-		source,
-		img {
-			border-radius: 20px;
-			height: 650px;
-			width: 100%;
-			object-fit: cover;
-		}
+	img {
+		border-radius: 20px;
+		height: 650px;
+		width: 100%;
+		object-fit: cover;
 	}
+	
 
 	.buttonContainer {
 		position: absolute;

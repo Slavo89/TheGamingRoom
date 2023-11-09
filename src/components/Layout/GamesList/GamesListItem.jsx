@@ -3,7 +3,6 @@ import classes from './GamesListItem.module.scss';
 import useWishlist from '../../../hooks/useWishlist';
 import { Link } from 'react-router-dom';
 
-
 const GamesListItem = (props) => {
 	const [inWishlist, wishlistHandler] = useWishlist(props);
 
@@ -11,23 +10,16 @@ const GamesListItem = (props) => {
 		<li className={classes.gamesListItem}>
 			<Link to={`${props.id}`}>
 				<div className={classes.container}>
-					<div className={classes.image}>
-						<picture>
-							<source
-								media="(min-width: 0px)"
-								srcSet={props.background_image}
-								alt={props.name}
-								loading='lazy'
-								aria-hidden
-							/>
-							<img
-								src={props.background_image}
-								alt={props.name}
-								loading='lazy'
-							/>
-						</picture>
-						<div className={classes.buttonContainer}
-						onClick={(e) => e.preventDefault()}>
+					<div className={classes.imageContainer}>
+						<img
+							src={props.background_image}
+							alt={props.name}
+							loading="lazy"
+						/>
+						<div
+							className={classes.buttonContainer}
+							onClick={(e) => e.preventDefault()}
+						>
 							<WishlistButton
 								onClick={wishlistHandler}
 								inWishlist={inWishlist}
